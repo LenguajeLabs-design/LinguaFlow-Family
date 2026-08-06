@@ -36,4 +36,11 @@ button { cursor: pointer; }
 .lf-gradient { background-image: linear-gradient(120deg, var(--lf-cyan), var(--lf-blue) 52%, var(--lf-violet)); }
 .lf-gradient-text { background-image: linear-gradient(120deg, #159fa4, #367fcf 52%, #6f5bd3); background-clip: text; color: transparent; }
 .lf-hero { background: linear-gradient(145deg, #168b99 0%, #248fbe 52%, #6558c9 100%); }
+.academy-copy { color: #424b61; font-size: 1.05rem; line-height: 1.8; }
+.academy-copy > * + * { margin-top: 1.1rem; }
+.academy-copy h2 { margin-top: 2.25rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.6rem; font-weight: 700; line-height: 1.2; color: #242938; }
+.academy-copy .academy-lead { font-size: 1.2rem; font-weight: 700; line-height: 1.65; color: #242938; }
+.academy-copy .academy-example { display: flex; gap: .75rem; border-radius: 1rem; background: #f7f8fc; padding: .9rem 1rem; }
+.academy-copy .academy-example svg { margin-top: .35rem; flex: none; color: #199fa7; }
+.academy-copy blockquote { border-left: 4px solid #199fa7; border-radius: 0 1rem 1rem 0; background: #edfafa; padding: 1rem 1.25rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; font-weight: 700; color: #242938; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }

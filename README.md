@@ -54,6 +54,8 @@ src/
 
 The MVP intentionally uses a simple local data layer and React state. It has no accounts, database, analytics, or external AI calls. This keeps family data private and makes the content model easy to review before a backend is introduced.
 
+The complete English Parent Academy editorial source—including website and newsletter versions—is stored in `content/parent-academy-lessons.md`. The app publishes the 12 core website lessons and retains the optional lessons and newsletter copy for editorial use.
+
 The UI uses React + Vite + TypeScript, Tailwind CSS v4, shadcn-style component conventions, and Lucide icons.
 
 ## Extending the content
