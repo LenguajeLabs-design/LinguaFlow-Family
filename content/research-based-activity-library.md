@@ -934,4 +934,457 @@ Good concept, but if it currently asks children to write cold, it's skipping the
 
 ---
 
-*(End of Batch 2. Next: Ages 12–14 activities, followed by the Strongest 12, evidence patterns, gaps, and complete source list.)*
+## 6. Activity records — Ages 12–14
+
+### 21. Summarize the Article
+
+**Parent promise:** After your teen reads something — an article, a chapter, a set of instructions — ask for a two-sentence summary. It's one of the most powerful comprehension skills there is.
+
+**Recommended ages:** 12–14
+
+**Time:** 10 minutes
+
+**Primary focus:** Reading comprehension
+
+**Secondary focus:** Academic-language thinking
+
+**Setting:** At home; any setting
+
+**Materials:** Any text — an article, a chapter, instructions
+
+**Steps:**
+1. Your teen reads something short.
+2. Ask for a summary in two sentences, no more.
+3. Ask, "What did you leave out, and why?"
+4. That's it — no quiz on details.
+
+**Example:** After reading a short news article, a teen summarizes it in two sentences and explains they left out a statistic because it wasn't the main point.
+
+**Parent phrase:** "Sum it up in two sentences."
+
+**Home-language option:** Summarize in whichever language captures the ideas most efficiently — the skill of identifying what matters transfers across languages.
+
+**Starting variation:** Summarize with a sentence starter ("This is mainly about...").
+
+**Growing variation:** Two clear sentences, no starter needed.
+
+**Extending variation:** Summarize, then explain how this connects to something else they know.
+
+**Why it helps:** <cite index="105-1">A major review of over 200 studies on reading comprehension strategies found summarizing produced some of the largest learning effects of any strategy studied</cite>, and <cite index="107-1">teaching students to summarize improves memory for what's read and works as a built-in check for comprehension</cite>. The two-sentence limit forces genuine identification of what matters most.
+
+**Evidence classification:** Direct research support
+
+**Sources:**
+- Summarizing — Reading Rockets — https://www.readingrockets.org/classroom/classroom-strategies/summarizing — On summarizing's strong evidence base for comprehension and memory.
+- How to Teach Summarizing, Part I — Shanahan on Literacy, 2019 — https://www.shanahanonliteracy.com/blog/how-to-teach-summarizing-part-i — Cites the National Reading Panel's finding that summarizing had the largest effects among comprehension strategies studied.
+
+**Cautions:** None significant.
+
+---
+
+### 22. Practice the Ask
+
+**Parent promise:** Before a hard conversation with a teacher, practice it together first — rehearsing what to say builds the confidence to actually say it.
+
+**Recommended ages:** 12–14
+
+**Time:** 10 minutes
+
+**Primary focus:** School confidence
+
+**Secondary focus:** Speaking
+
+**Setting:** At home
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Identify the specific thing your teen needs to ask or say to a teacher.
+2. Have them say it out loud to you first.
+3. Offer one small phrasing suggestion if needed.
+4. Have them say it again, improved.
+
+**Example:** Before asking a teacher for an extension, a teen practices saying "I'm having trouble finishing this by Friday — could I have until Monday?" out loud twice.
+
+**Parent phrase:** "Try saying that to me first."
+
+**Home-language option:** Rehearsing the content and reasoning in the home language first can make the English version feel more natural.
+
+**Starting variation:** Parent offers a sentence starter to practice.
+
+**Growing variation:** Teen composes and rehearses the full request independently.
+
+**Extending variation:** Teen anticipates a follow-up question the teacher might ask and practices a response.
+
+**Why it helps:** Self-advocacy — clearly asking for what one needs at school — is <cite index="112-1">a skill that most adolescents do not acquire without some explicit instruction or practice, even though it strongly affects their ability to get needed support</cite>. Rehearsing the exact words at home lowers the anxiety of the real conversation.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Explicit Instruction of Self-Advocacy Skills — LD@School — https://www.ldatschool.ca/self-determination-and-self-advocacy/ — On self-advocacy as a skill that benefits from explicit instruction and rehearsal rather than developing automatically.
+
+**Cautions:** Keep the rehearsal supportive, not a script your teen must recite word-for-word — the goal is confidence, not memorization.
+
+---
+
+### 23. Debate at the Table
+
+**Parent promise:** Pick a low-stakes, genuinely debatable question and take opposite sides for ten minutes — it's real practice at the reasoning language school essays and discussions require.
+
+**Recommended ages:** 12–14
+
+**Time:** 10–15 minutes
+
+**Primary focus:** Explaining and thinking
+
+**Secondary focus:** Speaking
+
+**Setting:** Any setting; mealtime
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Pick a genuinely debatable, low-stakes question (best season, best way to spend a free Saturday).
+2. Assign sides — even if your teen disagrees with theirs.
+3. Each person gives one reason, then responds to the other's reason.
+4. End by asking, "What's the strongest point the other side made?"
+
+**Example:** Debating whether it's better to do homework right after school or after a break, a teen argues one side, then has to name the best point their parent made for the other side.
+
+**Parent phrase:** "What's the strongest point they made?"
+
+**Home-language option:** Debate in whichever language allows for the sharpest reasoning — the structure of argument transfers.
+
+**Starting variation:** State one reason for a position.
+
+**Growing variation:** State a reason and respond to a counterargument.
+
+**Extending variation:** Argue a position you don't personally hold, then explain the strongest point against it.
+
+**Why it helps:** <cite index="86-1">Training students to use more explicit reasoning language during discussion has been shown to shift how they use language together and to improve performance on tests of reasoning</cite>. Taking an assigned side, rather than only their own position, pushes teens to consider and articulate more than one perspective.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Children's Talk and the Development of Reasoning in the Classroom — Mercer, British Educational Research Journal (Wiley), 1999 — https://bera-journals.onlinelibrary.wiley.com/doi/abs/10.1080/0141192990250107 — Study on explicit reasoning-talk training improving children's language use and reasoning; original study population was slightly younger (9–10), so this activity adapts the underlying principle for teens.
+
+**Cautions:** Choose genuinely low-stakes topics; avoid family conflict points or anything that could feel like a real disagreement rather than a game.
+
+---
+
+### 24. Accent Pride Check-in
+
+**Parent promise:** Every so often, ask your teen how they feel about speaking English and about their home language — it opens the door to conversations that protect their confidence.
+
+**Recommended ages:** 12–14
+
+**Time:** 10 minutes
+
+**Primary focus:** Family stories and identity
+
+**Secondary focus:** School confidence
+
+**Setting:** Any setting
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Ask, "Is there anything about speaking English at school that's been on your mind?"
+2. Listen without jumping to fix or minimize.
+3. Share your own experience with an accent or a language, if relevant.
+4. Affirm that every language they speak is part of who they are.
+
+**Example:** A teen mentions feeling embarrassed when classmates repeat their pronunciation back; a parent listens, then shares their own experience learning a new sound in a language.
+
+**Parent phrase:** "Every language you know is part of who you are."
+
+**Home-language option:** This conversation is itself an act of valuing the home language — have it in whichever language feels most natural.
+
+**Starting variation:** A simple check-in question over a snack.
+
+**Growing variation:** A fuller conversation about a specific incident or feeling.
+
+**Extending variation:** Talk together about how to respond if a classmate comments on an accent.
+
+**Why it helps:** <cite index="92-1">When learners feel self-conscious about their accent, they can become less confident overall and less likely to speak up or take risks in class, and accent correction in particular can lead a student to see their accent — rather than any real barrier — as the main obstacle to communicating</cite>. Naming and normalizing these feelings at home helps protect a teen's willingness to keep speaking up.
+
+**Evidence classification:** Established practitioner recommendation
+
+**Sources:**
+- Appreciating Accents: A Culturally Sustaining Path to Global English — Lexia — https://www.lexialearning.com/blog/appreciating-accents-a-culturally-sustaining-path-to-global-english — On the impact of accent stigmatization on learner confidence and classroom engagement.
+
+**Cautions:** If a teen describes ongoing teasing or bullying related to accent or language, treat this as a conversation to also bring to the school, not something to resolve at home alone.
+
+---
+
+### 25. Compare the Coverage
+
+**Parent promise:** Look at how two different sources cover the same story and talk about what's different — sharpens both language and critical thinking at once.
+
+**Recommended ages:** 12–14
+
+**Time:** 15–20 minutes
+
+**Primary focus:** Reading comprehension
+
+**Secondary focus:** Explaining and thinking
+
+**Setting:** At home; any setting
+
+**Materials:** Two age-appropriate sources covering the same topic (articles, video clips, or a source in each family language)
+
+**Steps:**
+1. Choose one story covered by two different sources.
+2. Read or watch both together.
+3. Ask, "What's the same? What's different?"
+4. Ask, "Why might they be told differently?"
+
+**Example:** Comparing an English-language and a home-language report on the same local event, a teen notices one includes more background context than the other.
+
+**Parent phrase:** "Why do you think they told it differently?"
+
+**Home-language option:** Comparing a home-language source with an English one is an ideal version of this activity — it puts both languages to genuine use.
+
+**Starting variation:** Notice one clear difference between the two.
+
+**Growing variation:** Explain a possible reason for the difference.
+
+**Extending variation:** Discuss which source gave a fuller picture, and why.
+
+**Why it helps:** This applies the same explicit-reasoning and comparison skills research links to stronger academic language — <cite index="73-1">comparing, evaluating, and inferring are specifically part of the academic language proficiency that takes years to fully develop</cite> — to real, motivating content that teens are likely to already encounter.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- What are BICS and CALP? — Colorín Colorado — https://www.colorincolorado.org/faq/what-are-bics-and-calp — Names comparing and evaluating among core academic-language skills.
+
+**Cautions:** Choose age-appropriate, non-distressing topics; skip breaking or graphic news.
+
+---
+
+### 26. Teach Me the Rules
+
+**Parent promise:** Ask your teen to teach you the rules or strategy of a game, sport, or hobby they're into — genuine expertise makes for genuinely rich explaining practice.
+
+**Recommended ages:** 12–14
+
+**Time:** 10–15 minutes
+
+**Primary focus:** Explaining and thinking
+
+**Secondary focus:** Vocabulary
+
+**Setting:** At home; any setting
+
+**Materials:** None, or whatever the hobby involves
+
+**Steps:**
+1. Ask your teen to teach you something they're genuinely good at.
+2. Ask them to explain the rules or steps as if you know nothing.
+3. Ask one clarifying question that makes them explain further.
+4. Try it yourself, badly, and let them coach you.
+
+**Example:** A teen explains the scoring system of a video game they play, including specialized vocabulary, while a parent tries a round and asks follow-up questions.
+
+**Parent phrase:** "Teach me — I know nothing about this."
+
+**Home-language option:** Explaining works in either language; specialized hobby vocabulary in the home language is valuable to preserve too.
+
+**Starting variation:** Explain the basic goal of the activity.
+
+**Growing variation:** Explain rules and one strategy.
+
+**Extending variation:** Explain why a certain strategy works better than another.
+
+**Why it helps:** <cite index="73-1">Academic language development includes skills like explaining, synthesizing, and evaluating, which take years longer to build than everyday conversational fluency</cite>. A hobby a teen already knows deeply is genuinely motivating territory for practicing exactly that kind of explaining talk, since they're the expert rather than the student.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- What are BICS and CALP? — Colorín Colorado — https://www.colorincolorado.org/faq/what-are-bics-and-calp — On the skills involved in academic language development, including explaining and evaluating.
+
+**Cautions:** None significant.
+
+---
+
+### 27. Plan the Trip
+
+**Parent promise:** Hand your teen a real piece of trip or outing planning — comparing routes, times, or options — and real-life, practical language follows naturally.
+
+**Recommended ages:** 12–14
+
+**Time:** 15–20 minutes
+
+**Primary focus:** Everyday practical language
+
+**Secondary focus:** Vocabulary
+
+**Setting:** Traveling or waiting; at home
+
+**Materials:** A map, transit app, or a real upcoming trip to plan
+
+**Steps:**
+1. Give your teen a real, small planning task (which train to take, what time to leave).
+2. Ask them to explain their plan and why they chose it.
+3. Ask, "What's the backup plan if that doesn't work?"
+4. Use the plan for real, if possible.
+
+**Example:** Planning a weekend outing, a teen compares two bus routes and explains which one is faster but which one has a better view.
+
+**Parent phrase:** "Walk me through your plan."
+
+**Home-language option:** Plan and discuss in whichever language makes the reasoning clearest; the final logistics work in either language.
+
+**Starting variation:** Choose between two clearly different options.
+
+**Growing variation:** Plan a full small outing with a backup option.
+
+**Extending variation:** Compare cost, time, and convenience across more than two options.
+
+**Why it helps:** <cite index="44-1">Vocabulary and language grow through use in real, meaningful situations</cite>, and real planning tasks put practical, comparative language (routes, schedules, trade-offs) to immediate, motivating use rather than treating it as a classroom exercise.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Oral Language: Expanding Your Child's Vocabulary — Reading Rockets — https://www.readingrockets.org/topics/oral-language/articles/oral-language-expanding-your-childs-vocabulary — On vocabulary growth through real, meaningful use.
+
+**Cautions:** None significant.
+
+---
+
+### 28. Draft It Out Loud
+
+**Parent promise:** Before your teen starts writing an essay, message, or email, have them say the whole thing out loud first — even for older students, talking generates more than a blank page does.
+
+**Recommended ages:** 12–14
+
+**Time:** 10–15 minutes
+
+**Primary focus:** Writing
+
+**Secondary focus:** Speaking
+
+**Setting:** At home
+
+**Materials:** Whatever they're about to write
+
+**Steps:**
+1. Ask what your teen is about to write and why.
+2. Have them explain the whole thing out loud, including their main point.
+3. Ask, "What's the one thing you most want the reader to understand?"
+4. Let them start writing right after — ideas still fresh.
+
+**Example:** Before writing an email to a teacher, a teen explains out loud what happened and what they're asking for, then drafts the email while the explanation is still fresh.
+
+**Parent phrase:** "What's the one thing you most want them to understand?"
+
+**Home-language option:** Talk through the idea in whichever language generates the fullest thinking, even if the final piece has to be written in English.
+
+**Starting variation:** State the main point in one sentence.
+
+**Growing variation:** Explain the main point plus supporting reasons.
+
+**Extending variation:** Anticipate a question or objection a reader might have and address it out loud first.
+
+**Why it helps:** <cite index="47-1">Research comparing children's oral and written storytelling found substantially more content and detail in what was said aloud than in what was written, with the ideas generated orally strongly predicting the quality of the eventual written piece</cite>. While that study focused on younger children, the underlying principle — that talking generates more raw material than a blank page — is a well-established writing-instruction practice at any age.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Comparing young children's oral and written story retelling — Taylor & Francis (Cogent Education), 2024 — https://www.tandfonline.com/doi/full/10.1080/2050571X.2024.2357450 — On oral idea generation outperforming written output and predicting writing quality.
+
+**Cautions:** For formal writing (school essays), make clear this is a planning step, not a substitute for the writing process the school expects.
+
+---
+
+### 29. Mock Interview Minute
+
+**Parent promise:** Give your teen sixty seconds to answer a simple "tell me about yourself" or "tell me about a project you're proud of" question — genuine practice for interviews, presentations, and speaking up with confidence.
+
+**Recommended ages:** 12–14
+
+**Time:** 10 minutes
+
+**Primary focus:** School confidence
+
+**Secondary focus:** Speaking
+
+**Setting:** At home
+
+**Materials:** Nothing needed, or a phone timer
+
+**Steps:**
+1. Ask a simple interview-style question ("Tell me about something you're proud of").
+2. Give your teen one minute, uninterrupted, to answer.
+3. Ask one genuine follow-up question.
+4. Point out one thing that worked well before offering any suggestion.
+
+**Example:** Practicing for a school interview, a teen answers "tell me about a challenge you overcame" and gets one specific compliment on their answer before a small tip.
+
+**Parent phrase:** "Tell me about something you're proud of."
+
+**Home-language option:** Practice the content and structure of the answer in the home language first if that helps organize the thinking, then in English.
+
+**Starting variation:** Answer with a parent's help organizing the response first.
+
+**Growing variation:** Answer independently within the time limit.
+
+**Extending variation:** Answer a harder, less familiar question on the spot.
+
+**Why it helps:** Like other self-advocacy skills, speaking confidently about oneself in a formal setting <cite index="112-1">generally requires explicit practice rather than developing automatically</cite>, and low-stakes rehearsal at home gives teens a safe place to build the habit before it matters in a real interview, presentation, or school interview.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Explicit Instruction of Self-Advocacy Skills — LD@School — https://www.ldatschool.ca/self-determination-and-self-advocacy/ — On self-advocacy and formal self-presentation skills benefiting from explicit practice.
+
+**Cautions:** Keep feedback genuinely encouraging first — teens are often more self-conscious about performance-style speaking than younger children.
+
+---
+
+### 30. Family Language Legacy
+
+**Parent promise:** Have your teen interview an older relative about their life, in the family's language — it builds interviewing and listening skills while keeping family history and language alive.
+
+**Recommended ages:** 12–14
+
+**Time:** 15–20 minutes
+
+**Primary focus:** Family stories and identity
+
+**Secondary focus:** Listening
+
+**Setting:** Any setting
+
+**Materials:** A phone to record, or paper and pencil to take notes
+
+**Steps:**
+1. Choose an older relative to interview, in person or by video call.
+2. Prepare three questions together beforehand.
+3. Have your teen ask the questions and really listen to the answers.
+4. Afterward, ask your teen what surprised them most.
+
+**Example:** A teen interviews a grandparent about their childhood in Korean, asking three prepared questions and one unplanned follow-up.
+
+**Parent phrase:** "What surprised you most about what they said?"
+
+**Home-language option:** This activity is built around the home language — it's a chance to use it for something genuinely meaningful.
+
+**Starting variation:** Two or three simple, prepared questions.
+
+**Growing variation:** Prepared questions plus one spontaneous follow-up.
+
+**Extending variation:** Turn the interview into a short written or recorded family history piece.
+
+**Why it helps:** <cite index="24-1">Skills and understanding built in a strong first language transfer to and support a second language rather than competing with it</cite>, and interviewing a family member combines that home-language strength with genuine listening and questioning practice, while reinforcing identity and belonging — both named as protective factors for language confidence.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Linguistic Interdependence and the Educational Development of Bilingual Children — Cummins, Review of Educational Research / SAGE, 1979 — https://journals.sagepub.com/doi/10.3102/00346543049002222 — On how strength in the home language supports rather than competes with additional-language development.
+
+**Cautions:** Be sensitive if family history includes difficult topics (loss, migration, hardship) — let the relative guide how much to share, and don't push for detail a teen or relative seems reluctant to give.
+
+---
+
+*(End of Batch 3 — all 30 activity records complete. Next: the Strongest 12 recommendations, evidence patterns, gaps and cautions, and the complete source list.)*
