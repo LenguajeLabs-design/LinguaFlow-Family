@@ -41,6 +41,7 @@ import academySchool from "./assets/academy/school.jpg";
 
 type Page =
   | "today"
+  | "reading"
   | "activities"
   | "understand"
   | "academy"
@@ -52,6 +53,7 @@ type Page =
 const labels: Record<Language, Record<string, string>> = {
   en: {
     today: "Today",
+    reading: "Help with reading",
     activities: "Activities",
     understand: "Understand my child",
     academy: "Parent Academy",
@@ -86,6 +88,7 @@ const labels: Record<Language, Record<string, string>> = {
   },
   zh: {
     today: "今天",
+    reading: "阅读支持",
     activities: "亲子活动",
     understand: "了解我的孩子",
     academy: "家长课堂",
@@ -116,6 +119,7 @@ const labels: Record<Language, Record<string, string>> = {
   },
   ko: {
     today: "오늘",
+    reading: "읽기 도움",
     activities: "가족 활동",
     understand: "우리 아이 이해하기",
     academy: "부모 아카데미",
@@ -268,6 +272,7 @@ function readRoute() {
   const page = (
     [
       "today",
+      "reading",
       "activities",
       "understand",
       "academy",
@@ -513,6 +518,8 @@ function PageContent({
         setPreferredAge={setPreferredAge}
       />
     );
+  if (page === "reading")
+    return <ReadingPath lang={lang} select={select} go={go} />;
   if (page === "activities")
     return (
       <Activities
@@ -540,6 +547,122 @@ function PageContent({
       <WeeklyFeature lang={lang} select={select} openLesson={openLesson} />
     );
   return <TrustPage lang={lang} privacy={page === "privacy"} />;
+}
+
+function ReadingPath({
+  lang,
+  select,
+  go,
+}: {
+  lang: Language;
+  select: (a: Activity) => void;
+  go: (p: Page) => void;
+}) {
+  const activity = activities.find((item) => item.id === "picture-walk")!;
+  const copy = {
+    eyebrow:
+      lang === "en"
+        ? "Help with reading"
+        : lang === "zh"
+          ? "阅读支持"
+          : "읽기 도움",
+    title:
+      lang === "en"
+        ? "Start with one good conversation."
+        : lang === "zh"
+          ? "从一次有意义的对话开始。"
+          : "좋은 대화 하나로 시작하세요.",
+    subtitle:
+      lang === "en"
+        ? "You do not have to teach English. Talking about a book in the language that feels natural helps your child understand and enjoy reading."
+        : lang === "zh"
+          ? "您不需要教英语。用最自然的语言聊一聊书，可以帮助孩子理解阅读并享受阅读。"
+          : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
+    start:
+      lang === "en"
+        ? "Start here · Ages 6–8"
+        : lang === "zh"
+          ? "从这里开始 · 6–8 岁"
+          : "여기서 시작 · 6–8세",
+    promise:
+      lang === "en"
+        ? "Before reading the words, explore the pictures together. Five thoughtful minutes is enough."
+        : lang === "zh"
+          ? "读文字之前，先一起看看图画。认真陪伴五分钟就已经足够。"
+          : "글을 읽기 전에 그림을 함께 살펴보세요. 마음을 나눈 5분이면 충분해요.",
+    button:
+      lang === "en"
+        ? "Try the picture walk"
+        : lang === "zh"
+          ? "试试阅读前看图"
+          : "그림 산책 해보기",
+    reassurance:
+      lang === "en"
+        ? "Your home language is not a workaround. It is the language your child can use to think, wonder, and connect."
+        : lang === "zh"
+          ? "家庭语言不是替代方案，而是孩子用来思考、好奇和建立联系的语言。"
+          : "가족 언어는 임시방편이 아니에요. 아이가 생각하고 궁금해하고 연결하는 언어예요.",
+    all:
+      lang === "en"
+        ? "Explore all family activities"
+        : lang === "zh"
+          ? "浏览所有亲子活动"
+          : "모든 가족 활동 보기",
+  };
+  return (
+    <PageShell
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      subtitle={copy.subtitle}
+    >
+      <div className="grid items-stretch gap-5 lg:grid-cols-[1.1fr_.9fr]">
+        <Card className="overflow-hidden border-teal-100 bg-white">
+          <img
+            src={activity.image}
+            alt={activity.imageAlt[lang]}
+            className="h-56 w-full object-cover md:h-72"
+          />
+          <div className="p-6 md:p-8">
+            <p className="text-xs font-black uppercase tracking-[.14em] text-teal-700">
+              {copy.start}
+            </p>
+            <h2 className="font-display mt-3 text-3xl font-bold text-stone-800">
+              {activity.title[lang]}
+            </h2>
+            <p className="mt-3 max-w-2xl leading-7 text-stone-600">
+              {copy.promise}
+            </p>
+            <Button className="mt-6" onClick={() => select(activity)}>
+              {copy.button}
+              <ArrowRight size={18} />
+            </Button>
+          </div>
+        </Card>
+        <div className="flex flex-col justify-between rounded-[2rem] bg-teal-800 p-6 text-white shadow-sm md:p-8">
+          <div>
+            <span className="grid size-12 place-items-center rounded-2xl bg-white/12">
+              <Languages size={23} />
+            </span>
+            <h2 className="font-display mt-6 text-3xl font-bold">
+              {lang === "en"
+                ? "Use the language that brings out the best ideas."
+                : lang === "zh"
+                  ? "使用最能表达丰富想法的语言。"
+                  : "가장 풍부한 생각이 나오는 언어를 사용하세요."}
+            </h2>
+            <p className="mt-4 leading-7 text-teal-50">{copy.reassurance}</p>
+          </div>
+          <button
+            onClick={() => go("activities")}
+            className="mt-8 inline-flex min-h-11 w-fit items-center gap-2 rounded-lg font-black text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
+          >
+            {copy.all}
+            <ArrowRight size={17} />
+          </button>
+        </div>
+      </div>
+    </PageShell>
+  );
 }
 
 function Today({
@@ -917,16 +1040,22 @@ function LaunchToday({
           </h2>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <PathButton
-              icon={Sparkles}
+              icon={BookOpen}
               title={
                 lang === "en"
-                  ? "Do something together"
+                  ? "Help with reading"
                   : lang === "zh"
-                    ? "一起做个活动"
-                    : "함께 활동하기"
+                    ? "帮助孩子阅读"
+                    : "읽기 도와주기"
               }
-              detail={t.activities}
-              onClick={() => go("activities")}
+              detail={
+                lang === "en"
+                  ? "Start with ages 6–8"
+                  : lang === "zh"
+                    ? "从 6–8 岁开始"
+                    : "6–8세부터 시작"
+              }
+              onClick={() => go("reading")}
             />
             <PathButton
               icon={Heart}
@@ -1365,6 +1494,18 @@ function ActivityDetail({
         : lang === "zh"
           ? "在家长课堂中了解更多"
           : "부모 아카데미에서 더 알아보기",
+    success:
+      lang === "en"
+        ? "What success looks like"
+        : lang === "zh"
+          ? "成功可以是什么样子"
+          : "이 정도면 충분해요",
+    pictureWalkSuccess:
+      lang === "en"
+        ? "Not a perfect prediction—just your child noticing the pictures and wanting to know what happens next."
+        : lang === "zh"
+          ? "不需要猜得完全正确。孩子愿意观察图画，并想知道接下来会发生什么，就已经很好。"
+          : "완벽하게 예상할 필요는 없어요. 아이가 그림을 살펴보고 다음 이야기를 궁금해하면 충분해요.",
   };
   const lesson =
     activity.goal === "read"
@@ -1433,6 +1574,16 @@ function ActivityDetail({
                 {activity.homeOption[lang]}
               </p>
             </div>
+            {activity.id === "picture-walk" && (
+              <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-5">
+                <p className="text-xs font-black uppercase tracking-wider text-amber-900">
+                  {c.success}
+                </p>
+                <p className="mt-2 leading-7 text-stone-700">
+                  {c.pictureWalkSuccess}
+                </p>
+              </div>
+            )}
           </div>
         </Card>
         <div className="space-y-5">
