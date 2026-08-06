@@ -8,13 +8,15 @@ The application mark is stored at `src/assets/linguaflow-family-logo.png`. It is
 
 ## What is included
 
-- **Today / Try This Tonight:** one immediately useful, low-pressure family activity
-- **Activities:** six seeded activities spanning speaking, vocabulary, conversation, reading, describing, and writing
+- **Today / This Week:** one newsletter-linked idea, one age-aware activity, and three clear parent pathways
+- **Activities:** 12 curated activities balanced across ages 6–14, with age, time, and goal filters
 - **Understand My Child:** WIDA-friendly language-development explanations and common parent questions
 - **Parent Academy:** short, reassuring learning modules for families
-- **Ask an EAL Expert:** a local, keyword-based library of expert-reviewed parent answers
+- **Find an Answer:** an honest local finder for a small library of expert-reviewed parent answers
 - **School Connection:** meeting prompts and copyable phrases for common parent–child and school conversations
-- Responsive navigation, accessible controls, reduced-motion support, and language switching across core content
+- Direct, shareable hash URLs for activities, lessons, and weekly newsletter features
+- Locally remembered language and age preferences without an account or backend
+- Responsive navigation, keyboard-accessible controls, reduced-motion support, and language switching across core content
 
 ## Run locally
 
@@ -52,7 +54,7 @@ src/
 └── main.tsx             React entry point
 ```
 
-The MVP intentionally uses a simple local data layer and React state. It has no accounts, database, analytics, or external AI calls. This keeps family data private and makes the content model easy to review before a backend is introduced.
+The MVP intentionally uses a simple local data layer and hash-based client routing. It has no accounts, database, analytics, or external AI calls. Language and age preferences are stored only in the family's browser. This keeps family data private and makes newsletter links reliable on GitHub Pages.
 
 The complete English Parent Academy editorial source—including website and newsletter versions—is stored in `content/parent-academy-lessons.md`. The app publishes the 12 core website lessons and retains the optional lessons and newsletter copy for editorial use.
 
@@ -105,7 +107,7 @@ Content should be reviewed by fluent speakers and an EAL specialist before publi
 
 ## Current limitations
 
-The language selector changes the primary UI and seeded content, while a few universal skill tags remain in English. Ask an EAL Expert currently searches a small local answer library; it is not a live chat or AI assistant. Data does not persist after the page is refreshed.
+The language selector changes the primary UI and seeded content, while the full Parent Academy lesson bodies remain English-first. Find an Answer searches a small local reviewed library; it is not live chat or an AI assistant and deliberately shows a no-answer state when a reliable match is unavailable. Only language and age preferences currently persist between visits.
 
 ## Photography
 
