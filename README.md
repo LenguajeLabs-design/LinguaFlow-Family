@@ -12,7 +12,7 @@ The application mark is stored at `src/assets/linguaflow-family-logo.png`. It is
 - **Activities:** six seeded activities spanning speaking, vocabulary, conversation, reading, describing, and writing
 - **Understand My Child:** WIDA-friendly language-development explanations and common parent questions
 - **Parent Academy:** short, reassuring learning modules for families
-- **Ask Freddie:** a local, keyword-based parent question finder designed as the future entry point for AI support
+- **Ask an EAL Expert:** a local, keyword-based library of expert-reviewed parent answers
 - **School Connection:** meeting prompts and copyable phrases for common parent–child and school conversations
 - Responsive navigation, accessible controls, reduced-motion support, and language switching across core content
 
@@ -94,14 +94,14 @@ Content should be reviewed by fluent speakers and an EAL specialist before publi
 ### 1.0 — Trusted connected support
 
 - Teacher-curated resource recommendations
-- Carefully scoped, privacy-first Ask Freddie AI with clear limits and source-backed answers
+- Carefully scoped, privacy-first expert support with clear limits and source-backed answers
 - School-specific phrase packs and meeting preparation
 - Additional home languages, beginning with Spanish, Japanese, Arabic, Portuguese, and Hindi
 - Content-management workflow and accessibility/user testing with multilingual families
 
 ## Current limitations
 
-The language selector changes the primary UI and seeded content, while a few universal skill tags remain in English. Ask Freddie is a local demonstration, not an AI assistant. Data does not persist after the page is refreshed.
+The language selector changes the primary UI and seeded content, while a few universal skill tags remain in English. Ask an EAL Expert currently searches a small local answer library; it is not a live chat or AI assistant. Data does not persist after the page is refreshed.
 
 ## Photography
 
