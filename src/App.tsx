@@ -42,6 +42,7 @@ import academySchool from "./assets/academy/school.jpg";
 type Page =
   | "today"
   | "reading"
+  | "writing"
   | "activities"
   | "understand"
   | "academy"
@@ -54,6 +55,7 @@ const labels: Record<Language, Record<string, string>> = {
   en: {
     today: "Today",
     reading: "Help with reading",
+    writing: "Help with writing",
     activities: "Activities",
     understand: "Understand my child",
     academy: "Parent Academy",
@@ -89,6 +91,7 @@ const labels: Record<Language, Record<string, string>> = {
   zh: {
     today: "今天",
     reading: "阅读支持",
+    writing: "写作支持",
     activities: "亲子活动",
     understand: "了解我的孩子",
     academy: "家长课堂",
@@ -120,6 +123,7 @@ const labels: Record<Language, Record<string, string>> = {
   ko: {
     today: "오늘",
     reading: "읽기 도움",
+    writing: "쓰기 도움",
     activities: "가족 활동",
     understand: "우리 아이 이해하기",
     academy: "부모 아카데미",
@@ -273,6 +277,7 @@ function readRoute() {
     [
       "today",
       "reading",
+      "writing",
       "activities",
       "understand",
       "academy",
@@ -519,7 +524,9 @@ function PageContent({
       />
     );
   if (page === "reading")
-    return <ReadingPath lang={lang} select={select} go={go} />;
+    return <LiteracyPath kind="reading" lang={lang} select={select} go={go} />;
+  if (page === "writing")
+    return <LiteracyPath kind="writing" lang={lang} select={select} go={go} />;
   if (page === "activities")
     return (
       <Activities
@@ -549,35 +556,58 @@ function PageContent({
   return <TrustPage lang={lang} privacy={page === "privacy"} />;
 }
 
-function ReadingPath({
+function LiteracyPath({
+  kind,
   lang,
   select,
   go,
 }: {
+  kind: "reading" | "writing";
   lang: Language;
   select: (a: Activity) => void;
   go: (p: Page) => void;
 }) {
-  const activity = activities.find((item) => item.id === "picture-walk")!;
+  const writing = kind === "writing";
+  const activity = activities.find((item) =>
+    item.id === (writing ? "family-journal" : "picture-walk"),
+  )!;
   const copy = {
     eyebrow:
       lang === "en"
-        ? "Help with reading"
+        ? writing
+          ? "Help with writing"
+          : "Help with reading"
         : lang === "zh"
-          ? "阅读支持"
-          : "읽기 도움",
+          ? writing
+            ? "写作支持"
+            : "阅读支持"
+          : writing
+            ? "쓰기 도움"
+            : "읽기 도움",
     title:
       lang === "en"
-        ? "Start with one good conversation."
+        ? writing
+          ? "Good writing can begin with talking."
+          : "Start with one good conversation."
         : lang === "zh"
-          ? "从一次有意义的对话开始。"
-          : "좋은 대화 하나로 시작하세요.",
+          ? writing
+            ? "好的写作可以从说一说开始。"
+            : "从一次有意义的对话开始。"
+          : writing
+            ? "좋은 글쓰기는 말하기에서 시작할 수 있어요."
+            : "좋은 대화 하나로 시작하세요.",
     subtitle:
       lang === "en"
-        ? "You do not have to teach English. Talking about a book in the language that feels natural helps your child understand and enjoy reading."
+        ? writing
+          ? "You do not need to correct every mistake. Help your child talk, draw, and discover what they want to say before worrying about perfect English."
+          : "You do not have to teach English. Talking about a book in the language that feels natural helps your child understand and enjoy reading."
         : lang === "zh"
-          ? "您不需要教英语。用最自然的语言聊一聊书，可以帮助孩子理解阅读并享受阅读。"
-          : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
+          ? writing
+            ? "您不需要纠正每一个错误。先帮助孩子说一说、画一画，找到自己想表达的内容，再考虑英语是否完美。"
+            : "您不需要教英语。用最自然的语言聊一聊书，可以帮助孩子理解阅读并享受阅读。"
+          : writing
+            ? "모든 실수를 고칠 필요는 없어요. 완벽한 영어보다 먼저 말하고, 그리고, 표현할 생각을 찾도록 도와주세요."
+            : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
     start:
       lang === "en"
         ? "Start here · Ages 6–8"
@@ -586,22 +616,40 @@ function ReadingPath({
           : "여기서 시작 · 6–8세",
     promise:
       lang === "en"
-        ? "Before reading the words, explore the pictures together. Five thoughtful minutes is enough."
+        ? writing
+          ? "Let your child tell one small moment aloud, draw it, and add a few words. The idea matters more than perfect spelling."
+          : "Before reading the words, explore the pictures together. Five thoughtful minutes is enough."
         : lang === "zh"
-          ? "读文字之前，先一起看看图画。认真陪伴五分钟就已经足够。"
-          : "글을 읽기 전에 그림을 함께 살펴보세요. 마음을 나눈 5분이면 충분해요.",
+          ? writing
+            ? "让孩子先说出一个小瞬间，再画下来并加上几个词。想法比拼写完美更重要。"
+            : "读文字之前，先一起看看图画。认真陪伴五分钟就已经足够。"
+          : writing
+            ? "작은 순간을 먼저 말하고, 그림으로 그리고, 단어 몇 개를 더해 보세요. 완벽한 철자보다 생각이 중요해요."
+            : "글을 읽기 전에 그림을 함께 살펴보세요. 마음을 나눈 5분이면 충분해요.",
     button:
       lang === "en"
-        ? "Try the picture walk"
+        ? writing
+          ? "Try the family journal"
+          : "Try the picture walk"
         : lang === "zh"
-          ? "试试阅读前看图"
-          : "그림 산책 해보기",
+          ? writing
+            ? "试试家庭日记"
+            : "试试阅读前看图"
+          : writing
+            ? "가족 일기 해보기"
+            : "그림 산책 해보기",
     reassurance:
       lang === "en"
-        ? "Your home language is not a workaround. It is the language your child can use to think, wonder, and connect."
+        ? writing
+          ? "Your child can plan and talk in your home language, then write in English, the home language, or both. Rich thinking comes first."
+          : "Your home language is not a workaround. It is the language your child can use to think, wonder, and connect."
         : lang === "zh"
-          ? "家庭语言不是替代方案，而是孩子用来思考、好奇和建立联系的语言。"
-          : "가족 언어는 임시방편이 아니에요. 아이가 생각하고 궁금해하고 연결하는 언어예요.",
+          ? writing
+            ? "孩子可以先用家庭语言构思和表达，再用英语、家庭语言或两种语言来写。丰富的思考最重要。"
+            : "家庭语言不是替代方案，而是孩子用来思考、好奇和建立联系的语言。"
+          : writing
+            ? "가족 언어로 계획하고 말한 뒤 영어, 가족 언어, 또는 두 언어로 쓸 수 있어요. 풍부한 생각이 먼저예요."
+            : "가족 언어는 임시방편이 아니에요. 아이가 생각하고 궁금해하고 연결하는 언어예요.",
     all:
       lang === "en"
         ? "Explore all family activities"
@@ -645,10 +693,16 @@ function ReadingPath({
             </span>
             <h2 className="font-display mt-6 text-3xl font-bold">
               {lang === "en"
-                ? "Use the language that brings out the best ideas."
+                ? writing
+                  ? "Ideas first. Correctness can come later."
+                  : "Use the language that brings out the best ideas."
                 : lang === "zh"
-                  ? "使用最能表达丰富想法的语言。"
-                  : "가장 풍부한 생각이 나오는 언어를 사용하세요."}
+                  ? writing
+                    ? "先有想法，再考虑是否正确。"
+                    : "使用最能表达丰富想法的语言。"
+                  : writing
+                    ? "생각이 먼저예요. 정확함은 나중에 다듬어도 돼요."
+                    : "가장 풍부한 생각이 나오는 언어를 사용하세요."}
             </h2>
             <p className="mt-4 leading-7 text-teal-50">{copy.reassurance}</p>
           </div>
@@ -1038,7 +1092,7 @@ function LaunchToday({
                 ? "今天我们能如何帮助您？"
                 : "오늘 어떤 도움을 드릴까요?"}
           </h2>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
             <PathButton
               icon={BookOpen}
               title={
@@ -1056,6 +1110,24 @@ function LaunchToday({
                     : "6–8세부터 시작"
               }
               onClick={() => go("reading")}
+            />
+            <PathButton
+              icon={GraduationCap}
+              title={
+                lang === "en"
+                  ? "Help with writing"
+                  : lang === "zh"
+                    ? "帮助孩子写作"
+                    : "쓰기 도와주기"
+              }
+              detail={
+                lang === "en"
+                  ? "Start with ages 6–8"
+                  : lang === "zh"
+                    ? "从 6–8 岁开始"
+                    : "6–8세부터 시작"
+              }
+              onClick={() => go("writing")}
             />
             <PathButton
               icon={Heart}
@@ -1506,6 +1578,12 @@ function ActivityDetail({
         : lang === "zh"
           ? "不需要猜得完全正确。孩子愿意观察图画，并想知道接下来会发生什么，就已经很好。"
           : "완벽하게 예상할 필요는 없어요. 아이가 그림을 살펴보고 다음 이야기를 궁금해하면 충분해요.",
+    familyJournalSuccess:
+      lang === "en"
+        ? "A drawing, one label, or one sentence is enough. Success is your child finding something they want to say."
+        : lang === "zh"
+          ? "一幅画、一个标签或一句话就已经足够。孩子找到自己想表达的内容，就是成功。"
+          : "그림 하나, 이름표 하나, 문장 하나면 충분해요. 아이가 표현하고 싶은 것을 찾았다면 성공이에요.",
   };
   const lesson =
     activity.goal === "read"
@@ -1574,13 +1652,16 @@ function ActivityDetail({
                 {activity.homeOption[lang]}
               </p>
             </div>
-            {activity.id === "picture-walk" && (
+            {(activity.id === "picture-walk" ||
+              activity.id === "family-journal") && (
               <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-5">
                 <p className="text-xs font-black uppercase tracking-wider text-amber-900">
                   {c.success}
                 </p>
                 <p className="mt-2 leading-7 text-stone-700">
-                  {c.pictureWalkSuccess}
+                  {activity.id === "picture-walk"
+                    ? c.pictureWalkSuccess
+                    : c.familyJournalSuccess}
                 </p>
               </div>
             )}
