@@ -22,9 +22,22 @@ The people depicted are illustrative stock-photo models. Their appearance does n
 | Early literacy | Keira Burton | [Father reading to a baby](https://www.pexels.com/photo/a-man-sitting-on-couch-reading-book-to-a-baby-with-pacifier-6321606/) | `src/assets/family/baby-reading.jpg` |
 | Supported learning | Ketut Subiyanto | [Woman tutoring a child at home](https://www.pexels.com/photo/smiling-woman-tutoring-ethnic-girl-at-home-4474005/) | `src/assets/family/family-tutoring.jpg` |
 
+## Parent Academy editorial photography
+
+These six images form a reusable editorial set across the twelve core lessons.
+
+| Theme | Photographer | Source | Local asset |
+|---|---|---|---|
+| Family language | Annushka Ahuja | [Family supporting a daughter with homework](https://www.pexels.com/photo/mother-helping-daughter-with-homework-8054837/) | `src/assets/academy/family-language.jpg` |
+| Thinking and writing | Sunvani Hoàng | [Two girls writing together](https://www.pexels.com/photo/girl-holding-gray-pencil-and-white-paper-on-glass-top-table-7978264/) | `src/assets/academy/thinking.jpg` |
+| Reading support | Annushka Ahuja | [Mother supporting her daughter with homework](https://www.pexels.com/photo/mother-watching-her-daughter-doing-homework-8054838/) | `src/assets/academy/reading.jpg` |
+| Confidence and creativity | Mikhail Nilov | [Girl learning with a laptop and ukulele](https://www.pexels.com/photo/photo-of-a-girl-near-a-ukulele-and-a-laptop-7574204/) | `src/assets/academy/confidence.jpg` |
+| Progress and conversation | Annushka Ahuja | [Family gathered around schoolwork](https://www.pexels.com/photo/mother-and-daughter-with-books-on-table-8055800/) | `src/assets/academy/progress.jpg` |
+| School support | Annushka Ahuja | [Father helping his daughter with homework](https://www.pexels.com/photo/a-man-helping-his-daughter-with-her-homework-8055142/) | `src/assets/academy/school.jpg` |
+
 ## Processing
 
-The six activity photographs were cropped consistently to a 3:2 landscape frame, resized to 960 × 640 pixels, and exported as WebP at quality 82. The four supporting photographs were resized to a maximum dimension of 960 pixels and exported as optimized JPEGs at quality 72, preserving useful portrait or landscape framing. No faces, objects, or documentary details were altered.
+The six activity photographs were cropped consistently to a 3:2 landscape frame, resized to 960 × 640 pixels, and exported as WebP at quality 82. Supporting and Parent Academy photographs were resized to a maximum dimension of 960 pixels and exported as optimized JPEGs at quality 72, preserving useful portrait or landscape framing. No faces, objects, or documentary details were altered.
 
 ## Selection principles
 
