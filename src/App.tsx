@@ -221,19 +221,19 @@ const academyPhotos = [
       .imageAlt.en,
   },
   {
-    image: activities.find((activity) => activity.id === "word-hunt")!.image,
-    alt: activities.find((activity) => activity.id === "word-hunt")!.imageAlt
-      .en,
+    image: activities.find((activity) => activity.id === "compare-coverage")!
+      .image,
+    alt: activities.find((activity) => activity.id === "compare-coverage")!
+      .imageAlt.en,
   },
   {
     image: academySchool,
     alt: "An Asian father encouraging his daughter during homework",
   },
   {
-    image: activities.find((activity) => activity.id === "would-you-rather")!
-      .image,
-    alt: activities.find((activity) => activity.id === "would-you-rather")!
-      .imageAlt.en,
+    image: activities.find((activity) => activity.id === "teach-rules")!.image,
+    alt: activities.find((activity) => activity.id === "teach-rules")!.imageAlt
+      .en,
   },
   {
     image: activities.find((activity) => activity.id === "picture-talk")!.image,
