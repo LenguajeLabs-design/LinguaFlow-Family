@@ -485,4 +485,453 @@ Good concept, but if it currently asks children to write cold, it's skipping the
 
 ---
 
-*(End of Batch 1. Next: Ages 9–11 activities, then Ages 12–14, followed by the Strongest 12, evidence patterns, gaps, and complete source list.)*
+## 5. Activity records — Ages 9–11
+
+### 11. Explain It Like a Teacher
+
+**Parent promise:** Ask your child to teach you something they learned at school today — explaining out loud is one of the best ways to build the academic language school requires.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Explaining and thinking
+
+**Secondary focus:** School confidence
+
+**Setting:** At home; any setting
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Ask your child to pick one thing they learned that day.
+2. Ask them to explain it to you as if you know nothing about it.
+3. Ask one genuine "why" or "how" follow-up.
+4. Thank them — you don't need to evaluate whether it was "correct."
+
+**Example:** A child explains how photosynthesis works while helping set the table, using their hands to show "the plant taking in light."
+
+**Parent phrase:** "Explain it to me like I've never heard of it."
+
+**Home-language option:** Let your child explain in whichever language makes the explanation clearest — understanding the idea matters more than which language carries it.
+
+**Starting variation:** Explain with drawings or gestures alongside a few words.
+
+**Growing variation:** Explain in two or three connected sentences.
+
+**Extending variation:** Explain, then answer a "what if" question that extends the idea.
+
+**Why it helps:** Conversational fluency in a language develops quickly, but the more abstract language needed for school subjects takes years longer to build. <cite index="73-1">Academic language is abstract and context-reduced, and developing it requires learners to practice skills like comparing, classifying, and explaining, not just conversing</cite>. Regularly asking a child to explain what they learned gives them low-stakes practice at exactly this kind of language.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- What are BICS and CALP? — Colorín Colorado — https://www.colorincolorado.org/faq/what-are-bics-and-calp — Explains the distinction between conversational and academic language and the skills academic language requires.
+
+**Cautions:** None significant. Resist the urge to fact-check or correct the explanation — the goal is the explaining, not accuracy.
+
+---
+
+### 12. Three Questions Before I Help
+
+**Parent promise:** Before jumping in on homework, ask three questions instead — children do better when parents guide rather than take over.
+
+**Recommended ages:** 9–11
+
+**Time:** 10–15 minutes
+
+**Primary focus:** School confidence
+
+**Secondary focus:** Explaining and thinking
+
+**Setting:** At home
+
+**Materials:** The homework itself
+
+**Steps:**
+1. Ask, "What is the task asking you to do?"
+2. Ask, "What do you already understand about it?"
+3. Ask, "What's one next step you could try?"
+4. Step back and let your child attempt that step before helping further.
+
+**Example:** A child stuck on a reading response first explains the question in their own words, then identifies the one paragraph they're unsure about, before asking for help with just that part.
+
+**Parent phrase:** "Show me where you feel confident, and where you feel stuck."
+
+**Home-language option:** Ask the three questions in the home language even if the homework itself is in English — understanding the task matters more than the language used to discuss it.
+
+**Starting variation:** Parent reads the task aloud and helps identify the first step.
+
+**Growing variation:** Child answers all three questions independently before starting.
+
+**Extending variation:** Child explains their finished work back to a parent afterward.
+
+**Why it helps:** <cite index="76-1">Research summarized by the APA found that direct homework help had a small negative impact on achievement, while parent involvement that builds motivation and engagement had a positive one</cite>, and <cite index="78-1">when an adult takes over a task rather than scaffolding it, children are less likely to persist on similar tasks afterward</cite>. Guiding questions keep the parent involved and supportive without doing the thinking for the child.
+
+**Evidence classification:** Direct research support
+
+**Sources:**
+- Does Parent Involvement Really Help Students? Here's What the Research Says — EdWeek, summarizing an APA study, 2023 — https://www.edweek.org/leadership/does-parent-involvement-really-help-students-heres-what-the-research-says/2023/07 — On the limited/negative effect of direct homework help versus other forms of involvement.
+- Parental Intrusive Homework Support and Math Achievement: Does the Child's Mindset Matter? — PMC, 2024 — https://pmc.ncbi.nlm.nih.gov/articles/PMC10835763/ — On adults "taking over" tasks reducing children's persistence, versus scaffolded support.
+
+**Cautions:** This is guidance for engagement style, not a claim that parents should never help — some homework genuinely requires direct assistance, especially with instructions in a language parents are less confident in.
+
+---
+
+### 13. Talk It Out Before You Write It
+
+**Parent promise:** Before your child starts a piece of writing, have them tell you the idea out loud first — spoken ideas are almost always richer than what ends up on the page.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Writing
+
+**Secondary focus:** Speaking
+
+**Setting:** At home
+
+**Materials:** Paper and pencil (after the talking part)
+
+**Steps:**
+1. Ask your child what they plan to write about.
+2. Ask them to tell you the whole idea out loud, start to finish.
+3. Ask "what else?" once.
+4. Have them jot three key words or ideas before writing.
+
+**Example:** Before writing a book report, a child tells their parent the whole plot and their opinion of the ending, then jots down three points to include.
+
+**Parent phrase:** "Tell me your idea first — we'll write it down after."
+
+**Home-language option:** The talking-through step works in any language; the ideas transfer even if the final piece must be written in English.
+
+**Starting variation:** Child tells the idea in a few simple sentences.
+
+**Growing variation:** Child tells a full idea with a beginning, middle, and end.
+
+**Extending variation:** Child explains why they chose to organize the piece the way they did.
+
+**Why it helps:** <cite index="47-1">A study of six-year-olds found that oral retellings contained significantly more words and detail than the same content written down, and that the ideas generated orally strongly predicted the quality of the written version</cite>. Talking through an idea first gives children more raw material to draw from once they start writing.
+
+**Evidence classification:** Direct research support
+
+**Sources:**
+- Comparing young children's oral and written story retelling — Taylor & Francis (Cogent Education), 2024 — https://www.tandfonline.com/doi/full/10.1080/2050571X.2024.2357450 — On oral idea generation outperforming written output and predicting writing quality.
+
+**Cautions:** None significant.
+
+---
+
+### 14. Model, Don't Correct
+
+**Parent promise:** When your child makes a language mistake, repeat their sentence back correctly instead of pointing out the error — it works better and keeps the conversation going.
+
+**Recommended ages:** 9–11
+
+**Time:** No set time — an everyday habit
+
+**Primary focus:** Speaking
+
+**Setting:** Any setting
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Notice a language mistake in conversation.
+2. Respond to the meaning of what your child said first.
+3. Naturally repeat their sentence back with the correction, without announcing it.
+4. Keep the conversation moving — no need to ask them to repeat it back.
+
+**Example:** A child says "I goed to the library," and a parent responds, "Oh, you went to the library — what did you find?"
+
+**Parent phrase:** "I understand your idea. Tell me more."
+
+**Home-language option:** This same modeling technique works in the home language too, if the family wants to reinforce home-language grammar.
+
+**Starting variation:** Simple one-word or short-phrase corrections modeled back.
+
+**Growing variation:** Full-sentence recasts woven into natural conversation.
+
+**Extending variation:** No direct extension — this is a low-key, ongoing habit rather than a graded activity.
+
+**Why it helps:** <cite index="62-1">A recast repeats what a child said but adds or corrects a piece of language, without interrupting the flow of conversation</cite>, and <cite index="62-1">a systematic review and meta-analysis found recasting to be an effective language intervention technique for children</cite>. Because it doesn't interrupt or call out the mistake, it keeps children willing to keep talking.
+
+**Evidence classification:** Direct research support
+
+**Sources:**
+- Recasting as an Intervention for Language Development — EJ Therapy, summarizing Cleave et al. (2015), American Journal of Speech-Language Pathology — https://www.ejtherapy.com/blog/recasting-intervention — Summarizes a systematic review and meta-analysis on the effectiveness of recasting.
+
+**Cautions:** Recasting supports grammar over time; it isn't an instant fix, and it shouldn't be turned into an obvious correction ritual that makes a child self-conscious.
+
+---
+
+### 15. Two Sides, One Decision
+
+**Parent promise:** Talk through a real family decision together, weighing the options out loud — it's genuine practice at the kind of reasoning language school will expect.
+
+**Recommended ages:** 9–11
+
+**Time:** 10–15 minutes
+
+**Primary focus:** Explaining and thinking
+
+**Secondary focus:** Speaking
+
+**Setting:** Any setting
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Pick a real, low-stakes family decision (what to cook, where to go this weekend).
+2. Ask your child to name one option and one reason for it.
+3. Ask, "What's a reason someone might disagree?"
+4. Decide together, out loud.
+
+**Example:** Deciding between two weekend outings, a child argues for the park because "we haven't been outside all week," while a parent raises that rain is expected.
+
+**Parent phrase:** "What's a reason someone might see it differently?"
+
+**Home-language option:** This kind of reasoning talk works in any language the family is comfortable debating in.
+
+**Starting variation:** Child gives one reason for their choice.
+
+**Growing variation:** Child gives a reason and considers one counterpoint.
+
+**Extending variation:** Child weighs two or three factors before deciding.
+
+**Why it helps:** <cite index="86-1">A study training 9- to 10-year-olds to use more explicit reasoning language during group talk led to a marked shift in how they used language together and improved their performance on a reasoning test</cite>. Everyday family decisions are a natural, repeatable setting for the same kind of talk.
+
+**Evidence classification:** Direct research support
+
+**Sources:**
+- Children's Talk and the Development of Reasoning in the Classroom — Mercer, British Educational Research Journal (Wiley), 1999 — https://bera-journals.onlinelibrary.wiley.com/doi/abs/10.1080/0141192990250107 — Study of 9- to 10-year-olds showing explicit reasoning-talk training improved children's language use and reasoning performance.
+
+**Cautions:** Keep the stakes genuinely low — this should feel like being included in a family conversation, not being tested.
+
+---
+
+### 16. Real-World Word Bank
+
+**Parent promise:** Keep a running, no-pressure list of interesting words your child hears in real life — it builds vocabulary the way research says actually works.
+
+**Recommended ages:** 9–11
+
+**Time:** 5 minutes
+
+**Primary focus:** Vocabulary
+
+**Setting:** Any setting
+
+**Materials:** A notebook, phone note, or piece of paper on the fridge
+
+**Steps:**
+1. Whenever an interesting word comes up in conversation, a show, or a book, jot it down together.
+2. Ask, "Where did we hear that? What do you think it means?"
+3. Try using the word again sometime that week.
+4. Let the list grow — no quizzes.
+
+**Example:** After hearing "exhausted" in a movie, a family adds it to their list and a child uses it that night: "I'm exhausted from swim practice."
+
+**Parent phrase:** "Where did we hear that word? Let's use it again this week."
+
+**Home-language option:** Add words in any language the family notices — bilingual entries are welcome.
+
+**Starting variation:** Just notice and say the word aloud.
+
+**Growing variation:** Guess the meaning from context before checking.
+
+**Extending variation:** Use the new word in an original sentence about something in the child's own life.
+
+**Why it helps:** <cite index="37-1">Children build lasting word knowledge through multiple, meaningful exposures to words nested in real conversation, not through word lists learned in isolation</cite>. A running "noticed words" list captures vocabulary at the moment it's meaningful, rather than presenting it cold.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Developing Vocabulary Through Purposeful, Strategic Conversations — International Literacy Association / Southington Public Schools reprint — https://www.southingtonschools.org/uploaded/faculty/psmolinski/Developing_Vocabulary.pdf — On vocabulary growth through multiple meaningful exposures versus list-based learning.
+
+**Cautions:** None significant. Keep it truly optional and light — a chore-like vocabulary log can backfire.
+
+---
+
+### 17. Headline Chat
+
+**Parent promise:** Pick one real news story appropriate for your child's age and talk it through together — a natural way to build listening, vocabulary, and big-picture thinking.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Listening
+
+**Secondary focus:** Explaining and thinking
+
+**Setting:** At home; any setting
+
+**Materials:** A news headline or short kid-appropriate article
+
+**Steps:**
+1. Choose one age-appropriate headline or short story together.
+2. Ask your child what they think it's about, based on the headline alone.
+3. Read or summarize it together.
+4. Ask, "What do you think about that?"
+
+**Example:** Reading about a local park renovation, a child predicts what might change before hearing the details, then shares an opinion about it.
+
+**Parent phrase:** "What do you think this story is about, just from the headline?"
+
+**Home-language option:** Find or discuss the story in the family's strongest language — the thinking skill is what carries over to English coverage of similar topics.
+
+**Starting variation:** Talk through a headline with a picture.
+
+**Growing variation:** Summarize a short article in a few sentences.
+
+**Extending variation:** Compare how two different sources describe the same event.
+
+**Why it helps:** This applies the same purposeful, meaning-focused conversation research supports for vocabulary growth to real-world content: <cite index="37-1">purposeful conversations that explore word meanings in the context of real experience support and build children's word knowledge</cite>, and current events provide a steady, real-life source of exactly that kind of content-rich talk.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Developing Vocabulary Through Purposeful, Strategic Conversations — International Literacy Association / Southington Public Schools reprint — https://www.southingtonschools.org/uploaded/faculty/psmolinski/Developing_Vocabulary.pdf — On vocabulary and comprehension growth through purposeful, content-rich conversation.
+
+**Cautions:** Choose age-appropriate stories and be mindful of distressing news content; skip anything that feels like too much for your child right now.
+
+---
+
+### 18. Compare Two Options
+
+**Parent promise:** Let your child help compare two real choices — two backpacks, two weekend plans, two recipes — and explain which is better and why.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Explaining and thinking
+
+**Secondary focus:** Vocabulary
+
+**Setting:** Shopping or errands; at home
+
+**Materials:** Two real options (products, plans, or photos of them)
+
+**Steps:**
+1. Present two real options.
+2. Ask your child to name one way they're different.
+3. Ask which one they'd choose and why.
+4. Ask what might make someone choose the other one.
+
+**Example:** Comparing two backpacks at a shop, a child argues for the one with more pockets, then acknowledges the other is lighter.
+
+**Parent phrase:** "Which one would you choose, and why?"
+
+**Home-language option:** Discuss and decide in whichever language allows the fullest reasoning.
+
+**Starting variation:** Point to the preferred option and give one reason.
+
+**Growing variation:** Compare two features and choose.
+
+**Extending variation:** Consider a counterargument before deciding.
+
+**Why it helps:** Comparing and justifying are specifically named as academic-language skills that develop alongside conversational fluency. <cite index="73-1">Learners need to develop skills such as comparing, classifying, synthesizing, evaluating, and inferring as part of academic language development</cite>. A real comparison with a real decision at the end gives children authentic practice with genuine stakes.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- What are BICS and CALP? — Colorín Colorado — https://www.colorincolorado.org/faq/what-are-bics-and-calp — Names comparing, classifying, and evaluating among the skills that make up academic language proficiency.
+
+**Cautions:** None significant.
+
+---
+
+### 19. Show Your Thinking Out Loud
+
+**Parent promise:** When your child solves a problem — a math question, a puzzle, a plan — ask them to narrate their thinking as they go, not just give the final answer.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Academic-language thinking
+
+**Secondary focus:** School confidence
+
+**Setting:** At home
+
+**Materials:** Homework or any puzzle/problem
+
+**Steps:**
+1. Pick a problem your child is working through.
+2. Ask them to say out loud what they're thinking as they try it, not just the answer.
+3. Ask "what made you try that?" once.
+4. Let them keep going without correcting mid-stream.
+
+**Example:** Working through a math word problem, a child talks through, "First I need to know how many are left, so I'll subtract."
+
+**Parent phrase:** "Tell me what you're thinking as you go."
+
+**Home-language option:** Thinking aloud works in whichever language lets your child reason most fluently, even if the final answer must be written in English.
+
+**Starting variation:** Narrate one step at a time with support.
+
+**Growing variation:** Narrate the whole process independently.
+
+**Extending variation:** Explain afterward why one approach worked better than another.
+
+**Why it helps:** <cite index="90-1">Thinking aloud helps students hear and produce academic language, which is a particularly powerful support for English learners because it gives them practice with the kind of language a capable speaker uses to work through a problem</cite>. It also gives parents a low-pressure window into where a child is confident versus stuck.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- Teaching/Developing Vocabulary Using Think-Aloud and Read-Aloud Strategies — Lapp, Wiley Major Reference Works — https://onlinelibrary.wiley.com/doi/10.1002/9781118784235.eelt0747.pub3 — On think-aloud strategies supporting academic language development, especially for English learners.
+
+**Cautions:** Resist correcting mid-thought — let the child finish their reasoning before offering any input.
+
+---
+
+### 20. Dinner Table News
+
+**Parent promise:** Go around the table and have everyone share one real thing from their day — it builds speaking confidence and shows every family member's story matters.
+
+**Recommended ages:** 9–11
+
+**Time:** 10 minutes
+
+**Primary focus:** Family stories and identity
+
+**Secondary focus:** Speaking
+
+**Setting:** Mealtime or kitchen
+
+**Materials:** Nothing needed
+
+**Steps:**
+1. Each person shares one specific thing from their day — not a summary, one moment.
+2. The rest of the family asks one follow-up question.
+3. Rotate who goes first each night.
+4. Include a parent's own story too.
+
+**Example:** A child shares a moment from recess; a parent asks "what happened next?" before sharing their own story from work.
+
+**Parent phrase:** "Tell us one thing that happened today — just one."
+
+**Home-language option:** This works entirely in the home language — the goal is connection and storytelling practice, not English exposure.
+
+**Starting variation:** One sentence, prompted with "what happened?"
+
+**Growing variation:** A short story with a beginning and an end.
+
+**Extending variation:** Add how the moment made them feel and why.
+
+**Why it helps:** This is a regular, low-pressure version of the family storytelling practice that <cite index="52-1">research links to stronger later reading comprehension and writing</cite>, while also reinforcing that each family member's experiences and language are welcome at the table.
+
+**Evidence classification:** Adapted from a research-supported principle
+
+**Sources:**
+- When children's storytelling says so much more — Research Outreach, 2023 — https://researchoutreach.org/articles/childrens-storytelling-says-so-much-more/ — On the link between children's oral storytelling and later literacy outcomes.
+
+**Cautions:** None significant.
+
+---
+
+*(End of Batch 2. Next: Ages 12–14 activities, followed by the Strongest 12, evidence patterns, gaps, and complete source list.)*
