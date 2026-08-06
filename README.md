@@ -60,7 +60,7 @@ The complete English Parent Academy editorial source—including website and new
 
 Activity research is preserved in `content/research-based-activity-library.md`. It is intentionally integrated in stages so the public library stays balanced across ages 6–14; incomplete research batches are not automatically published.
 
-The next reading-and-writing expansion is scoped in `content/reading-writing-pathway-brief.md`. It captures the question-first product direction, recommended 12-strategy launch set, newsletter sequence, and the evidence review required before publication.
+The next reading-and-writing expansion is scoped in `content/reading-writing-pathway-brief.md`. It captures the question-first product direction, recommended 12-strategy launch set, newsletter sequence, and the evidence review required before publication. The complete revised English source is preserved in `content/reading-writing-strategy-library.md`.
 
 The UI uses React + Vite + TypeScript, Tailwind CSS v4, shadcn-style component conventions, and Lucide icons.
 

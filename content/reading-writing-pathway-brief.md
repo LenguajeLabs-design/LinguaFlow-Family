@@ -1,7 +1,7 @@
 # LinguaFlow Family — Reading and Writing Pathway Brief
 
 **Status:** Editorial and implementation brief  
-**Source:** Parent mission note and Claude's 24-strategy reading/writing draft, reviewed August 2026
+**Source:** Parent mission note and Claude's revised 24-strategy reading/writing draft, reviewed August 2026
 
 ## North star
 
@@ -97,16 +97,21 @@ Each newsletter should have one primary action and one direct activity URL. It s
 
 ## Editorial review required before publication
 
-The strategy concepts and parent-facing tone are strong, but the supplied research draft is **not publication-ready** because its citations were lost or malformed. Many source fields appear as empty Markdown links such as `]()` and the final source list is incomplete.
+The revised draft restores working source URLs and is suitable as the English editorial source. Its **strategy concepts and parent-facing copy are ready for the next design pass**, but its evidence classifications still need calibration before they appear publicly.
+
+The two central What Works Clearinghouse guides are authoritative, but their stated scope is narrower than parts of this collection: the reading guide covers kindergarten through Grade 3 and the writing guide covers Grades 1–6. They support several underlying literacy principles, but they do not by themselves establish direct evidence for adaptations aimed at ages 12–14 or for every parent-led version of a classroom practice. Those entries should remain labeled “adapted” and should not imply that the exact home activity was tested.
+
+The source Markdown also contains duplicated nested links (`[[title](url)](url)`). Normalize these before publication.
 
 Before displaying evidence labels publicly:
 
-1. Recover the exact title, author or organization, publication date, and URL for every cited source.
-2. Verify that each source supports the specific claim attached to it.
-3. Distinguish clearly between direct research support and an adaptation of a supported principle.
-4. Prefer primary research, What Works Clearinghouse guidance, WIDA, and established literacy organizations.
-5. Have a literacy or EAL educator review the final wording.
-6. Have Chinese and Korean translations reviewed by native speakers rather than relying on machine translation alone.
+1. Verify that each source supports the specific claim attached to it and the relevant age range.
+2. Reserve “direct research support” for substantially comparable practices and populations.
+3. Treat parent-led versions of classroom recommendations and extensions to older learners as adaptations.
+4. Add stronger secondary-literacy sources before publishing research claims for ages 12–14.
+5. Prefer primary research, What Works Clearinghouse guidance, WIDA, and established literacy organizations.
+6. Have a literacy or EAL educator review the final wording.
+7. Have Chinese and Korean translations reviewed by native speakers rather than relying on machine translation alone.
 
 Until that review is complete, omit public evidence labels rather than publishing unsupported authority signals.
 
