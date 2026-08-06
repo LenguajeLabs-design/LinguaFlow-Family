@@ -9,7 +9,7 @@ The application mark is stored at `src/assets/linguaflow-family-logo.png`. It is
 ## What is included
 
 - **Today / This Week:** one newsletter-linked idea, one age-aware activity, and three clear parent pathways
-- **Activities:** 12 curated activities balanced across ages 6–14, with age, time, and goal filters
+- **Activities:** 18 curated activities balanced across ages 6–14, with age, time, and goal filters
 - **Understand My Child:** WIDA-friendly language-development explanations and common parent questions
 - **Parent Academy:** short, reassuring learning modules for families
 - **Reviewed family questions:** a small local answer set currently presented within Understand My Child
