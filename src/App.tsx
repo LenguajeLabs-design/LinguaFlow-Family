@@ -192,8 +192,19 @@ const academyPhotos = [
     alt: "Two Asian school-age children writing together",
   },
   {
+    image: activities.find((activity) => activity.id === "echo-reading")!.image,
+    alt: activities.find((activity) => activity.id === "echo-reading")!
+      .imageAlt.en,
+  },
+  {
     image: academyReading,
     alt: "An Asian mother supporting her daughter with a book",
+  },
+  {
+    image: activities.find((activity) => activity.id === "kitchen-describer")!
+      .image,
+    alt: activities.find((activity) => activity.id === "kitchen-describer")!
+      .imageAlt.en,
   },
   {
     image: academyConfidence,
@@ -204,12 +215,34 @@ const academyPhotos = [
     alt: "An Asian family talking together around schoolwork",
   },
   {
+    image: activities.find((activity) => activity.id === "family-journal")!
+      .image,
+    alt: activities.find((activity) => activity.id === "family-journal")!
+      .imageAlt.en,
+  },
+  {
+    image: activities.find((activity) => activity.id === "word-hunt")!.image,
+    alt: activities.find((activity) => activity.id === "word-hunt")!.imageAlt
+      .en,
+  },
+  {
     image: academySchool,
     alt: "An Asian father encouraging his daughter during homework",
   },
+  {
+    image: activities.find((activity) => activity.id === "would-you-rather")!
+      .image,
+    alt: activities.find((activity) => activity.id === "would-you-rather")!
+      .imageAlt.en,
+  },
+  {
+    image: activities.find((activity) => activity.id === "picture-talk")!.image,
+    alt: activities.find((activity) => activity.id === "picture-talk")!
+      .imageAlt.en,
+  },
 ];
 const academyPhotoForLesson = (number: number) =>
-  academyPhotos[[0, 1, 2, 3, 4, 1, 5, 0, 2, 4, 5, 3][number - 1] ?? 0];
+  academyPhotos[number - 1] ?? academyPhotos[0];
 
 function readRoute() {
   const parts = window.location.hash

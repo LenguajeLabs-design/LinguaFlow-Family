@@ -24,7 +24,7 @@ The people depicted are illustrative stock-photo models. Their appearance does n
 
 ## Parent Academy editorial photography
 
-These six images form a reusable editorial set across the twelve core lessons.
+These six images are combined with the credited activity photography above to give all twelve core lessons a more varied editorial sequence. Images from the same shoot are deliberately separated rather than shown on adjacent cards.
 
 | Theme | Photographer | Source | Local asset |
 |---|---|---|---|
