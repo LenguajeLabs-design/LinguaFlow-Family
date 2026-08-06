@@ -41,10 +41,10 @@ export const questions = [
 ]
 
 export const phrases = [
-  { category: 'Reading', en: 'What do you think will happen next?', zh: '你觉得接下来会发生什么？', ko: '다음에는 무슨 일이 일어날 것 같아?' },
-  { category: 'Conversation', en: 'Tell me more about your day.', zh: '再多告诉我一点今天发生的事吧。', ko: '오늘 있었던 일을 더 이야기해 줘.' },
-  { category: 'Encouragement', en: 'I noticed how hard you worked.', zh: '我看到你真的很努力。', ko: '네가 얼마나 열심히 했는지 보았어.' },
-  { category: 'Homework', en: 'Show me what you understand so far.', zh: '给我看看你到目前为止理解了什么。', ko: '지금까지 이해한 것을 보여 줘.' },
-  { category: 'School', en: 'What is one question we can ask your teacher?', zh: '我们可以问老师哪一个问题？', ko: '선생님께 어떤 질문을 하나 해볼까?' },
-  { category: 'Feelings', en: 'It is okay to take your time.', zh: '慢慢来没关系。', ko: '천천히 해도 괜찮아.' },
+  { category: 'Progress', en: 'Could you show me an example of my child’s work?', zh: '您可以给我看一个孩子的作业示例吗？', ko: '우리 아이가 한 과제의 예를 보여 주실 수 있나요?' },
+  { category: 'Participation', en: 'How does my child participate during class?', zh: '我的孩子在课堂上是怎样参与的？', ko: '우리 아이는 수업에 어떻게 참여하나요?' },
+  { category: 'Language support', en: 'What language support is my child receiving?', zh: '我的孩子目前正在接受哪些语言支持？', ko: '우리 아이는 어떤 언어 지원을 받고 있나요?' },
+  { category: 'Strengths', en: 'When does my child communicate most confidently?', zh: '我的孩子在什么时候最有信心地交流？', ko: '우리 아이는 언제 가장 자신 있게 의사소통하나요?' },
+  { category: 'Next step', en: 'What is one goal we can support at home?', zh: '我们可以在家支持孩子实现哪一个目标？', ko: '집에서 도울 수 있는 한 가지 목표는 무엇인가요?' },
+  { category: 'Communication', en: 'Who should I contact when I have a question?', zh: '如果我有问题，应该联系谁？', ko: '질문이 있을 때 누구에게 연락하면 되나요?' },
 ]
