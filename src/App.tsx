@@ -811,25 +811,37 @@ function LaunchToday({
           <div>
             <Chip className="mb-5 bg-teal-50 text-teal-800">
               <Sparkles size={14} className="mr-1.5" />
-              {t.try}
+              {lang === "en"
+                ? "Free support for multilingual families"
+                : lang === "zh"
+                  ? "为多语言家庭提供的免费支持"
+                  : "다언어 가정을 위한 무료 지원"}
             </Chip>
             <h1 className="font-display max-w-3xl text-balance text-4xl font-bold leading-[1.04] tracking-[-.035em] text-stone-800 md:text-6xl">
-              {t.welcome}
+              {lang === "en"
+                ? "Help your child grow—without leaving your home language behind."
+                : lang === "zh"
+                  ? "帮助孩子成长，同时珍惜您的家庭语言。"
+                  : "가족의 언어를 지키며 아이의 성장을 도와주세요."}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-stone-600 md:text-xl">
-              {t.welcomeSub}
+              {lang === "en"
+                ? "Practical activities, clear guidance, and help with school conversations—for families of children ages 6–14."
+                : lang === "zh"
+                  ? "为 6–14 岁孩子的家庭提供实用活动、清晰指导和学校沟通支持。"
+                  : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
             </p>
-            <a
-              href="#/weekly/home-language-superpower"
+            <button
+              onClick={() => go("activities")}
               className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-stone-800 px-5 font-black text-white shadow-sm transition hover:bg-stone-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
             >
               {lang === "en"
-                ? "Read this week’s idea"
+                ? "Find an activity for tonight"
                 : lang === "zh"
-                  ? "阅读本周内容"
-                  : "이번 주 이야기 읽기"}
+                  ? "寻找今晚可以做的活动"
+                  : "오늘 저녁 활동 찾기"}
               <ArrowRight size={18} />
-            </a>
+            </button>
           </div>
           <Card className="overflow-hidden">
             <img
@@ -940,6 +952,66 @@ function LaunchToday({
               detail={t.school}
               onClick={() => go("school")}
             />
+          </div>
+        </div>
+      </section>
+      <section className="px-4 py-10 md:px-8 md:py-14">
+        <div className="mx-auto grid max-w-6xl gap-5 rounded-[2rem] border border-stone-200 bg-white p-6 shadow-sm md:grid-cols-[1.1fr_.9fr] md:p-9">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[.14em] text-teal-700">
+              {lang === "en"
+                ? "Made to feel safe and useful"
+                : lang === "zh"
+                  ? "安心、实用的家庭支持"
+                  : "안심하고 쓸 수 있는 실용적인 도움"}
+            </p>
+            <h2 className="font-display mt-3 text-3xl font-bold text-stone-800">
+              {lang === "en"
+                ? "No account. No judgment. No need for perfect English."
+                : lang === "zh"
+                  ? "无需账户，不作评判，也不需要完美的英语。"
+                  : "계정도, 평가도, 완벽한 영어도 필요하지 않아요."}
+            </h2>
+            <div className="mt-5 grid gap-3 text-sm font-bold text-stone-600 sm:grid-cols-3">
+              {[
+                lang === "en" ? "Private by design" : lang === "zh" ? "隐私优先" : "개인정보 우선",
+                lang === "en" ? "Research-informed" : lang === "zh" ? "以研究为基础" : "연구를 바탕으로",
+                lang === "en" ? "Home language welcome" : lang === "zh" ? "欢迎使用家庭语言" : "가족 언어 환영",
+              ].map((item) => (
+                <span key={item} className="flex items-center gap-2">
+                  <Check size={17} className="shrink-0 text-teal-700" />
+                  {item}
+                </span>
+              ))}
+            </div>
+            <a
+              href="#/about"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg font-black text-teal-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
+            >
+              {lang === "en" ? "How we create and review guidance" : lang === "zh" ? "了解内容如何创建与审核" : "콘텐츠 제작과 검토 방식"}
+              <ArrowRight size={17} />
+            </a>
+          </div>
+          <div className="rounded-2xl bg-stone-50 p-5 md:p-6">
+            <p className="font-black text-stone-800">
+              {lang === "en" ? "Two companion pieces" : lang === "zh" ? "两个相互配合的资源" : "서로 이어지는 두 가지 자료"}
+            </p>
+            <p className="mt-3 leading-7 text-stone-600">
+              {lang === "en"
+                ? "My Multilingual Family shares the why. LinguaFlow Family helps you put it into practice."
+                : lang === "zh"
+                  ? "My Multilingual Family 讲述为什么；LinguaFlow Family 帮助您付诸实践。"
+                  : "My Multilingual Family는 이유를 나누고, LinguaFlow Family는 실천을 돕습니다."}
+            </p>
+            <a
+              href="https://www.mymultilingualfamily.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg font-black text-teal-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
+            >
+              {lang === "en" ? "Read My Multilingual Family" : lang === "zh" ? "阅读 My Multilingual Family" : "My Multilingual Family 읽기"}
+              <ExternalLink size={17} />
+            </a>
           </div>
         </div>
       </section>
