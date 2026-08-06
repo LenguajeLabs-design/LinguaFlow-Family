@@ -12,7 +12,7 @@ The application mark is stored at `src/assets/linguaflow-family-logo.png`. It is
 - **Activities:** 12 curated activities balanced across ages 6–14, with age, time, and goal filters
 - **Understand My Child:** WIDA-friendly language-development explanations and common parent questions
 - **Parent Academy:** short, reassuring learning modules for families
-- **Find an Answer:** an honest local finder for a small library of expert-reviewed parent answers
+- **Reviewed family questions:** a small local answer set currently presented within Understand My Child
 - **School Connection:** meeting prompts and copyable phrases for common parent–child and school conversations
 - Direct, shareable hash URLs for activities, lessons, and weekly newsletter features
 - Locally remembered language and age preferences without an account or backend
@@ -107,7 +107,7 @@ Content should be reviewed by fluent speakers and an EAL specialist before publi
 
 ## Current limitations
 
-The language selector changes the primary UI and seeded content, while the full Parent Academy lesson bodies remain English-first. Find an Answer searches a small local reviewed library; it is not live chat or an AI assistant and deliberately shows a no-answer state when a reliable match is unavailable. Only language and age preferences currently persist between visits.
+The language selector changes the primary UI and seeded content, while the full Parent Academy lesson bodies remain English-first. The standalone answer finder is intentionally hidden until the reviewed library is deep enough to support the promise. Only language and age preferences currently persist between visits.
 
 ## Photography
 

@@ -152,7 +152,6 @@ const nav = [
   { id: "activities", icon: Sparkles },
   { id: "understand", icon: Heart },
   { id: "academy", icon: GraduationCap },
-  { id: "ask", icon: MessageCircle },
   { id: "school", icon: School },
 ] as const;
 const languageNames = { en: "English", zh: "中文", ko: "한국어" };
@@ -231,13 +230,14 @@ function readRoute() {
     };
   if (parts[0] === "weekly")
     return { page: "weekly" as Page, activityId: null, lesson: 0 };
+  if (parts[0] === "ask")
+    return { page: "understand" as Page, activityId: null, lesson: 0 };
   const page = (
     [
       "today",
       "activities",
       "understand",
       "academy",
-      "ask",
       "school",
       "about",
       "privacy",
