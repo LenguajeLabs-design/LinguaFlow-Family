@@ -56,6 +56,8 @@ The MVP intentionally uses a simple local data layer and React state. It has no 
 
 The complete English Parent Academy editorial source—including website and newsletter versions—is stored in `content/parent-academy-lessons.md`. The app publishes the 12 core website lessons and retains the optional lessons and newsletter copy for editorial use.
 
+Activity research is preserved in `content/research-based-activity-library.md`. It is intentionally integrated in stages so the public library stays balanced across ages 6–14; incomplete research batches are not automatically published.
+
 The UI uses React + Vite + TypeScript, Tailwind CSS v4, shadcn-style component conventions, and Lucide icons.
 
 ## Extending the content
