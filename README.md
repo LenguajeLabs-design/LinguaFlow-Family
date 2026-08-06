@@ -32,6 +32,14 @@ npm run build
 npm run lint
 ```
 
+## Live site
+
+The production site is deployed automatically from `main` with GitHub Actions:
+
+[https://lenguajelabs-design.github.io/LinguaFlow-Family/](https://lenguajelabs-design.github.io/LinguaFlow-Family/)
+
+Every push to `main` runs a clean install, builds the Vite application, and publishes the generated `dist` directory to GitHub Pages.
+
 ## Architecture
 
 ```text
