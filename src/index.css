@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal-50: #edfafa;
+  --color-teal-100: #d5f4f2;
+  --color-teal-700: #199fa7;
+  --color-teal-800: #16858f;
+  --color-stone-50: #f8f9fc;
+  --color-stone-100: #f1f3f8;
+  --color-stone-200: #e0e4ed;
+  --color-stone-300: #c9cfdd;
+  --color-stone-400: #929bb0;
+  --color-stone-500: #707a92;
+  --color-stone-600: #59637a;
+  --color-stone-700: #424b61;
+  --color-stone-800: #242938;
+  --color-stone-900: #171b27;
+  --color-amber-50: #f6f3ff;
+  --color-amber-100: #eee9ff;
+  --color-amber-200: #e0d7ff;
+  --color-amber-300: #d3c5ff;
+  --color-amber-800: #6953b7;
+  --color-amber-900: #51408f;
+}
+
+:root { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #242938; background: #f7f8fc; font-synthesis: none; --lf-cyan: #20b7b0; --lf-blue: #2da5dd; --lf-violet: #7664dc; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: radial-gradient(circle at 8% 4%, rgba(32, 183, 176, .1), transparent 30rem), radial-gradient(circle at 92% 12%, rgba(118, 100, 220, .1), transparent 32rem), #f7f8fc; }
+button, select, input { font: inherit; }
+button { cursor: pointer; }
+::selection { background: #d6d0ff; color: #242938; }
+.text-balance { text-wrap: balance; }
+.safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+.font-display { font-family: Georgia, "Times New Roman", serif; }
+.lf-gradient { background-image: linear-gradient(120deg, var(--lf-cyan), var(--lf-blue) 52%, var(--lf-violet)); }
+.lf-gradient-text { background-image: linear-gradient(120deg, #159fa4, #367fcf 52%, #6f5bd3); background-clip: text; color: transparent; }
+.lf-hero { background: linear-gradient(145deg, #168b99 0%, #248fbe 52%, #6558c9 100%); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
