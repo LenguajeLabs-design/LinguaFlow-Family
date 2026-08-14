@@ -1052,18 +1052,17 @@ function LaunchToday({
         : "아이의 나이";
   return (
     <>
-      <section className="px-4 pb-10 pt-10 md:px-8 md:pb-16 md:pt-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1fr_.95fr]">
+      <section className="field-guide-hero px-4 pb-12 pt-11 md:px-8 md:pb-20 md:pt-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
           <div>
-            <Chip className="mb-5 bg-teal-50 text-teal-800">
-              <Sparkles size={14} className="mr-1.5" />
+            <p className="guide-kicker mb-6">
               {lang === "en"
-                ? "Free support for multilingual families"
+                ? "A field guide for multilingual families"
                 : lang === "zh"
-                  ? "为多语言家庭提供的免费支持"
-                  : "다언어 가정을 위한 무료 지원"}
-            </Chip>
-            <h1 className="font-display max-w-3xl text-balance text-4xl font-bold leading-[1.04] tracking-[-.035em] text-stone-800 md:text-6xl">
+                  ? "多语言家庭行动指南"
+                  : "다언어 가정을 위한 실천 안내"}
+            </p>
+            <h1 className="font-display max-w-3xl text-balance text-[2.7rem] font-bold leading-[.98] tracking-[-.045em] text-stone-800 md:text-[4.5rem]">
               {lang === "en"
                 ? "Help your child grow—without leaving your home language behind."
                 : lang === "zh"
@@ -1077,10 +1076,11 @@ function LaunchToday({
                   ? "为 6–14 岁孩子的家庭提供实用活动、清晰指导和学校沟通支持。"
                   : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
             </p>
-            <button
-              onClick={startTonight}
-              className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-stone-800 px-5 font-black text-white shadow-sm transition hover:bg-stone-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
-            >
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              <button
+                onClick={startTonight}
+                className="inline-flex min-h-13 items-center gap-2 rounded-full bg-stone-800 px-6 font-black text-white shadow-[0_12px_28px_rgba(36,41,56,.2)] transition hover:-translate-y-0.5 hover:bg-stone-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
+              >
               {hasPreferredAge
                 ? lang === "en"
                   ? "Start tonight’s activity"
@@ -1092,21 +1092,28 @@ function LaunchToday({
                   : lang === "zh"
                     ? "选择年龄，获取今晚的活动"
                     : "나이를 선택해 오늘 활동 받기"}
-              <ArrowRight size={18} />
-            </button>
+                <ArrowRight size={18} />
+              </button>
+              <span className="guide-note">
+                {lang === "en" ? "Any language. Ten good minutes." : lang === "zh" ? "任何语言，认真陪伴十分钟。" : "어떤 언어든, 좋은 10분이면 충분해요."}
+              </span>
+            </div>
           </div>
-          <Card className="overflow-hidden">
+          <Card className="guide-card overflow-hidden">
             <img
               src={featured.image}
               alt={featured.imageAlt[lang]}
               className="h-52 w-full object-cover"
             />
-            <div className="p-6 md:p-7">
+            <div className="p-6 md:p-8">
+              <span className="guide-index">
+                {lang === "en" ? "Tonight · 01" : lang === "zh" ? "今晚 · 01" : "오늘 · 01"}
+              </span>
               <div className="flex flex-wrap gap-2">
                 <Chip>{featured.ages.join(", ")}</Chip>
                 <Chip>{featured.time}</Chip>
               </div>
-              <h2 className="font-display mt-4 text-3xl font-bold text-stone-800">
+              <h2 className="font-display mt-5 text-3xl font-bold tracking-[-.025em] text-stone-800">
                 {featured.title[lang]}
               </h2>
               <p className="mt-3 leading-7 text-stone-600">
@@ -1121,7 +1128,7 @@ function LaunchToday({
         </div>
       </section>
       <section className="px-4 pb-10 md:px-8 md:pb-16">
-        <div className="mx-auto max-w-6xl rounded-3xl border border-stone-200 bg-white p-5 shadow-sm md:flex md:items-center md:justify-between md:p-6">
+        <div className="mx-auto max-w-6xl rounded-[1.25rem] border border-stone-300/70 bg-[#fbfaf6] p-5 shadow-[0_12px_36px_rgba(36,41,56,.06)] md:flex md:items-center md:justify-between md:p-6">
           <div>
             <p className="font-black text-stone-800">{ageLabel}</p>
             <p className="mt-1 text-sm text-stone-500">
@@ -1134,7 +1141,7 @@ function LaunchToday({
           </div>
           <div
             ref={ageChoicesRef}
-            className="mt-4 flex flex-wrap gap-2 md:mt-0"
+            className="age-route mt-4 flex flex-wrap gap-2 md:mt-0 md:min-w-[22rem] md:justify-between"
             aria-label={ageLabel}
           >
             {["6–8", "9–11", "12–14"].map((age) => (
@@ -1142,7 +1149,7 @@ function LaunchToday({
                 key={age}
                 onClick={() => setPreferredAge(age)}
                 className={cn(
-                  "min-h-11 rounded-full border px-5 font-black focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
+                  "min-h-11 rounded-full border px-5 font-black shadow-[0_0_0_5px_#fbfaf6] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
                   preferredAge === age
                     ? "border-teal-700 bg-teal-50 text-teal-800"
                     : "border-stone-200 bg-white text-stone-600 hover:border-teal-300",
@@ -1339,7 +1346,7 @@ function ActivityCard({
   return (
     <button
       onClick={onClick}
-      className="group w-full overflow-hidden rounded-[1.5rem] border border-stone-200/80 bg-white/95 text-left shadow-[0_12px_36px_rgba(52,63,99,.07)] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(52,63,99,.12)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
+      className="editorial-card group w-full overflow-hidden border border-stone-200/80 bg-white/95 text-left transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(36,41,56,.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
     >
       <div className="relative h-44 overflow-hidden bg-stone-100">
         <img
