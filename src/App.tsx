@@ -159,9 +159,35 @@ const nav = [
   { id: "today", icon: Home },
   { id: "activities", icon: Sparkles },
   { id: "understand", icon: Heart },
-  { id: "academy", icon: GraduationCap },
   { id: "school", icon: School },
+  { id: "academy", icon: GraduationCap },
 ] as const;
+const navigationLabels: Record<
+  Language,
+  Record<(typeof nav)[number]["id"], string>
+> = {
+  en: {
+    today: "Start here",
+    activities: "Learn together",
+    understand: "Understand my child",
+    school: "Talk with school",
+    academy: "Support their learning",
+  },
+  zh: {
+    today: "从这里开始",
+    activities: "一起学习",
+    understand: "了解我的孩子",
+    school: "与学校沟通",
+    academy: "支持孩子学习",
+  },
+  ko: {
+    today: "여기서 시작",
+    activities: "함께 배우기",
+    understand: "우리 아이 이해하기",
+    school: "학교와 대화하기",
+    academy: "아이의 학습 돕기",
+  },
+};
 const languageNames = { en: "English", zh: "中文", ko: "한국어" };
 
 type AcademyLesson = {
@@ -294,6 +320,18 @@ function readRoute() {
 const routeForPage = (page: Page) =>
   page === "today" ? "#/today" : `#/${page}`;
 
+const tonightActivityByAge: Record<string, string> = {
+  "6–8": "picture-talk",
+  "9–11": "explain-it",
+  "12–14": "teach-rules",
+};
+
+const getTonightActivity = (age: string) =>
+  activities.find(
+    (activity) =>
+      activity.id === (tonightActivityByAge[age] ?? "picture-talk"),
+  ) ?? activities[0];
+
 function App() {
   const initialRoute = readRoute();
   const [lang, setLang] = useState<Language>(
@@ -358,7 +396,13 @@ function App() {
           </button>
           <nav
             className="ml-4 hidden flex-1 items-center justify-center gap-1 lg:flex"
-            aria-label="Main navigation"
+            aria-label={
+              lang === "en"
+                ? "Main navigation"
+                : lang === "zh"
+                  ? "主导航"
+                  : "주요 탐색"
+            }
           >
             {nav.map(({ id, icon: Icon }) => (
               <a
@@ -373,7 +417,7 @@ function App() {
                 aria-current={page === id ? "page" : undefined}
               >
                 <Icon size={17} />
-                {t[id]}
+                {navigationLabels[lang][id]}
               </a>
             ))}
           </nav>
@@ -397,7 +441,19 @@ function App() {
           <button
             onClick={() => setMenu(!menu)}
             className="grid size-11 place-items-center rounded-full hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20 lg:hidden"
-            aria-label={menu ? "Close menu" : "Open menu"}
+            aria-label={
+              lang === "en"
+                ? menu
+                  ? "Close menu"
+                  : "Open menu"
+                : lang === "zh"
+                  ? menu
+                    ? "关闭菜单"
+                    : "打开菜单"
+                  : menu
+                    ? "메뉴 닫기"
+                    : "메뉴 열기"
+            }
             aria-expanded={menu}
           >
             {menu ? <X /> : <Menu />}
@@ -406,7 +462,13 @@ function App() {
         {menu && (
           <nav
             className="border-t border-stone-200 bg-white p-3 lg:hidden"
-            aria-label="Mobile navigation"
+            aria-label={
+              lang === "en"
+                ? "Mobile navigation"
+                : lang === "zh"
+                  ? "移动导航"
+                  : "모바일 탐색"
+            }
           >
             {nav.map(({ id, icon: Icon }) => (
               <a
@@ -419,7 +481,7 @@ function App() {
                 aria-current={page === id ? "page" : undefined}
               >
                 <Icon size={19} />
-                {t[id]}
+                {navigationLabels[lang][id]}
               </a>
             ))}
           </nav>
@@ -966,15 +1028,22 @@ function LaunchToday({
   preferredAge: string;
   setPreferredAge: (age: string) => void;
 }) {
-  const activityByAge: Record<string, string> = {
-    "6–8": "picture-talk",
-    "9–11": "explain-it",
-    "12–14": "teach-rules",
+  const featured = getTonightActivity(preferredAge);
+  const hasPreferredAge = preferredAge in tonightActivityByAge;
+  const ageChoicesRef = useRef<HTMLDivElement>(null);
+  const startTonight = () => {
+    if (hasPreferredAge) {
+      select(featured);
+      return;
+    }
+    ageChoicesRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    ageChoicesRef.current
+      ?.querySelector<HTMLButtonElement>("button")
+      ?.focus({ preventScroll: true });
   };
-  const featured =
-    activities.find(
-      (a) => a.id === (activityByAge[preferredAge] || "explain-it"),
-    ) ?? activities[0];
   const ageLabel =
     lang === "en"
       ? "Your child’s age"
@@ -1009,14 +1078,20 @@ function LaunchToday({
                   : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
             </p>
             <button
-              onClick={() => go("activities")}
+              onClick={startTonight}
               className="mt-7 inline-flex min-h-12 items-center gap-2 rounded-full bg-stone-800 px-5 font-black text-white shadow-sm transition hover:bg-stone-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
             >
-              {lang === "en"
-                ? "Find an activity for tonight"
-                : lang === "zh"
-                  ? "寻找今晚可以做的活动"
-                  : "오늘 저녁 활동 찾기"}
+              {hasPreferredAge
+                ? lang === "en"
+                  ? "Start tonight’s activity"
+                  : lang === "zh"
+                    ? "开始今晚的活动"
+                    : "오늘 저녁 활동 시작하기"
+                : lang === "en"
+                  ? "Choose an age for tonight"
+                  : lang === "zh"
+                    ? "选择年龄，获取今晚的活动"
+                    : "나이를 선택해 오늘 활동 받기"}
               <ArrowRight size={18} />
             </button>
           </div>
@@ -1057,7 +1132,11 @@ function LaunchToday({
                   : "한 번만 선택하면 이 기기에 기억해 둘게요."}
             </p>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2 md:mt-0">
+          <div
+            ref={ageChoicesRef}
+            className="mt-4 flex flex-wrap gap-2 md:mt-0"
+            aria-label={ageLabel}
+          >
             {["6–8", "9–11", "12–14"].map((age) => (
               <button
                 key={age}
@@ -1397,8 +1476,7 @@ function Activities({
       ),
     [age, time, goal],
   );
-  const featured =
-    activities.find((a) => a.id === "picture-talk") ?? activities[0];
+  const featured = getTonightActivity(age);
   return (
     <PageShell
       eyebrow={t.activities}
