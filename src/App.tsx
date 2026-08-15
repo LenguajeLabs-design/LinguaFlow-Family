@@ -32,6 +32,7 @@ import { cn } from "./lib/utils";
 import logo from "./assets/linguaflow-family-logo.png";
 import familyTutoring from "./assets/family/family-tutoring.jpg";
 import academySource from "../content/parent-academy-lessons.md?raw";
+import academySourceEs from "../content/parent-academy-lessons.es.md?raw";
 import academyFamilyLanguage from "./assets/academy/family-language.jpg";
 import academyThinking from "./assets/academy/thinking.jpg";
 import academyReading from "./assets/academy/reading.jpg";
@@ -87,6 +88,42 @@ const labels: Record<Language, Record<string, string>> = {
       "Useful questions and phrases for talking with your child’s teacher.",
     meeting: "Questions for a teacher meeting",
     language: "Language",
+  },
+  es: {
+    today: "Hoy",
+    reading: "Ayuda con la lectura",
+    writing: "Ayuda con la escritura",
+    activities: "Actividades",
+    understand: "Comprender a mi hijo",
+    academy: "Academia de padres",
+    ask: "Buscar una respuesta",
+    school: "Conexión escolar",
+    welcome: "Una idea útil para esta semana.",
+    welcomeSub:
+      "Una manera pequeña y práctica de apoyar a su hijo mientras mantiene fuerte su idioma materno.",
+    try: "Esta semana",
+    minutes: "minutos",
+    start: "Pruebe esta actividad",
+    why: "Por qué ayuda",
+    whyText:
+      "La conversación diaria desarrolla vocabulario, confianza y conexión. No es necesario corregir cada palabra.",
+    explore: "Explorar actividades",
+    all: "Todo",
+    search: "Buscar actividades",
+    common: "Preguntas comunes de los padres",
+    wida: "WIDA, en lenguaje sencillo",
+    copy: "Copiar frase",
+    copied: "Copiado",
+    askTitle: "Encuentre una respuesta clara.",
+    askSub:
+      "Explore orientación revisada por expertos para preguntas comunes de familias multilingües.",
+    askPlaceholder: "Pruebe “¿Por qué mi hijo está callado en la escuela?”",
+    find: "Buscar una respuesta",
+    schoolTitle: "Prepárese para la próxima conversación con la escuela.",
+    schoolSub:
+      "Preguntas y frases útiles para hablar con el docente de su hijo.",
+    meeting: "Preguntas para una reunión con el docente",
+    language: "Idioma",
   },
   zh: {
     today: "今天",
@@ -173,6 +210,13 @@ const navigationLabels: Record<
     school: "Talk with school",
     academy: "Support their learning",
   },
+  es: {
+    today: "Empiece aquí",
+    activities: "Aprender juntos",
+    understand: "Comprender a mi hijo",
+    school: "Hablar con la escuela",
+    academy: "Apoyar su aprendizaje",
+  },
   zh: {
     today: "从这里开始",
     activities: "一起学习",
@@ -188,7 +232,12 @@ const navigationLabels: Record<
     academy: "아이의 학습 돕기",
   },
 };
-const languageNames = { en: "English", zh: "中文", ko: "한국어" };
+const languageNames = {
+  en: "English",
+  zh: "中文",
+  es: "Español",
+  ko: "한국어",
+};
 
 type AcademyLesson = {
   number: number;
@@ -196,7 +245,8 @@ type AcademyLesson = {
   website: string;
   newsletter: string;
 };
-const academyLessons: AcademyLesson[] = academySource
+const parseAcademyLessons = (source: string): AcademyLesson[] =>
+  source
   .split(/\n(?=# (?:Optional )?Lesson \d+:)/)
   .map((block) => {
     const heading = block.match(/^# (?:Optional )?Lesson (\d+): (.+)$/m);
@@ -216,6 +266,14 @@ const academyLessons: AcademyLesson[] = academySource
       : null;
   })
   .filter((lesson): lesson is AcademyLesson => lesson !== null);
+const academyLessons = parseAcademyLessons(academySource);
+const academyLessonsEs = parseAcademyLessons(
+  academySourceEs
+    .replace(/^# Lección opcional /gm, "# Optional Lesson ")
+    .replace(/^# Lección /gm, "# Lesson ")
+    .replace(/^## Lección del sitio web$/gm, "## Website Lesson")
+    .replace(/^## Versión del boletín$/gm, "## Newsletter Version"),
+);
 const academyPhotos = [
   {
     image: academyFamilyLanguage,
@@ -401,7 +459,7 @@ function App() {
                 ? "Main navigation"
                 : lang === "zh"
                   ? "主导航"
-                  : "주요 탐색"
+                  : lang === "es" ? "Navegación principal" : "주요 탐색"
             }
           >
             {nav.map(({ id, icon: Icon }) => (
@@ -450,9 +508,13 @@ function App() {
                   ? menu
                     ? "关闭菜单"
                     : "打开菜单"
-                  : menu
-                    ? "메뉴 닫기"
-                    : "메뉴 열기"
+                  : lang === "es"
+                    ? menu
+                      ? "Cerrar menú"
+                      : "Abrir menú"
+                    : menu
+                      ? "메뉴 닫기"
+                      : "메뉴 열기"
             }
             aria-expanded={menu}
           >
@@ -467,7 +529,7 @@ function App() {
                 ? "Mobile navigation"
                 : lang === "zh"
                   ? "移动导航"
-                  : "모바일 탐색"
+                  : lang === "es" ? "Navegación móvil" : "모바일 탐색"
             }
           >
             {nav.map(({ id, icon: Icon }) => (
@@ -516,8 +578,8 @@ function App() {
             LinguaFlow <span className="lf-gradient-text">Family</span>
           </span>
           <span>
-            Home language is a strength. · 家庭语言是一种力量。 · 가정의 언어는
-            힘입니다.
+            Home language is a strength. · 家庭语言是一种力量。 · La lengua
+            familiar es una fortaleza. · 가정의 언어는 힘입니다.
           </span>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a href="#/about" className="min-h-11 py-3 font-bold text-teal-700">
@@ -525,13 +587,13 @@ function App() {
                 ? "About & trust"
                 : lang === "zh"
                   ? "关于与内容审核"
-                  : "소개 및 신뢰"}
+                  : lang === "es" ? "Acerca de LinguaFlow" : "소개 및 신뢰"}
             </a>
             <a
               href="#/privacy"
               className="min-h-11 py-3 font-bold text-teal-700"
             >
-              {lang === "en" ? "Privacy" : lang === "zh" ? "隐私" : "개인정보"}
+              {lang === "en" ? "Privacy" : lang === "zh" ? "隐私" : lang === "es" ? "Privacidad" : "개인정보"}
             </a>
             <a
               href="https://www.mymultilingualfamily.com/"
@@ -543,7 +605,7 @@ function App() {
                 ? "Full family guide"
                 : lang === "zh"
                   ? "完整家庭指南"
-                  : "전체 가족 가이드"}
+                  : lang === "es" ? "Guía completa para familias" : "전체 가족 가이드"}
               <ExternalLink size={15} />
             </a>
           </div>
@@ -643,9 +705,13 @@ function LiteracyPath({
           ? writing
             ? "写作支持"
             : "阅读支持"
-          : writing
-            ? "쓰기 도움"
-            : "읽기 도움",
+          : lang === "es"
+            ? writing
+              ? "Ayuda con la escritura"
+              : "Ayuda con la lectura"
+            : writing
+              ? "쓰기 도움"
+              : "읽기 도움",
     title:
       lang === "en"
         ? writing
@@ -655,9 +721,13 @@ function LiteracyPath({
           ? writing
             ? "好的写作可以从说一说开始。"
             : "从一次有意义的对话开始。"
-          : writing
-            ? "좋은 글쓰기는 말하기에서 시작할 수 있어요."
-            : "좋은 대화 하나로 시작하세요.",
+          : lang === "es"
+            ? writing
+              ? "La buena escritura puede comenzar hablando."
+              : "Comience con una buena conversación."
+            : writing
+              ? "좋은 글쓰기는 말하기에서 시작할 수 있어요."
+              : "좋은 대화 하나로 시작하세요.",
     subtitle:
       lang === "en"
         ? writing
@@ -667,15 +737,19 @@ function LiteracyPath({
           ? writing
             ? "您不需要纠正每一个错误。先帮助孩子说一说、画一画，找到自己想表达的内容，再考虑英语是否完美。"
             : "您不需要教英语。用最自然的语言聊一聊书，可以帮助孩子理解阅读并享受阅读。"
-          : writing
-            ? "모든 실수를 고칠 필요는 없어요. 완벽한 영어보다 먼저 말하고, 그리고, 표현할 생각을 찾도록 도와주세요."
-            : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
+          : lang === "es"
+            ? writing
+              ? "No necesita corregir cada error. Ayude a su hijo a hablar, dibujar y descubrir lo que quiere decir antes de preocuparse por un inglés perfecto."
+              : "No tiene que enseñar inglés. Hablar sobre un libro en el idioma que resulte natural ayuda a su hijo a comprender y disfrutar la lectura."
+            : writing
+              ? "모든 실수를 고칠 필요는 없어요. 완벽한 영어보다 먼저 말하고, 그리고, 표현할 생각을 찾도록 도와주세요."
+              : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
     start:
       lang === "en"
         ? "Start here · Ages 6–8"
         : lang === "zh"
           ? "从这里开始 · 6–8 岁"
-          : "여기서 시작 · 6–8세",
+          : lang === "es" ? "Comience aquí · Edades 6 a 8" : "여기서 시작 · 6–8세",
     promise:
       lang === "en"
         ? writing
@@ -685,9 +759,13 @@ function LiteracyPath({
           ? writing
             ? "让孩子先说出一个小瞬间，再画下来并加上几个词。想法比拼写完美更重要。"
             : "读文字之前，先一起看看图画。认真陪伴五分钟就已经足够。"
-          : writing
-            ? "작은 순간을 먼저 말하고, 그림으로 그리고, 단어 몇 개를 더해 보세요. 완벽한 철자보다 생각이 중요해요."
-            : "글을 읽기 전에 그림을 함께 살펴보세요. 마음을 나눈 5분이면 충분해요.",
+          : lang === "es"
+            ? writing
+              ? "Invite a su hijo a contar en voz alta un pequeño momento, dibujarlo y añadir algunas palabras. La idea importa más que una ortografía perfecta."
+              : "Antes de leer las palabras, exploren juntos las imágenes. Cinco minutos atentos son suficientes."
+            : writing
+              ? "작은 순간을 먼저 말하고, 그림으로 그리고, 단어 몇 개를 더해 보세요. 완벽한 철자보다 생각이 중요해요."
+              : "글을 읽기 전에 그림을 함께 살펴보세요. 마음을 나눈 5분이면 충분해요.",
     button:
       lang === "en"
         ? writing
@@ -697,9 +775,13 @@ function LiteracyPath({
           ? writing
             ? "试试家庭日记"
             : "试试阅读前看图"
-          : writing
-            ? "가족 일기 해보기"
-            : "그림 산책 해보기",
+          : lang === "es"
+            ? writing
+              ? "Pruebe el diario familiar"
+              : "Pruebe el paseo por las imágenes"
+            : writing
+              ? "가족 일기 해보기"
+              : "그림 산책 해보기",
     reassurance:
       lang === "en"
         ? writing
@@ -709,15 +791,19 @@ function LiteracyPath({
           ? writing
             ? "孩子可以先用家庭语言构思和表达，再用英语、家庭语言或两种语言来写。丰富的思考最重要。"
             : "家庭语言不是替代方案，而是孩子用来思考、好奇和建立联系的语言。"
-          : writing
-            ? "가족 언어로 계획하고 말한 뒤 영어, 가족 언어, 또는 두 언어로 쓸 수 있어요. 풍부한 생각이 먼저예요."
-            : "가족 언어는 임시방편이 아니에요. 아이가 생각하고 궁금해하고 연결하는 언어예요.",
+          : lang === "es"
+            ? writing
+              ? "Su hijo puede planificar y hablar en la lengua familiar y después escribir en inglés, en esa lengua o en ambas. El pensamiento rico viene primero."
+              : "La lengua familiar no es una solución provisional. Es el idioma que su hijo puede usar para pensar, preguntarse y conectar."
+            : writing
+              ? "가족 언어로 계획하고 말한 뒤 영어, 가족 언어, 또는 두 언어로 쓸 수 있어요. 풍부한 생각이 먼저예요."
+              : "가족 언어는 임시방편이 아니에요. 아이가 생각하고 궁금해하고 연결하는 언어예요.",
     all:
       lang === "en"
         ? "Explore all family activities"
         : lang === "zh"
           ? "浏览所有亲子活动"
-          : "모든 가족 활동 보기",
+          : lang === "es" ? "Explora todas las actividades familiares" : "모든 가족 활동 보기",
   };
   return (
     <PageShell
@@ -762,9 +848,13 @@ function LiteracyPath({
                   ? writing
                     ? "先有想法，再考虑是否正确。"
                     : "使用最能表达丰富想法的语言。"
-                  : writing
-                    ? "생각이 먼저예요. 정확함은 나중에 다듬어도 돼요."
-                    : "가장 풍부한 생각이 나오는 언어를 사용하세요."}
+                  : lang === "es"
+                    ? writing
+                      ? "Primero las ideas. La corrección puede venir después."
+                      : "Use el idioma que haga surgir las mejores ideas."
+                    : writing
+                      ? "생각이 먼저예요. 정확함은 나중에 다듬어도 돼요."
+                      : "가장 풍부한 생각이 나오는 언어를 사용하세요."}
             </h2>
             <p className="mt-4 leading-7 text-teal-50">{copy.reassurance}</p>
           </div>
@@ -849,14 +939,14 @@ function Today({
               ? "Start with what you need"
               : lang === "zh"
                 ? "从您现在需要的开始"
-                : "지금 필요한 것부터 시작하세요"}
+                : lang === "es" ? "Comienza con lo que necesitas" : "지금 필요한 것부터 시작하세요"}
           </p>
           <h2 className="font-display mt-2 text-3xl font-bold text-stone-800">
             {lang === "en"
               ? "What would help today?"
               : lang === "zh"
                 ? "今天什么最能帮助您？"
-                : "오늘 어떤 도움이 필요하신가요?"}
+                : lang === "es" ? "¿Qué ayudaría hoy?" : "오늘 어떤 도움이 필요하신가요?"}
           </h2>
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             <button
@@ -872,7 +962,7 @@ function Today({
                     ? "Something to do tonight"
                     : lang === "zh"
                       ? "今晚可以做的活动"
-                      : "오늘 저녁에 할 활동"}
+                      : lang === "es" ? "algo que hacer esta noche" : "오늘 저녁에 할 활동"}
                 </strong>
                 <span className="mt-1 block text-sm text-stone-500">
                   {t.try}
@@ -893,7 +983,7 @@ function Today({
                     ? "A question about my child"
                     : lang === "zh"
                       ? "关于孩子的问题"
-                      : "아이에 관한 질문"}
+                      : lang === "es" ? "Una pregunta sobre mi hijo" : "아이에 관한 질문"}
                 </strong>
                 <span className="mt-1 block text-sm text-stone-500">
                   {t.ask}
@@ -914,7 +1004,7 @@ function Today({
                     ? "Help talking with school"
                     : lang === "zh"
                       ? "帮助我与学校沟通"
-                      : "학교와 대화하는 데 도움"}
+                      : lang === "es" ? "Ayuda para hablar con la escuela." : "학교와 대화하는 데 도움"}
                 </strong>
                 <span className="mt-1 block text-sm text-stone-500">
                   {t.school}
@@ -936,7 +1026,7 @@ function Today({
                     ? "A school-age child learning with a trusted adult at home"
                     : lang === "zh"
                       ? "一名学龄儿童在家与可信赖的成年人一起学习"
-                      : "학령기 아이가 집에서 믿을 수 있는 어른과 함께 배우는 모습"
+                      : lang === "es" ? "Un niño en edad escolar aprendiendo con un adulto de confianza en casa" : "학령기 아이가 집에서 믿을 수 있는 어른과 함께 배우는 모습"
                 }
                 loading="lazy"
                 className="h-full w-full object-cover"
@@ -954,21 +1044,21 @@ function Today({
                   ? "Every family belongs"
                   : lang === "zh"
                     ? "每个家庭都属于这里"
-                    : "모든 가족을 위한 공간"}
+                    : lang === "es" ? "cada familia pertenece" : "모든 가족을 위한 공간"}
               </p>
               <h2 className="font-display mt-3 text-3xl font-bold tracking-tight text-stone-800 md:text-4xl">
                 {lang === "en"
                   ? "Your language. Your stories. Your strength."
                   : lang === "zh"
                     ? "您的语言、您的故事、您的力量。"
-                    : "우리의 언어, 이야기, 그리고 힘."}
+                    : lang === "es" ? "Tu idioma. Tus historias. Tu fuerza." : "우리의 언어, 이야기, 그리고 힘."}
               </h2>
               <p className="mt-4 max-w-xl leading-7 text-stone-600">
                 {lang === "en"
                   ? "Children grow when families talk, read, laugh, and wonder together—in any language. LinguaFlow Family starts with what you already do well."
                   : lang === "zh"
                     ? "当家人用任何语言一起交谈、阅读、欢笑和探索时，孩子都会成长。LinguaFlow Family 从您已经做得很好的事情开始。"
-                    : "가족이 어떤 언어로든 함께 이야기하고, 읽고, 웃고, 궁금해할 때 아이는 자랍니다. LinguaFlow Family는 이미 잘하고 계신 것에서 시작해요."}
+                    : lang === "es" ? "Los niños crecen cuando las familias hablan, leen, ríen y se preguntan juntas, en cualquier idioma. LinguaFlow Family comienza con lo que ya haces bien." : "가족이 어떤 언어로든 함께 이야기하고, 읽고, 웃고, 궁금해할 때 아이는 자랍니다. LinguaFlow Family는 이미 잘하고 계신 것에서 시작해요."}
               </p>
             </div>
           </div>
@@ -1049,7 +1139,7 @@ function LaunchToday({
       ? "Your child’s age"
       : lang === "zh"
         ? "孩子的年龄"
-        : "아이의 나이";
+        : lang === "es" ? "La edad de su hijo" : "아이의 나이";
   return (
     <>
       <section className="field-guide-hero px-4 pb-12 pt-11 md:px-8 md:pb-20 md:pt-20">
@@ -1060,21 +1150,21 @@ function LaunchToday({
                 ? "A field guide for multilingual families"
                 : lang === "zh"
                   ? "多语言家庭行动指南"
-                  : "다언어 가정을 위한 실천 안내"}
+                  : lang === "es" ? "Una guía de campo para familias multilingües" : "다언어 가정을 위한 실천 안내"}
             </p>
             <h1 className="font-display max-w-3xl text-balance text-[2.7rem] font-bold leading-[.98] tracking-[-.045em] text-stone-800 md:text-[4.5rem]">
               {lang === "en"
                 ? "Help your child grow—without leaving your home language behind."
                 : lang === "zh"
                   ? "帮助孩子成长，同时珍惜您的家庭语言。"
-                  : "가족의 언어를 지키며 아이의 성장을 도와주세요."}
+                  : lang === "es" ? "Ayude a su hijo a crecer, sin dejar atrás la lengua familiar." : "가족의 언어를 지키며 아이의 성장을 도와주세요."}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-stone-600 md:text-xl">
               {lang === "en"
                 ? "Practical activities, clear guidance, and help with school conversations—for families of children ages 6–14."
                 : lang === "zh"
                   ? "为 6–14 岁孩子的家庭提供实用活动、清晰指导和学校沟通支持。"
-                  : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
+                  : lang === "es" ? "Actividades prácticas, orientación clara y ayuda con conversaciones escolares, para familias de niños de 6 a 14 años." : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <button
@@ -1086,16 +1176,16 @@ function LaunchToday({
                   ? "Start tonight’s activity"
                   : lang === "zh"
                     ? "开始今晚的活动"
-                    : "오늘 저녁 활동 시작하기"
+                    : lang === "es" ? "Empiece la actividad de esta noche" : "오늘 저녁 활동 시작하기"
                 : lang === "en"
                   ? "Choose an age for tonight"
                   : lang === "zh"
                     ? "选择年龄，获取今晚的活动"
-                    : "나이를 선택해 오늘 활동 받기"}
+                    : lang === "es" ? "Elija una edad para esta noche" : "나이를 선택해 오늘 활동 받기"}
                 <ArrowRight size={18} />
               </button>
               <span className="guide-note">
-                {lang === "en" ? "Any language. Ten good minutes." : lang === "zh" ? "任何语言，认真陪伴十分钟。" : "어떤 언어든, 좋은 10분이면 충분해요."}
+                {lang === "en" ? "Any language. Ten good minutes." : lang === "zh" ? "任何语言，认真陪伴十分钟。" : lang === "es" ? "Cualquier idioma. Diez buenos minutos." : "어떤 언어든, 좋은 10분이면 충분해요."}
               </span>
             </div>
           </div>
@@ -1107,7 +1197,7 @@ function LaunchToday({
             />
             <div className="p-6 md:p-8">
               <span className="guide-index">
-                {lang === "en" ? "Tonight · 01" : lang === "zh" ? "今晚 · 01" : "오늘 · 01"}
+                {lang === "en" ? "Tonight · 01" : lang === "zh" ? "今晚 · 01" : lang === "es" ? "Esta noche · 01" : "오늘 · 01"}
               </span>
               <div className="flex flex-wrap gap-2">
                 <Chip>{featured.ages.join(", ")}</Chip>
@@ -1136,7 +1226,7 @@ function LaunchToday({
                 ? "Choose once. We will remember on this device."
                 : lang === "zh"
                   ? "只需选择一次，我们会在此设备上记住。"
-                  : "한 번만 선택하면 이 기기에 기억해 둘게요."}
+                  : lang === "es" ? "Elija una vez. Lo recordaremos en este dispositivo." : "한 번만 선택하면 이 기기에 기억해 둘게요."}
             </p>
           </div>
           <div
@@ -1169,14 +1259,14 @@ function LaunchToday({
               ? "Start with what you need"
               : lang === "zh"
                 ? "从您需要的开始"
-                : "필요한 것부터 시작하세요"}
+                : lang === "es" ? "Empiece por lo que necesita" : "필요한 것부터 시작하세요"}
           </p>
           <h2 className="font-display mt-2 text-3xl font-bold text-stone-800">
             {lang === "en"
               ? "How can we help today?"
               : lang === "zh"
                 ? "今天我们能如何帮助您？"
-                : "오늘 어떤 도움을 드릴까요?"}
+                : lang === "es" ? "¿Cómo podemos ayudar hoy?" : "오늘 어떤 도움을 드릴까요?"}
           </h2>
           <div className="mt-6 grid gap-3 md:grid-cols-2">
             <PathButton
@@ -1186,14 +1276,14 @@ function LaunchToday({
                   ? "Help with reading"
                   : lang === "zh"
                     ? "帮助孩子阅读"
-                    : "읽기 도와주기"
+                    : lang === "es" ? "Ayuda con la lectura" : "읽기 도와주기"
               }
               detail={
                 lang === "en"
                   ? "Start with ages 6–8"
                   : lang === "zh"
                     ? "从 6–8 岁开始"
-                    : "6–8세부터 시작"
+                    : lang === "es" ? "Comience con edades entre 6 y 8 años" : "6–8세부터 시작"
               }
               onClick={() => go("reading")}
             />
@@ -1204,14 +1294,14 @@ function LaunchToday({
                   ? "Help with writing"
                   : lang === "zh"
                     ? "帮助孩子写作"
-                    : "쓰기 도와주기"
+                    : lang === "es" ? "Ayuda con la escritura" : "쓰기 도와주기"
               }
               detail={
                 lang === "en"
                   ? "Start with ages 6–8"
                   : lang === "zh"
                     ? "从 6–8 岁开始"
-                    : "6–8세부터 시작"
+                    : lang === "es" ? "Comience con edades entre 6 y 8 años" : "6–8세부터 시작"
               }
               onClick={() => go("writing")}
             />
@@ -1222,7 +1312,7 @@ function LaunchToday({
                   ? "Understand my child"
                   : lang === "zh"
                     ? "了解我的孩子"
-                    : "우리 아이 이해하기"
+                    : lang === "es" ? "Comprender a mi hijo" : "우리 아이 이해하기"
               }
               detail={t.understand}
               onClick={() => go("understand")}
@@ -1234,7 +1324,7 @@ function LaunchToday({
                   ? "Prepare for school"
                   : lang === "zh"
                     ? "准备学校沟通"
-                    : "학교 대화 준비하기"
+                    : lang === "es" ? "Prepararse para hablar con la escuela" : "학교 대화 준비하기"
               }
               detail={t.school}
               onClick={() => go("school")}
@@ -1250,20 +1340,20 @@ function LaunchToday({
                 ? "Made to feel safe and useful"
                 : lang === "zh"
                   ? "安心、实用的家庭支持"
-                  : "안심하고 쓸 수 있는 실용적인 도움"}
+                  : lang === "es" ? "Diseñado para ser seguro y útil" : "안심하고 쓸 수 있는 실용적인 도움"}
             </p>
             <h2 className="font-display mt-3 text-3xl font-bold text-stone-800">
               {lang === "en"
                 ? "No account. No judgment. No need for perfect English."
                 : lang === "zh"
                   ? "无需账户，不作评判，也不需要完美的英语。"
-                  : "계정도, 평가도, 완벽한 영어도 필요하지 않아요."}
+                  : lang === "es" ? "Sin cuenta. Sin juicios. Sin necesidad de un inglés perfecto." : "계정도, 평가도, 완벽한 영어도 필요하지 않아요."}
             </h2>
             <div className="mt-5 grid gap-3 text-sm font-bold text-stone-600 sm:grid-cols-3">
               {[
-                lang === "en" ? "Private by design" : lang === "zh" ? "隐私优先" : "개인정보 우선",
-                lang === "en" ? "Research-informed" : lang === "zh" ? "以研究为基础" : "연구를 바탕으로",
-                lang === "en" ? "Home language welcome" : lang === "zh" ? "欢迎使用家庭语言" : "가족 언어 환영",
+                lang === "en" ? "Private by design" : lang === "zh" ? "隐私优先" : lang === "es" ? "Privacidad desde el diseño" : "개인정보 우선",
+                lang === "en" ? "Research-informed" : lang === "zh" ? "以研究为基础" : lang === "es" ? "Basado en la investigación" : "연구를 바탕으로",
+                lang === "en" ? "Home language welcome" : lang === "zh" ? "欢迎使用家庭语言" : lang === "es" ? "La lengua familiar es bienvenida" : "가족 언어 환영",
               ].map((item) => (
                 <span key={item} className="flex items-center gap-2">
                   <Check size={17} className="shrink-0 text-teal-700" />
@@ -1275,20 +1365,20 @@ function LaunchToday({
               href="#/about"
               className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg font-black text-teal-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
             >
-              {lang === "en" ? "How we create and review guidance" : lang === "zh" ? "了解内容如何创建与审核" : "콘텐츠 제작과 검토 방식"}
+              {lang === "en" ? "How we create and review guidance" : lang === "zh" ? "了解内容如何创建与审核" : lang === "es" ? "Cómo creamos y revisamos la orientación" : "콘텐츠 제작과 검토 방식"}
               <ArrowRight size={17} />
             </a>
           </div>
           <div className="rounded-2xl bg-stone-50 p-5 md:p-6">
             <p className="font-black text-stone-800">
-              {lang === "en" ? "Two companion pieces" : lang === "zh" ? "两个相互配合的资源" : "서로 이어지는 두 가지 자료"}
+              {lang === "en" ? "Two companion pieces" : lang === "zh" ? "两个相互配合的资源" : lang === "es" ? "Dos piezas complementarias" : "서로 이어지는 두 가지 자료"}
             </p>
             <p className="mt-3 leading-7 text-stone-600">
               {lang === "en"
                 ? "My Multilingual Family shares the why. LinguaFlow Family helps you put it into practice."
                 : lang === "zh"
                   ? "My Multilingual Family 讲述为什么；LinguaFlow Family 帮助您付诸实践。"
-                  : "My Multilingual Family는 이유를 나누고, LinguaFlow Family는 실천을 돕습니다."}
+                  : lang === "es" ? "My Multilingual Family explica el porqué. LinguaFlow Family le ayuda a ponerlo en práctica." : "My Multilingual Family는 이유를 나누고, LinguaFlow Family는 실천을 돕습니다."}
             </p>
             <a
               href="https://www.mymultilingualfamily.com/"
@@ -1296,7 +1386,7 @@ function LaunchToday({
               rel="noreferrer"
               className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg font-black text-teal-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
             >
-              {lang === "en" ? "Read My Multilingual Family" : lang === "zh" ? "阅读 My Multilingual Family" : "My Multilingual Family 읽기"}
+              {lang === "en" ? "Read My Multilingual Family" : lang === "zh" ? "阅读 My Multilingual Family" : lang === "es" ? "Leer Mi familia multilingüe" : "My Multilingual Family 읽기"}
               <ExternalLink size={17} />
             </a>
           </div>
@@ -1405,73 +1495,73 @@ function Activities({
   const [time, setTime] = useState("all");
   const [goal, setGoal] = useState("all");
   const copy = {
-    age: lang === "en" ? "Age" : lang === "zh" ? "年龄" : "나이",
-    time: lang === "en" ? "Time" : lang === "zh" ? "时间" : "시간",
-    goal: lang === "en" ? "Goal" : lang === "zh" ? "目标" : "목표",
-    all: lang === "en" ? "Any" : lang === "zh" ? "不限" : "전체",
+    age: lang === "en" ? "Age" : lang === "zh" ? "年龄" : lang === "es" ? "Edad" : "나이",
+    time: lang === "en" ? "Time" : lang === "zh" ? "时间" : lang === "es" ? "Tiempo" : "시간",
+    goal: lang === "en" ? "Goal" : lang === "zh" ? "目标" : lang === "es" ? "Meta" : "목표",
+    all: lang === "en" ? "Any" : lang === "zh" ? "不限" : lang === "es" ? "Cualquiera" : "전체",
     quick:
       lang === "en"
         ? "10 min or less"
         : lang === "zh"
           ? "10 分钟以内"
-          : "10분 이내",
+          : lang === "es" ? "10 minutos o menos" : "10분 이내",
     talk:
       lang === "en"
         ? "Talk & explain"
         : lang === "zh"
           ? "交流与表达"
-          : "대화와 설명",
+          : lang === "es" ? "Habla y explica" : "대화와 설명",
     read:
       lang === "en"
         ? "Read & understand"
         : lang === "zh"
           ? "阅读与理解"
-          : "읽기와 이해",
-    write: lang === "en" ? "Write" : lang === "zh" ? "写作" : "쓰기",
+          : lang === "es" ? "Leer y comprender" : "읽기와 이해",
+    write: lang === "en" ? "Write" : lang === "zh" ? "写作" : lang === "es" ? "Escribir" : "쓰기",
     words:
-      lang === "en" ? "Build vocabulary" : lang === "zh" ? "积累词汇" : "어휘",
+      lang === "en" ? "Build vocabulary" : lang === "zh" ? "积累词汇" : lang === "es" ? "Desarrollar vocabulario" : "어휘",
     school:
       lang === "en"
         ? "School confidence"
         : lang === "zh"
           ? "学校信心"
-          : "학교 자신감",
+          : lang === "es" ? "Confianza escolar" : "학교 자신감",
     identity:
       lang === "en"
         ? "Family language"
         : lang === "zh"
           ? "家庭语言"
-          : "가족 언어",
+          : lang === "es" ? "Lengua familiar" : "가족 언어",
     found:
       lang === "en"
         ? `${activities.length} carefully chosen activities`
         : lang === "zh"
           ? `${activities.length} 个精心挑选的活动`
-          : `엄선한 활동 ${activities.length}개`,
+          : lang === "es" ? `${activities.length} actividades cuidadosamente elegidas` : `엄선한 활동 ${activities.length}개`,
     noMatch:
       lang === "en"
         ? "No activities match those choices. Try clearing one filter."
         : lang === "zh"
           ? "没有符合这些条件的活动，请尝试取消一个筛选条件。"
-          : "조건에 맞는 활동이 없어요. 필터 하나를 해제해 보세요.",
+          : lang === "es" ? "Ninguna actividad coincide con esas opciones. Intente borrar un filtro." : "조건에 맞는 활동이 없어요. 필터 하나를 해제해 보세요.",
     clear:
       lang === "en"
         ? "Clear filters"
         : lang === "zh"
           ? "清除筛选"
-          : "필터 지우기",
+          : lang === "es" ? "Limpiar filtros" : "필터 지우기",
     tonight:
       lang === "en"
         ? "Not sure? Try this tonight."
         : lang === "zh"
           ? "不知道选什么？今晚试试这个。"
-          : "무엇을 고를지 모르겠다면 오늘 저녁 이것부터 해 보세요.",
+          : lang === "es" ? "¿No sabe cuál elegir? Pruebe esta actividad esta noche." : "무엇을 고를지 모르겠다면 오늘 저녁 이것부터 해 보세요.",
     curated:
       lang === "en"
         ? "Start with one. Five or ten good minutes is enough."
         : lang === "zh"
           ? "从一个开始。认真陪伴五到十分钟就已经足够。"
-          : "하나만 시작하세요. 좋은 5분이나 10분이면 충분해요.",
+          : lang === "es" ? "Comience con uno. Cinco o diez buenos minutos son suficientes." : "하나만 시작하세요. 좋은 5분이나 10분이면 충분해요.",
   };
   const list = useMemo(
     () =>
@@ -1492,14 +1582,14 @@ function Activities({
           ? "Easy ways to learn together."
           : lang === "zh"
             ? "一起学习，可以很简单。"
-            : "함께 배우는 쉬운 방법이에요."
+            : lang === "es" ? "Maneras fáciles de aprender juntos." : "함께 배우는 쉬운 방법이에요."
       }
       subtitle={
         lang === "en"
           ? "No worksheets. No English expertise needed. Choose one activity and make it your own."
           : lang === "zh"
             ? "不需要练习册，也不要求您精通英语。选择一个活动，用适合自己家庭的方式来做。"
-            : "학습지도, 뛰어난 영어 실력도 필요 없어요. 활동 하나를 골라 우리 가족답게 해보세요."
+            : lang === "es" ? "Sin fichas de trabajo ni conocimientos especializados de inglés. Elija una actividad y adáptela a su familia." : "학습지도, 뛰어난 영어 실력도 필요 없어요. 활동 하나를 골라 우리 가족답게 해보세요."
       }
     >
       <Card className="mb-8 overflow-hidden border-teal-100 bg-teal-800 text-white">
@@ -1618,57 +1708,57 @@ function ActivityDetail({
         ? "Try saying"
         : lang === "zh"
           ? "可以这样说"
-          : "이렇게 말해 보세요",
+          : lang === "es" ? "Intenta decir" : "이렇게 말해 보세요",
     home:
       lang === "en"
         ? "Your home language belongs here"
         : lang === "zh"
           ? "欢迎使用家庭语言"
-          : "가족 언어를 사용하세요",
+          : lang === "es" ? "Tu idioma materno pertenece aquí" : "가족 언어를 사용하세요",
     adjust:
       lang === "en"
         ? "Make it fit your child"
         : lang === "zh"
           ? "根据孩子情况调整"
-          : "아이에게 맞게 조절하세요",
+          : lang === "es" ? "Haz que se adapte a tu hijo" : "아이에게 맞게 조절하세요",
     easier:
-      lang === "en" ? "Make it easier" : lang === "zh" ? "更简单" : "더 쉽게",
+      lang === "en" ? "Make it easier" : lang === "zh" ? "更简单" : lang === "es" ? "Hazlo más fácil" : "더 쉽게",
     stretch:
       lang === "en"
         ? "Add a challenge"
         : lang === "zh"
           ? "增加挑战"
-          : "도전 더하기",
+          : lang === "es" ? "Añadir un desafío" : "도전 더하기",
     steps:
       lang === "en"
         ? "Three simple steps"
         : lang === "zh"
           ? "三个简单步骤"
-          : "간단한 세 단계",
+          : lang === "es" ? "Tres sencillos pasos" : "간단한 세 단계",
     related:
       lang === "en"
         ? "Learn more in Parent Academy"
         : lang === "zh"
           ? "在家长课堂中了解更多"
-          : "부모 아카데미에서 더 알아보기",
+          : lang === "es" ? "Obtenga más información en la Academia para padres" : "부모 아카데미에서 더 알아보기",
     success:
       lang === "en"
         ? "What success looks like"
         : lang === "zh"
           ? "成功可以是什么样子"
-          : "이 정도면 충분해요",
+          : lang === "es" ? "Cómo se ve el éxito" : "이 정도면 충분해요",
     pictureWalkSuccess:
       lang === "en"
         ? "Not a perfect prediction—just your child noticing the pictures and wanting to know what happens next."
         : lang === "zh"
           ? "不需要猜得完全正确。孩子愿意观察图画，并想知道接下来会发生什么，就已经很好。"
-          : "완벽하게 예상할 필요는 없어요. 아이가 그림을 살펴보고 다음 이야기를 궁금해하면 충분해요.",
+          : lang === "es" ? "No es una predicción perfecta: simplemente su hijo nota las imágenes y quiere saber qué sucederá a continuación." : "완벽하게 예상할 필요는 없어요. 아이가 그림을 살펴보고 다음 이야기를 궁금해하면 충분해요.",
     familyJournalSuccess:
       lang === "en"
         ? "A drawing, one label, or one sentence is enough. Success is your child finding something they want to say."
         : lang === "zh"
           ? "一幅画、一个标签或一句话就已经足够。孩子找到自己想表达的内容，就是成功。"
-          : "그림 하나, 이름표 하나, 문장 하나면 충분해요. 아이가 표현하고 싶은 것을 찾았다면 성공이에요.",
+          : lang === "es" ? "Un dibujo, una etiqueta o una frase es suficiente. El éxito es que su hijo encuentre algo que quiera decir." : "그림 하나, 이름표 하나, 문장 하나면 충분해요. 아이가 표현하고 싶은 것을 찾았다면 성공이에요.",
   };
   const lesson =
     activity.goal === "read"
@@ -1815,14 +1905,14 @@ function Understand({
           ? "Language growth is a journey, not a race."
           : lang === "zh"
             ? "语言成长是一段旅程，不是一场比赛。"
-            : "언어 성장은 경주가 아니라 여정입니다."
+            : lang === "es" ? "El crecimiento del lenguaje es un viaje, no una carrera." : "언어 성장은 경주가 아니라 여정입니다."
       }
       subtitle={
         lang === "en"
           ? "Clear, reassuring explanations for the questions families ask most."
           : lang === "zh"
             ? "为家长最关心的问题提供清晰、安心的解释。"
-            : "가족들이 가장 많이 묻는 질문에 명확하고 안심되는 설명을 드려요."
+            : lang === "es" ? "Explicaciones claras y tranquilizadoras para las preguntas que más hacen las familias." : "가족들이 가장 많이 묻는 질문에 명확하고 안심되는 설명을 드려요."
       }
     >
       <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
@@ -1840,7 +1930,10 @@ function Understand({
               {questions[3].a[lang]}
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {["Listening", "Speaking", "Reading", "Writing"].map((x) => (
+              {(lang === "es"
+                ? ["Comprensión auditiva", "Expresión oral", "Lectura", "Escritura"]
+                : ["Listening", "Speaking", "Reading", "Writing"]
+              ).map((x) => (
                 <Chip key={x} className="bg-white/12 text-white">
                   {x}
                 </Chip>
@@ -1907,21 +2000,22 @@ function Academy({
   selectedNumber: number;
   openLesson: (n: number) => void;
 }) {
+  const localizedLessons = lang === "es" ? academyLessonsEs : academyLessons;
   const selectedLesson =
-    academyLessons.find((x) => x.number === selectedNumber) || null;
-  const visibleLessons = academyLessons.filter((x) => x.number <= 12);
+    localizedLessons.find((x) => x.number === selectedNumber) || null;
+  const visibleLessons = localizedLessons.filter((x) => x.number <= 12);
   if (selectedLesson) {
     const photo = academyPhotoForLesson(selectedLesson.number);
     return (
       <PageShell
-        eyebrow={`${t.academy} · ${lang === "en" ? `Lesson ${selectedLesson.number}` : lang === "zh" ? `第 ${selectedLesson.number} 课` : `${selectedLesson.number}강`}`}
+        eyebrow={`${t.academy} · ${lang === "en" ? `Lesson ${selectedLesson.number}` : lang === "zh" ? `第 ${selectedLesson.number} 课` : lang === "es" ? `Lección ${selectedLesson.number}` : `${selectedLesson.number}강`}`}
         title={selectedLesson.title}
         subtitle={
           lang === "en"
             ? "One useful idea and one small action for this week."
             : lang === "zh"
               ? "本周一个实用想法和一个小行动。"
-              : "이번 주를 위한 유용한 생각 하나와 작은 실천 하나."
+              : lang === "es" ? "Una idea útil y una pequeña acción para esta semana." : "이번 주를 위한 유용한 생각 하나와 작은 실천 하나."
         }
       >
         <a
@@ -1933,9 +2027,9 @@ function Academy({
             ? "All Parent Academy lessons"
             : lang === "zh"
               ? "所有家长课堂课程"
-              : "모든 부모 아카데미 수업"}
+              : lang === "es" ? "Todas las lecciones de la Academia para padres" : "모든 부모 아카데미 수업"}
         </a>
-        {lang !== "en" && (
+        {lang !== "en" && lang !== "es" && (
           <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-bold text-amber-900">
             {lang === "zh"
               ? "本课程目前提供英文版本。中文翻译正在准备中。"
@@ -1945,7 +2039,11 @@ function Academy({
         <Card className="mx-auto max-w-3xl overflow-hidden">
           <img
             src={photo.image}
-            alt={photo.alt}
+            alt={
+              lang === "es"
+                ? "Una familia aprendiendo junta en casa"
+                : photo.alt
+            }
             className="h-56 w-full object-cover md:h-72"
           />
           <div className="p-6 md:p-10">
@@ -1964,14 +2062,14 @@ function Academy({
           ? "Short lessons. Lasting confidence."
           : lang === "zh"
             ? "简短课程，带来长久信心。"
-            : "짧은 배움으로 오래가는 자신감을."
+            : lang === "es" ? "Lecciones cortas. Confianza duradera." : "짧은 배움으로 오래가는 자신감을."
       }
       subtitle={
         lang === "en"
           ? "Choose one question that matters to your family today. You can come back for the rest later."
           : lang === "zh"
             ? "选择一个今天对您家庭最重要的问题，其余内容可以以后再看。"
-            : "오늘 우리 가족에게 중요한 질문 하나를 골라보세요. 나머지는 나중에 다시 볼 수 있어요."
+            : lang === "es" ? "Elija una pregunta importante para su familia hoy. Puede volver a las demás más adelante." : "오늘 우리 가족에게 중요한 질문 하나를 골라보세요. 나머지는 나중에 다시 볼 수 있어요."
       }
     >
       <Card className="mb-8 grid overflow-hidden md:grid-cols-[.85fr_1.15fr]">
@@ -1987,25 +2085,25 @@ function Academy({
               ? "Made for real family life"
               : lang === "zh"
                 ? "为真实的家庭生活而设计"
-                : "실제 가족의 일상을 위해"}
+                : lang === "es" ? "Pensado para la vida familiar real" : "실제 가족의 일상을 위해"}
           </Chip>
           <h2 className="font-display mt-4 text-3xl font-bold text-stone-800">
             {lang === "en"
               ? "You do not have to become the teacher."
               : lang === "zh"
                 ? "您不必成为老师。"
-                : "부모님이 선생님이 될 필요는 없어요."}
+                : lang === "es" ? "No tiene que convertirse en docente." : "부모님이 선생님이 될 필요는 없어요."}
           </h2>
           <p className="mt-3 leading-7 text-stone-600">
             {lang === "en"
               ? "Your role is connection: noticing, listening, asking, and encouraging. Each lesson ends with one small thing to try."
               : lang === "zh"
                 ? "您的角色是建立连接：观察、倾听、提问和鼓励。每节课最后都有一个可以尝试的小行动。"
-                : "부모님의 역할은 연결입니다. 살펴보고, 듣고, 질문하고, 격려해 주세요. 각 수업은 작은 실천 하나로 끝납니다."}
+                : lang === "es" ? "Su papel es conectar: observar, escuchar, preguntar y animar. Cada lección termina con una pequeña acción que puede probar." : "부모님의 역할은 연결입니다. 살펴보고, 듣고, 질문하고, 격려해 주세요. 각 수업은 작은 실천 하나로 끝납니다."}
           </p>
         </div>
       </Card>
-      {lang !== "en" && (
+      {lang !== "en" && lang !== "es" && (
         <p className="mb-5 text-sm font-bold text-stone-500">
           {lang === "zh"
             ? "完整课程目前为英文版；中文翻译正在准备中。"
@@ -2023,7 +2121,11 @@ function Academy({
               <div className="h-36 overflow-hidden bg-stone-100">
                 <img
                   src={photo.image}
-                  alt={photo.alt}
+                  alt={
+                    lang === "es"
+                      ? "Una familia aprendiendo junta en casa"
+                      : photo.alt
+                  }
                   loading="lazy"
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]"
                 />
@@ -2034,7 +2136,7 @@ function Academy({
                     ? `Lesson ${lesson.number}`
                     : lang === "zh"
                       ? `第 ${lesson.number} 课`
-                      : `${lesson.number}강`}
+                      : lang === "es" ? `Lección ${lesson.number}` : `${lesson.number}강`}
                 </p>
                 <h2 className="mt-2 text-xl font-black text-stone-800">
                   {lesson.title}
@@ -2047,7 +2149,7 @@ function Academy({
                     ? "Read lesson"
                     : lang === "zh"
                       ? "阅读英文课程"
-                      : "영어 수업 읽기"}
+                      : lang === "es" ? "Leer la lección" : "영어 수업 읽기"}
                   <ArrowRight size={17} />
                 </button>
               </div>
@@ -2076,7 +2178,7 @@ function RelatedActivity({ lang, lesson }: { lang: Language; lesson: number }) {
           ? "Try this next"
           : lang === "zh"
             ? "接下来试试"
-            : "다음으로 해 보세요"}
+            : lang === "es" ? "Prueba esto a continuación" : "다음으로 해 보세요"}
       </p>
       <a
         href={`#/activity/${activity.id}`}
@@ -2145,7 +2247,7 @@ function Ask({ lang, t }: { lang: Language; t: Record<string, string> }) {
               ? "Start with one question"
               : lang === "zh"
                 ? "从一个问题开始"
-                : "질문 하나로 시작하세요"}
+                : lang === "es" ? "Comience con una pregunta" : "질문 하나로 시작하세요"}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {questions.slice(0, 3).map((item) => (
@@ -2166,7 +2268,7 @@ function Ask({ lang, t }: { lang: Language; t: Record<string, string> }) {
               ? "Or search in your own words"
               : lang === "zh"
                 ? "或者用您自己的话搜索"
-                : "또는 직접 검색해 보세요"}
+                : lang === "es" ? "O busca con tus propias palabras" : "또는 직접 검색해 보세요"}
           </label>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             <input
@@ -2198,7 +2300,9 @@ function Ask({ lang, t }: { lang: Language; t: Record<string, string> }) {
                       ? "A helpful next step: share this question with your child’s teacher."
                       : lang === "zh"
                         ? "下一步建议：也可以把这个问题告诉孩子的老师。"
-                        : "도움이 되는 다음 단계: 이 질문을 아이의 선생님과 나눠보세요."}
+                        : lang === "es"
+                          ? "Un siguiente paso útil: comparta esta pregunta con el maestro de su hijo."
+                          : "도움이 되는 다음 단계: 이 질문을 아이의 선생님과 나눠보세요."}
                   </p>
                 </div>
               </div>
@@ -2218,7 +2322,7 @@ function Ask({ lang, t }: { lang: Language; t: Record<string, string> }) {
                 ? "Explore the full family guide"
                 : lang === "zh"
                   ? "浏览完整的家庭指南"
-                  : "전체 가족 가이드 살펴보기"}
+                  : lang === "es" ? "Explora la guía familiar completa" : "전체 가족 가이드 살펴보기"}
             </strong>
             <span className="mt-1 block text-sm text-stone-500">
               My Multilingual Family
@@ -2263,7 +2367,7 @@ function FindAnswers({
       ? "We don’t have a reviewed answer for that yet."
       : lang === "zh"
         ? "我们暂时还没有针对此问题的审核答案。"
-        : "아직 검토된 답변이 없어요.";
+        : lang === "es" ? "Aún no tenemos una respuesta revisada para eso." : "아직 검토된 답변이 없어요.";
   return (
     <PageShell eyebrow={t.ask} title={t.askTitle} subtitle={t.askSub}>
       <div className="mx-auto max-w-3xl">
@@ -2273,7 +2377,7 @@ function FindAnswers({
               ? "Choose a common question"
               : lang === "zh"
                 ? "选择一个常见问题"
-                : "자주 묻는 질문을 골라보세요"}
+                : lang === "es" ? "Elija una pregunta común" : "자주 묻는 질문을 골라보세요"}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {questions.map((item) => (
@@ -2294,7 +2398,7 @@ function FindAnswers({
               ? "Or search in your own words"
               : lang === "zh"
                 ? "或者用您自己的话搜索"
-                : "또는 직접 검색해 보세요"}
+                : lang === "es" ? "O busca con tus propias palabras" : "또는 직접 검색해 보세요"}
           </label>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             <input
@@ -2330,14 +2434,14 @@ function FindAnswers({
                         ? "Find a related activity →"
                         : lang === "zh"
                           ? "查找相关活动 →"
-                          : "관련 활동 찾기 →"}
+                          : lang === "es" ? "Encuentra una actividad relacionada →" : "관련 활동 찾기 →"}
                     </a>
                     <a href="#/school" className="font-black text-teal-800">
                       {lang === "en"
                         ? "Prepare a teacher question →"
                         : lang === "zh"
                           ? "准备一个教师问题 →"
-                          : "교사 질문 준비하기 →"}
+                          : lang === "es" ? "Prepara una pregunta del profesor →" : "교사 질문 준비하기 →"}
                     </a>
                   </div>
                 </div>
@@ -2352,7 +2456,7 @@ function FindAnswers({
                     ? "Try one of the reviewed questions above, explore the family guide, or bring a school-specific concern to your child’s teacher."
                     : lang === "zh"
                       ? "请尝试上方经审核的问题、浏览家庭指南，或向孩子的老师咨询学校相关问题。"
-                      : "위의 검토된 질문을 선택하거나 가족 가이드를 살펴보고, 학교 관련 문제는 아이의 선생님과 나눠 주세요."}
+                      : lang === "es" ? "Pruebe una de las preguntas revisadas anteriormente, explore la guía familiar o plantee una inquietud específica de la escuela al maestro de su hijo." : "위의 검토된 질문을 선택하거나 가족 가이드를 살펴보고, 학교 관련 문제는 아이의 선생님과 나눠 주세요."}
                 </p>
               </div>
             )
@@ -2363,7 +2467,7 @@ function FindAnswers({
             ? "General educational guidance only. Please do not enter names, assessment records, or other identifying information."
             : lang === "zh"
               ? "本页面仅提供一般教育指导。请勿输入姓名、评估记录或其他身份信息。"
-              : "일반적인 교육 안내만 제공합니다. 이름, 평가 기록 등 개인을 식별할 수 있는 정보는 입력하지 마세요."}
+              : lang === "es" ? "Orientación educativa general únicamente. No ingrese nombres, registros de evaluaciones u otra información de identificación." : "일반적인 교육 안내만 제공합니다. 이름, 평가 기록 등 개인을 식별할 수 있는 정보는 입력하지 마세요."}
         </p>
       </div>
     </PageShell>
@@ -2383,6 +2487,11 @@ function SchoolPage({
       "What is my child doing well?",
       "When does my child feel most confident?",
       "What is one thing we can practice at home?",
+    ],
+  es: [
+      "¿Qué está haciendo bien mi hijo?",
+      "¿Cuándo se siente más seguro mi hijo?",
+      "¿Qué podemos practicar en casa?",
     ],
     zh: [
       "我的孩子在哪些方面做得很好？",
@@ -2405,7 +2514,7 @@ function SchoolPage({
       ? "Useful questions to copy"
       : lang === "zh"
         ? "可以复制使用的实用问题"
-        : "복사해서 사용할 수 있는 질문";
+        : lang === "es" ? "Preguntas útiles para copiar" : "복사해서 사용할 수 있는 질문";
   const category: Record<Language, Record<string, string>> = {
     en: {
       Progress: "Progress",
@@ -2414,6 +2523,14 @@ function SchoolPage({
       Strengths: "Strengths",
       "Next step": "Next step",
       Communication: "Communication",
+    },
+  es: {
+      Progress: "Progreso",
+      Participation: "Participación",
+      "Language support": "Soporte de idiomas",
+      Strengths: "Fortalezas",
+      "Next step": "Siguiente paso",
+      Communication: "Comunicación",
     },
     zh: {
       Progress: "学习进展",
@@ -2445,7 +2562,7 @@ function SchoolPage({
               ? "Choose two or three. You do not need to ask everything."
               : lang === "zh"
                 ? "选择两三个即可，不需要每个都问。"
-                : "두세 가지만 골라보세요. 모두 물어볼 필요는 없어요."}
+                : lang === "es" ? "Elige dos o tres. No es necesario preguntar todo." : "두세 가지만 골라보세요. 모두 물어볼 필요는 없어요."}
           </p>
           <ul className="mt-5 space-y-4">
             {meeting[lang].map((x) => (
@@ -2516,25 +2633,25 @@ function WeeklyFeature({
         ? "This week for multilingual families"
         : lang === "zh"
           ? "本周多语言家庭主题"
-          : "이번 주 다언어 가정을 위한 이야기",
+          : lang === "es" ? "Esta semana para familias multilingües" : "이번 주 다언어 가정을 위한 이야기",
     title:
       lang === "en"
         ? "You do not have to become the English teacher."
         : lang === "zh"
           ? "您不必成为英语老师。"
-          : "영어 선생님이 될 필요는 없어요.",
+          : lang === "es" ? "No es necesario que te conviertas en profesor de inglés." : "영어 선생님이 될 필요는 없어요.",
     sub:
       lang === "en"
         ? "Your strongest family language is one of the best tools you already have."
         : lang === "zh"
           ? "您最熟悉的家庭语言，就是您已经拥有的最好工具之一。"
-          : "가족이 가장 잘 쓰는 언어는 이미 가지고 있는 가장 좋은 도구 중 하나예요.",
+          : lang === "es" ? "Tu lenguaje familiar más fuerte es una de las mejores herramientas que ya tienes." : "가족이 가장 잘 쓰는 언어는 이미 가지고 있는 가장 좋은 도구 중 하나예요.",
     body:
       lang === "en"
         ? "Children use language to think, explain, tell stories, and stay connected to who they are. When those abilities grow in the home language, they create a strong foundation for learning English too. Your role is not to correct every word. It is to listen, wonder, and invite your child to say a little more."
         : lang === "zh"
           ? "孩子通过语言思考、解释、讲故事，并保持与自身身份的连接。当这些能力在家庭语言中发展时，也会为英语学习打下坚实基础。您的角色不是纠正每一个词，而是倾听、好奇，并邀请孩子多说一点。"
-          : "아이는 언어로 생각하고, 설명하고, 이야기를 만들며 자신의 정체성과 연결됩니다. 이런 능력이 가족 언어로 자라면 영어 학습에도 든든한 기초가 됩니다. 부모님의 역할은 모든 단어를 고치는 것이 아니라 듣고, 궁금해하고, 아이가 조금 더 말하도록 초대하는 것입니다.",
+          : lang === "es" ? "Los niños usan el lenguaje para pensar, explicar, contar historias y mantenerse conectados con quienes son. Cuando esas habilidades crecen en el idioma materno, también crean una base sólida para aprender inglés. Tu función no es corregir cada palabra. Es escuchar, preguntarse e invitar a tu hijo a decir un poco más." : "아이는 언어로 생각하고, 설명하고, 이야기를 만들며 자신의 정체성과 연결됩니다. 이런 능력이 가족 언어로 자라면 영어 학습에도 든든한 기초가 됩니다. 부모님의 역할은 모든 단어를 고치는 것이 아니라 듣고, 궁금해하고, 아이가 조금 더 말하도록 초대하는 것입니다.",
   };
   return (
     <PageShell eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.sub}>
@@ -2552,7 +2669,7 @@ function WeeklyFeature({
                 ? "“Tell me more—in any language.”"
                 : lang === "zh"
                   ? "“再多告诉我一点吧——用任何语言都可以。”"
-                  : "“어떤 언어로든 조금 더 이야기해 줘.”"}
+                  : lang === "es" ? "“Cuéntame más, en cualquier idioma”." : "“어떤 언어로든 조금 더 이야기해 줘.”"}
             </blockquote>
           </div>
         </Card>
@@ -2563,7 +2680,7 @@ function WeeklyFeature({
                 ? "Try this together"
                 : lang === "zh"
                   ? "一起试试"
-                  : "함께 해 보세요"}
+                  : lang === "es" ? "Prueben esto juntos" : "함께 해 보세요"}
             </p>
             <h2 className="mt-3 text-2xl font-black text-stone-800">
               {activity.title[lang]}
@@ -2576,7 +2693,7 @@ function WeeklyFeature({
                 ? "Open activity"
                 : lang === "zh"
                   ? "打开活动"
-                  : "활동 열기"}
+                  : lang === "es" ? "Actividad abierta" : "활동 열기"}
               <ArrowRight size={18} />
             </Button>
           </Card>
@@ -2586,14 +2703,14 @@ function WeeklyFeature({
                 ? "Learn a little more"
                 : lang === "zh"
                   ? "进一步了解"
-                  : "조금 더 알아보기"}
+                  : lang === "es" ? "Aprende un poco más" : "조금 더 알아보기"}
             </p>
             <h2 className="mt-3 text-xl font-black text-stone-800">
               {lang === "en"
                 ? "Your home language is a superpower"
                 : lang === "zh"
                   ? "家庭语言是一种超能力"
-                  : "가족 언어는 강점이에요"}
+                  : lang === "es" ? "Tu lengua materna es un superpoder" : "가족 언어는 강점이에요"}
             </h2>
             <button
               onClick={() => openLesson(1)}
@@ -2603,7 +2720,7 @@ function WeeklyFeature({
                 ? "Read Parent Academy lesson"
                 : lang === "zh"
                   ? "阅读家长课堂"
-                  : "부모 아카데미 읽기"}
+                  : lang === "es" ? "Lea la lección de la Academia para padres" : "부모 아카데미 읽기"}
               <ArrowRight size={17} />
             </button>
           </Card>
@@ -2618,21 +2735,21 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
     return (
       <PageShell
         eyebrow={
-          lang === "en" ? "Privacy" : lang === "zh" ? "隐私" : "개인정보"
+          lang === "en" ? "Privacy" : lang === "zh" ? "隐私" : lang === "es" ? "Privacidad" : "개인정보"
         }
         title={
           lang === "en"
             ? "Private by design."
             : lang === "zh"
               ? "以隐私为设计原则。"
-              : "개인정보를 먼저 생각합니다."
+              : lang === "es" ? "Privado por diseño." : "개인정보를 먼저 생각합니다."
         }
         subtitle={
           lang === "en"
             ? "LinguaFlow Family currently works without accounts, advertising, or a database."
             : lang === "zh"
               ? "LinguaFlow Family 目前无需账户、广告或数据库即可使用。"
-              : "LinguaFlow Family는 현재 계정, 광고, 데이터베이스 없이 작동합니다."
+              : lang === "es" ? "LinguaFlow Family actualmente funciona sin cuentas, publicidad ni base de datos." : "LinguaFlow Family는 현재 계정, 광고, 데이터베이스 없이 작동합니다."
         }
       >
         <Card className="max-w-3xl p-6 md:p-9">
@@ -2642,14 +2759,14 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
                 ? "Your selected language and age band are stored only in this browser so the site can remember your preferences. They are not sent to us."
                 : lang === "zh"
                   ? "您选择的语言和年龄段只保存在此浏览器中，用于记住偏好，不会发送给我们。"
-                  : "선택한 언어와 연령대는 이 브라우저에만 저장되며 저희에게 전송되지 않습니다."}
+                  : lang === "es" ? "El idioma y la franja de edad seleccionados se almacenan únicamente en este navegador para que el sitio pueda recordar sus preferencias. No nos los envían." : "선택한 언어와 연령대는 이 브라우저에만 저장되며 저희에게 전송되지 않습니다."}
             </p>
             <p>
               {lang === "en"
                 ? "The current answer finder searches a small, reviewed library on your device. It does not send questions to an AI service. Please do not enter names, assessment records, or identifying information."
                 : lang === "zh"
                   ? "目前的答案查找功能只在设备上的小型审核内容库中搜索，不会把问题发送给 AI 服务。请勿输入姓名、评估记录或身份信息。"
-                  : "현재 답변 찾기는 기기의 작은 검토 자료만 검색하며 AI 서비스로 질문을 보내지 않습니다. 이름이나 평가 기록 등 식별 정보는 입력하지 마세요."}
+                  : lang === "es" ? "El buscador de respuestas actual busca en una biblioteca pequeña revisada en su dispositivo. No envía preguntas a un servicio de IA. No ingrese nombres, registros de evaluaciones ni información de identificación." : "현재 답변 찾기는 기기의 작은 검토 자료만 검색하며 AI 서비스로 질문을 보내지 않습니다. 이름이나 평가 기록 등 식별 정보는 입력하지 마세요."}
             </p>
           </div>
         </Card>
@@ -2662,21 +2779,21 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
           ? "About LinguaFlow Family"
           : lang === "zh"
             ? "关于 LinguaFlow Family"
-            : "LinguaFlow Family 소개"
+            : lang === "es" ? "Acerca de la familia LinguaFlow" : "LinguaFlow Family 소개"
       }
       title={
         lang === "en"
           ? "Practical support. Calm guidance."
           : lang === "zh"
             ? "实用支持，安心指导。"
-            : "실용적인 지원과 편안한 안내."
+            : lang === "es" ? "Apoyo práctico. Orientación tranquila." : "실용적인 지원과 편안한 안내."
       }
       subtitle={
         lang === "en"
           ? "Created for multilingual families in international-school communities."
           : lang === "zh"
             ? "为国际学校社区中的多语言家庭而创建。"
-            : "국제학교 공동체의 다언어 가정을 위해 만들었습니다."
+            : lang === "es" ? "Creado para familias multilingües en comunidades de escuelas internacionales." : "국제학교 공동체의 다언어 가정을 위해 만들었습니다."
       }
     >
       <div className="grid gap-5 md:grid-cols-3">
@@ -2686,14 +2803,14 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
               ? "Our promise"
               : lang === "zh"
                 ? "我们的承诺"
-                : "우리의 약속"
+                : lang === "es" ? "Nuestra promesa" : "우리의 약속"
           }
           text={
             lang === "en"
               ? "You do not need perfect English or teaching expertise. We offer one small, useful next step."
               : lang === "zh"
                 ? "您不需要完美的英语或教学经验，我们只提供一个小而实用的下一步。"
-                : "완벽한 영어와 교육 전문 지식은 필요하지 않아요. 작고 유용한 다음 단계를 제안합니다."
+                : lang === "es" ? "No necesitas un inglés perfecto ni experiencia docente. Ofrecemos un siguiente paso pequeño y útil." : "완벽한 영어와 교육 전문 지식은 필요하지 않아요. 작고 유용한 다음 단계를 제안합니다."
           }
         />
         <TrustCard
@@ -2702,14 +2819,14 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
               ? "Editorial approach"
               : lang === "zh"
                 ? "内容审核方式"
-                : "콘텐츠 원칙"
+                : lang === "es" ? "Enfoque editorial" : "콘텐츠 원칙"
           }
           text={
             lang === "en"
               ? "Content is written in plain language, informed by EAL practice and research, and reviewed before publication."
               : lang === "zh"
                 ? "内容使用通俗语言撰写，以 EAL 实践和研究为基础，并在发布前审核。"
-                : "쉬운 말로 작성하고 EAL 실천과 연구를 참고해 게시 전에 검토합니다."
+                : lang === "es" ? "El contenido está escrito en un lenguaje sencillo, basado en la práctica y la investigación de EAL y revisado antes de su publicación." : "쉬운 말로 작성하고 EAL 실천과 연구를 참고해 게시 전에 검토합니다."
           }
         />
         <TrustCard
@@ -2718,14 +2835,14 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
               ? "Clear limits"
               : lang === "zh"
                 ? "明确边界"
-                : "명확한 한계"
+                : lang === "es" ? "Límites claros" : "명확한 한계"
           }
           text={
             lang === "en"
               ? "This is general educational guidance, not medical, diagnostic, safeguarding, or school-specific advice."
               : lang === "zh"
                 ? "本网站提供一般教育指导，不替代医疗、诊断、儿童保护或学校具体建议。"
-                : "일반 교육 안내이며 의료, 진단, 아동 보호, 학교별 조언을 대신하지 않습니다."
+                : lang === "es" ? "Esta es una orientación educativa general, no un consejo médico, de diagnóstico, de protección o específico para la escuela." : "일반 교육 안내이며 의료, 진단, 아동 보호, 학교별 조언을 대신하지 않습니다."
           }
         />
       </div>
@@ -2735,14 +2852,14 @@ function TrustPage({ lang, privacy }: { lang: Language; privacy: boolean }) {
             ? "Part of the LinguaFlow ecosystem"
             : lang === "zh"
               ? "LinguaFlow 生态系统的一部分"
-              : "LinguaFlow 생태계의 일부"}
+              : lang === "es" ? "Parte del ecosistema LinguaFlow" : "LinguaFlow 생태계의 일부"}
         </h2>
         <p className="mt-3 max-w-3xl leading-7 text-stone-600">
           {lang === "en"
             ? "LinguaFlow Family connects family-friendly activities, parent learning, and school conversations. For more multilingual-family writing and resources, visit My Multilingual Family."
             : lang === "zh"
               ? "LinguaFlow Family 连接亲子活动、家长学习和学校沟通。更多多语言家庭文章与资源，请访问 My Multilingual Family。"
-              : "LinguaFlow Family는 가족 활동, 부모 학습, 학교 대화를 연결합니다. 더 많은 자료는 My Multilingual Family에서 확인하세요."}
+              : lang === "es" ? "LinguaFlow Family conecta actividades familiares, aprendizaje de los padres y conversaciones escolares. Para obtener más recursos y escritos familiares multilingües, visite Mi familia multilingüe." : "LinguaFlow Family는 가족 활동, 부모 학습, 학교 대화를 연결합니다. 더 많은 자료는 My Multilingual Family에서 확인하세요."}
         </p>
         <a
           href="https://www.mymultilingualfamily.com/"
