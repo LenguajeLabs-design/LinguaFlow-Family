@@ -443,10 +443,10 @@ function App() {
             className="flex items-center gap-2.5 rounded-xl text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
             aria-label="LinguaFlow Family home"
           >
-            <span className="grid size-11 place-items-center rounded-2xl bg-white shadow-[0_7px_18px_rgba(60,132,205,.16)]">
-              <img src={logo} alt="" className="size-10 object-contain" />
+            <span className="grid size-10 place-items-center rounded-2xl bg-teal-50">
+              <img src={logo} alt="" className="size-9 object-contain" />
             </span>
-            <span className="hidden font-extrabold leading-tight text-stone-800 sm:block">
+            <span className="font-display text-[13px] font-bold leading-tight text-stone-800 sm:text-sm">
               LinguaFlow
               <br />
               <span className="lf-gradient-text">Family</span>
@@ -467,7 +467,7 @@ function App() {
                 key={id}
                 href={routeForPage(id)}
                 className={cn(
-                  "flex min-h-11 items-center gap-2 rounded-full px-3.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
+                  "flex min-h-11 items-center gap-1.5 rounded-full px-2.5 text-[13px] font-bold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
                   page === id
                     ? "bg-teal-50 text-teal-800"
                     : "text-stone-600 hover:bg-stone-100",
@@ -834,7 +834,7 @@ function LiteracyPath({
             </Button>
           </div>
         </Card>
-        <div className="flex flex-col justify-between rounded-[2rem] bg-teal-800 p-6 text-white shadow-sm md:p-8">
+        <div className="flex flex-col justify-between rounded-[2rem] bg-stone-800 p-6 text-white shadow-sm md:p-8">
           <div>
             <span className="grid size-12 place-items-center rounded-2xl bg-white/12">
               <Languages size={23} />
@@ -906,7 +906,7 @@ function Today({
                 alt={featured.imageAlt[lang]}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1f638d]/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#172f5b]/75 via-transparent to-transparent" />
               <Chip className="absolute right-5 top-5 bg-white/90 text-stone-700 shadow-sm">
                 {featured.time}
               </Chip>
@@ -1592,7 +1592,7 @@ function Activities({
             : lang === "es" ? "Sin fichas de trabajo ni conocimientos especializados de inglés. Elija una actividad y adáptela a su familia." : "학습지도, 뛰어난 영어 실력도 필요 없어요. 활동 하나를 골라 우리 가족답게 해보세요."
       }
     >
-      <Card className="mb-8 overflow-hidden border-teal-100 bg-teal-800 text-white">
+      <Card className="mb-8 overflow-hidden border-stone-800 bg-stone-800 text-white">
         <div className="grid md:grid-cols-[.9fr_1.1fr]">
           <img
             src={featured.image}
@@ -1916,7 +1916,7 @@ function Understand({
       }
     >
       <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
-        <Card className="h-fit overflow-hidden bg-teal-800 text-white">
+        <Card className="h-fit overflow-hidden bg-stone-800 text-white">
           <img
             src={activities[3].image}
             alt={activities[3].imageAlt[lang]}
