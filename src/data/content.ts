@@ -110,7 +110,12 @@ const activityMedia: Record<string, { image: string; imageAlt: LocalText }> = {
   'deep-question': { image: teenConversation, imageAlt: { en:'A teenager and parent exploring a thoughtful question together',zh:'一名青少年和家长一起探讨深度问题', es: "Un adolescente y un padre explorando juntos una pregunta reflexiva", ko:'청소년과 부모가 함께 깊은 질문을 탐구하는 모습' } },
 }
 
-export const activities: Activity[] = activityContent.filter(activity => activityMeta[activity.id]).map(activity => ({ ...activity, ...activityMeta[activity.id], ...activityMedia[activity.id] }))
+export const activities: Activity[] = activityContent.filter(activity => activityMeta[activity.id]).map(activity => ({
+  ...activity,
+  ...activityMeta[activity.id],
+  ...activityMedia[activity.id],
+  ...(activity.id === 'family-journal' ? { ages: ['6–8', '9–11'] } : {}),
+}))
 
 export const questions = [
   { q: { en: 'Should we stop using our home language?', zh: '我们应该停止使用家庭语言吗？', es: "¿Deberíamos dejar de usar nuestra lengua materna?", ko: '집에서 모국어 사용을 멈춰야 하나요?' }, a: { en: 'No. A strong home language supports thinking, identity, and learning English. Use the language in which your family can share the richest ideas.', zh: '不需要。扎实的家庭语言有助于思考、身份认同和英语学习。请使用最能让家人充分交流想法的语言。', es: "No. Una lengua materna sólida apoya el pensamiento, la identidad y el aprendizaje del inglés. Utilice el lenguaje en el que su familia pueda compartir las ideas más ricas.", ko: '아니요. 탄탄한 모국어는 사고력, 정체성, 영어 학습을 돕습니다. 가족이 가장 풍부하게 생각을 나눌 수 있는 언어를 사용하세요.' } },

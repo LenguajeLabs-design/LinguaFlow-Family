@@ -7,17 +7,20 @@ import {
   ChevronDown,
   ChevronRight,
   CircleHelp,
-  ClipboardCopy,
   ExternalLink,
   GraduationCap,
   Heart,
+  History,
   Home,
   Languages,
   Menu,
   MessageCircle,
+  Printer,
+  Share2,
   School,
   Search,
   Sparkles,
+  Volume2,
   X,
 } from "lucide-react";
 import {
@@ -390,6 +393,57 @@ const getTonightActivity = (age: string) =>
       activity.id === (tonightActivityByAge[age] ?? "picture-talk"),
   ) ?? activities[0];
 
+const pathActivityByAge = {
+  reading: { "6–8": "picture-walk", "9–11": "reread-for-meaning", "12–14": "compare-coverage" },
+  writing: { "6–8": "family-journal", "9–11": "family-journal", "12–14": "plan-draft-reflect" },
+} as const;
+const getPathActivity = (kind: keyof typeof pathActivityByAge, age: string) => {
+  const resolved = age in tonightActivityByAge ? age as "6–8" | "9–11" | "12–14" : "6–8";
+  return activities.find((item) => item.id === pathActivityByAge[kind][resolved])!;
+};
+
+const readStoredIds = (key: string) => {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(value) ? value.filter((id): id is string => typeof id === "string") : [];
+  } catch { return []; }
+};
+
+const readStoredValue = <T,>(key: string, fallback: T): T => {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) as T : fallback;
+  } catch { return fallback; }
+};
+
+type JourneyMetrics = { activityStarts: number; triedMarks: number; startsWithoutBrowsing: number; browseVisitsBeforeStart: number };
+const recordJourneyMetric = (event: "start" | "tried", browseVisits = 0) => {
+  const metrics = readStoredValue<JourneyMetrics>("lf-journey-metrics", { activityStarts: 0, triedMarks: 0, startsWithoutBrowsing: 0, browseVisitsBeforeStart: 0 });
+  if (event === "start") {
+    metrics.activityStarts += 1;
+    metrics.browseVisitsBeforeStart += browseVisits;
+    if (browseVisits === 0) metrics.startsWithoutBrowsing += 1;
+  } else metrics.triedMarks += 1;
+  localStorage.setItem("lf-journey-metrics", JSON.stringify(metrics));
+};
+
+const speechLanguage: Record<Language, string> = { en: "en-US", es: "es-ES", zh: "zh-CN", ko: "ko-KR" };
+const speak = (text: string, lang: Language) => {
+  if (!("speechSynthesis" in window)) return false;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = speechLanguage[lang];
+  utterance.rate = 0.9;
+  window.speechSynthesis.speak(utterance);
+  return true;
+};
+
+const shareContent = async (title: string, text: string) => {
+  if (navigator.share) { await navigator.share({ title, text, url: window.location.href }); return "shared"; }
+  await navigator.clipboard.writeText(`${title}\n\n${text}\n\n${window.location.href}`);
+  return "copied";
+};
+
 function App() {
   const initialRoute = readRoute();
   const [lang, setLang] = useState<Language>(
@@ -398,6 +452,9 @@ function App() {
   const [preferredAge, setPreferredAge] = useState(
     () => localStorage.getItem("lf-age") || "all",
   );
+  const [favoriteIds, setFavoriteIds] = useState<string[]>(() => readStoredIds("lf-favorites"));
+  const [triedIds, setTriedIds] = useState<string[]>(() => readStoredIds("lf-tried"));
+  const [recentIds, setRecentIds] = useState<string[]>(() => readStoredIds("lf-recent"));
   const [page, setPage] = useState<Page>(initialRoute.page);
   const [menu, setMenu] = useState(false);
   const [selected, setSelected] = useState<Activity | null>(
@@ -405,9 +462,11 @@ function App() {
   );
   const [lessonNumber, setLessonNumber] = useState(initialRoute.lesson);
   const mainRef = useRef<HTMLElement>(null);
+  const browseVisitsRef = useRef(initialRoute.page === "activities" ? 1 : 0);
   const t = labels[lang];
   const applyRoute = () => {
     const route = readRoute();
+    if (route.page === "activities") browseVisitsRef.current += 1;
     setPage(route.page);
     setSelected(activities.find((a) => a.id === route.activityId) || null);
     setLessonNumber(route.lesson);
@@ -426,13 +485,22 @@ function App() {
     document.title = `${t[page] ?? "LinguaFlow Family"} · LinguaFlow Family`;
   }, [lang, page, t]);
   useEffect(() => localStorage.setItem("lf-age", preferredAge), [preferredAge]);
+  useEffect(() => localStorage.setItem("lf-favorites", JSON.stringify(favoriteIds)), [favoriteIds]);
+  useEffect(() => localStorage.setItem("lf-tried", JSON.stringify(triedIds)), [triedIds]);
+  useEffect(() => localStorage.setItem("lf-recent", JSON.stringify(recentIds)), [recentIds]);
   const navigate = (hash: string) => {
     if (window.location.hash === hash) applyRoute();
     else window.location.hash = hash;
   };
   const go = (next: Page) => navigate(routeForPage(next));
-  const selectActivity = (activity: Activity) =>
+  const selectActivity = (activity: Activity) => {
+    recordJourneyMetric("start", browseVisitsRef.current);
+    browseVisitsRef.current = 0;
+    setRecentIds((ids) => [activity.id, ...ids.filter((id) => id !== activity.id)].slice(0, 6));
     navigate(`#/activity/${activity.id}`);
+  };
+  const toggleId = (setter: React.Dispatch<React.SetStateAction<string[]>>, id: string) =>
+    setter((ids) => ids.includes(id) ? ids.filter((item) => item !== id) : [id, ...ids]);
   const openLesson = (number: number) => navigate(`#/lesson/${number}`);
   return (
     <div className="min-h-screen">
@@ -443,10 +511,10 @@ function App() {
             className="flex items-center gap-2.5 rounded-xl text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20"
             aria-label="LinguaFlow Family home"
           >
-            <span className="grid size-11 place-items-center rounded-2xl bg-white shadow-[0_7px_18px_rgba(60,132,205,.16)]">
-              <img src={logo} alt="" className="size-10 object-contain" />
+            <span className="grid size-10 place-items-center rounded-2xl bg-teal-50">
+              <img src={logo} alt="" className="size-9 object-contain" />
             </span>
-            <span className="hidden font-extrabold leading-tight text-stone-800 sm:block">
+            <span className="font-display text-[13px] font-bold leading-tight text-stone-800 sm:text-sm">
               LinguaFlow
               <br />
               <span className="lf-gradient-text">Family</span>
@@ -467,7 +535,7 @@ function App() {
                 key={id}
                 href={routeForPage(id)}
                 className={cn(
-                  "flex min-h-11 items-center gap-2 rounded-full px-3.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
+                  "flex min-h-11 items-center gap-1.5 rounded-full px-2.5 text-[13px] font-bold transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
                   page === id
                     ? "bg-teal-50 text-teal-800"
                     : "text-stone-600 hover:bg-stone-100",
@@ -557,6 +625,13 @@ function App() {
             t={t}
             back={() => go("activities")}
             openLesson={openLesson}
+            isFavorite={favoriteIds.includes(selected.id)}
+            isTried={triedIds.includes(selected.id)}
+            toggleFavorite={() => toggleId(setFavoriteIds, selected.id)}
+            toggleTried={() => {
+              if (!triedIds.includes(selected.id)) recordJourneyMetric("tried");
+              toggleId(setTriedIds, selected.id);
+            }}
           />
         ) : (
           <PageContent
@@ -569,46 +644,69 @@ function App() {
             setPreferredAge={setPreferredAge}
             lessonNumber={lessonNumber}
             openLesson={openLesson}
+            favoriteIds={favoriteIds}
+            triedIds={triedIds}
+            recentIds={recentIds}
           />
         )}
       </main>
-      <footer className="border-t border-stone-200 bg-white px-5 py-10 text-center text-sm text-stone-500">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 lg:flex-row">
-          <span className="font-bold text-stone-700">
-            LinguaFlow <span className="lf-gradient-text">Family</span>
-          </span>
-          <span>
-            Home language is a strength. · 家庭语言是一种力量。 · La lengua
-            familiar es una fortaleza. · 가정의 언어는 힘입니다.
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="#/about" className="min-h-11 py-3 font-bold text-teal-700">
-              {lang === "en"
-                ? "About & trust"
-                : lang === "zh"
-                  ? "关于与内容审核"
-                  : lang === "es" ? "Acerca de LinguaFlow" : "소개 및 신뢰"}
+      <footer className="ll-footer">
+        <div className="ll-footer__main">
+          <div className="ll-footer__intro">
+            <a className="ll-footer__brand" href="#/today">
+              <img
+                className="ll-footer__logo"
+                src={logo}
+                alt=""
+                width="42"
+                height="42"
+              />
+              <span>LinguaFlow Family</span>
             </a>
-            <a
-              href="#/privacy"
-              className="min-h-11 py-3 font-bold text-teal-700"
-            >
-              {lang === "en" ? "Privacy" : lang === "zh" ? "隐私" : lang === "es" ? "Privacidad" : "개인정보"}
-            </a>
-            <a
-              href="https://www.mymultilingualfamily.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center gap-1.5 py-3 font-bold text-teal-700 hover:text-teal-800"
-            >
-              {lang === "en"
-                ? "Full family guide"
-                : lang === "zh"
-                  ? "完整家庭指南"
-                  : lang === "es" ? "Guía completa para familias" : "전체 가족 가이드"}
-              <ExternalLink size={15} />
+            <p>
+              Practical, trustworthy guidance that helps multilingual families
+              support learning while keeping their home language strong.
+            </p>
+            <a className="ll-footer__contact" href="#/about">
+              About &amp; trust
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M5 12h14m-6-6 6 6-6 6" />
+              </svg>
             </a>
           </div>
+
+          <div className="ll-footer__sites">
+            <p className="ll-footer__label" id="lenguajeLabsSites">
+              More from Lenguaje Labs
+            </p>
+            <nav className="ll-footer__links" aria-labelledby="lenguajeLabsSites">
+              {[
+                ["My Multilingual Family", "mymultilingualfamily.com", "https://www.mymultilingualfamily.com"],
+                ["Scaffolded", "scaffolded.app", "https://www.scaffolded.app"],
+                ["ReadLinguaFlow", "readlinguaflow.com", "https://www.readlinguaflow.com"],
+                ["Federico Orozco", "federicoorozco.co", "https://www.federicoorozco.co"],
+              ].map(([name, domain, href]) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer">
+                  <span>
+                    <strong>{name}</strong>
+                    <small>{domain}</small>
+                  </span>
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M7 17 17 7M8 7h9v9" />
+                  </svg>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        <div className="ll-footer__bottom">
+          <span>© 2026 Lenguaje Labs</span>
+          <span>Made for educators and families, with care.</span>
+          <nav className="ll-footer__legal" aria-label="Legal and trust">
+            <a href="#/about">About &amp; trust</a>
+            <a href="#/privacy">Privacy</a>
+          </nav>
         </div>
       </footer>
     </div>
@@ -623,6 +721,9 @@ function PageContent({
   select,
   preferredAge,
   setPreferredAge,
+  favoriteIds,
+  triedIds,
+  recentIds,
   lessonNumber,
   openLesson,
 }: {
@@ -633,6 +734,9 @@ function PageContent({
   select: (a: Activity) => void;
   preferredAge: string;
   setPreferredAge: (age: string) => void;
+  favoriteIds: string[];
+  triedIds: string[];
+  recentIds: string[];
   lessonNumber: number;
   openLesson: (n: number) => void;
 }) {
@@ -645,12 +749,15 @@ function PageContent({
         select={select}
         preferredAge={preferredAge}
         setPreferredAge={setPreferredAge}
+        favoriteIds={favoriteIds}
+        triedIds={triedIds}
+        recentIds={recentIds}
       />
     );
   if (page === "reading")
-    return <LiteracyPath kind="reading" lang={lang} select={select} go={go} />;
+    return <LiteracyPath kind="reading" lang={lang} select={select} go={go} preferredAge={preferredAge} />;
   if (page === "writing")
-    return <LiteracyPath kind="writing" lang={lang} select={select} go={go} />;
+    return <LiteracyPath kind="writing" lang={lang} select={select} go={go} preferredAge={preferredAge} />;
   if (page === "activities")
     return (
       <Activities
@@ -685,16 +792,18 @@ function LiteracyPath({
   lang,
   select,
   go,
+  preferredAge,
 }: {
   kind: "reading" | "writing";
   lang: Language;
   select: (a: Activity) => void;
   go: (p: Page) => void;
+  preferredAge: string;
 }) {
   const writing = kind === "writing";
-  const activity = activities.find((item) =>
-    item.id === (writing ? "family-journal" : "picture-walk"),
-  )!;
+  const resolvedAge: "6–8" | "9–11" | "12–14" = preferredAge in tonightActivityByAge ? preferredAge as "6–8" | "9–11" | "12–14" : "6–8";
+  const activityId = pathActivityByAge[kind][resolvedAge];
+  const activity = activities.find((item) => item.id === activityId)!;
   const copy = {
     eyebrow:
       lang === "en"
@@ -744,12 +853,7 @@ function LiteracyPath({
             : writing
               ? "모든 실수를 고칠 필요는 없어요. 완벽한 영어보다 먼저 말하고, 그리고, 표현할 생각을 찾도록 도와주세요."
               : "영어를 가르칠 필요는 없어요. 가장 자연스러운 언어로 책 이야기를 나누면 아이가 읽기를 이해하고 즐기는 데 도움이 돼요.",
-    start:
-      lang === "en"
-        ? "Start here · Ages 6–8"
-        : lang === "zh"
-          ? "从这里开始 · 6–8 岁"
-          : lang === "es" ? "Comience aquí · Edades 6 a 8" : "여기서 시작 · 6–8세",
+    start: `${lang === "en" ? "Start here" : lang === "zh" ? "从这里开始" : lang === "es" ? "Comience aquí" : "여기서 시작"} · ${resolvedAge}`,
     promise:
       lang === "en"
         ? writing
@@ -834,7 +938,7 @@ function LiteracyPath({
             </Button>
           </div>
         </Card>
-        <div className="flex flex-col justify-between rounded-[2rem] bg-teal-800 p-6 text-white shadow-sm md:p-8">
+        <div className="flex flex-col justify-between rounded-[2rem] bg-stone-800 p-6 text-white shadow-sm md:p-8">
           <div>
             <span className="grid size-12 place-items-center rounded-2xl bg-white/12">
               <Languages size={23} />
@@ -906,7 +1010,7 @@ function Today({
                 alt={featured.imageAlt[lang]}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1f638d]/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#172f5b]/75 via-transparent to-transparent" />
               <Chip className="absolute right-5 top-5 bg-white/90 text-stone-700 shadow-sm">
                 {featured.time}
               </Chip>
@@ -1110,6 +1214,9 @@ function LaunchToday({
   select,
   preferredAge,
   setPreferredAge,
+  favoriteIds,
+  triedIds,
+  recentIds,
 }: {
   lang: Language;
   t: Record<string, string>;
@@ -1117,6 +1224,9 @@ function LaunchToday({
   select: (a: Activity) => void;
   preferredAge: string;
   setPreferredAge: (age: string) => void;
+  favoriteIds: string[];
+  triedIds: string[];
+  recentIds: string[];
 }) {
   const featured = getTonightActivity(preferredAge);
   const hasPreferredAge = preferredAge in tonightActivityByAge;
@@ -1134,12 +1244,6 @@ function LaunchToday({
       ?.querySelector<HTMLButtonElement>("button")
       ?.focus({ preventScroll: true });
   };
-  const ageLabel =
-    lang === "en"
-      ? "Your child’s age"
-      : lang === "zh"
-        ? "孩子的年龄"
-        : lang === "es" ? "La edad de su hijo" : "아이의 나이";
   return (
     <>
       <section className="field-guide-hero px-4 pb-12 pt-11 md:px-8 md:pb-20 md:pt-20">
@@ -1154,14 +1258,14 @@ function LaunchToday({
             </p>
             <h1 className="font-display max-w-3xl text-balance text-[2.7rem] font-bold leading-[.98] tracking-[-.045em] text-stone-800 md:text-[4.5rem]">
               {lang === "en"
-                ? "Help your child grow—without leaving your home language behind."
+                ? "Help your child grow without leaving your home language behind."
                 : lang === "zh"
                   ? "帮助孩子成长，同时珍惜您的家庭语言。"
                   : lang === "es" ? "Ayude a su hijo a crecer, sin dejar atrás la lengua familiar." : "가족의 언어를 지키며 아이의 성장을 도와주세요."}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-stone-600 md:text-xl">
               {lang === "en"
-                ? "Practical activities, clear guidance, and help with school conversations—for families of children ages 6–14."
+                ? "Practical activities, clear guidance, and help with school conversations for families of children ages 6–14."
                 : lang === "zh"
                   ? "为 6–14 岁孩子的家庭提供实用活动、清晰指导和学校沟通支持。"
                   : lang === "es" ? "Actividades prácticas, orientación clara y ayuda con conversaciones escolares, para familias de niños de 6 a 14 años." : "6–14세 자녀를 둔 가족을 위한 실용적인 활동, 쉬운 안내, 학교 대화 도움을 만나보세요."}
@@ -1169,7 +1273,7 @@ function LaunchToday({
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <button
                 onClick={startTonight}
-                className="inline-flex min-h-13 items-center gap-2 rounded-full bg-stone-800 px-6 font-black text-white shadow-[0_12px_28px_rgba(36,41,56,.2)] transition hover:-translate-y-0.5 hover:bg-stone-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
+                className="lf-gradient inline-flex min-h-13 items-center gap-2 rounded-full px-6 font-black shadow-[0_12px_30px_rgba(47,158,238,.24)] transition hover:-translate-y-0.5 hover:brightness-[1.06] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/25"
               >
               {hasPreferredAge
                 ? lang === "en"
@@ -1218,38 +1322,9 @@ function LaunchToday({
         </div>
       </section>
       <section className="px-4 pb-10 md:px-8 md:pb-16">
-        <div className="mx-auto max-w-6xl rounded-[1.25rem] border border-stone-300/70 bg-[#fbfaf6] p-5 shadow-[0_12px_36px_rgba(36,41,56,.06)] md:flex md:items-center md:justify-between md:p-6">
-          <div>
-            <p className="font-black text-stone-800">{ageLabel}</p>
-            <p className="mt-1 text-sm text-stone-500">
-              {lang === "en"
-                ? "Choose once. We will remember on this device."
-                : lang === "zh"
-                  ? "只需选择一次，我们会在此设备上记住。"
-                  : lang === "es" ? "Elija una vez. Lo recordaremos en este dispositivo." : "한 번만 선택하면 이 기기에 기억해 둘게요."}
-            </p>
-          </div>
-          <div
-            ref={ageChoicesRef}
-            className="age-route mt-4 flex flex-wrap gap-2 md:mt-0 md:min-w-[22rem] md:justify-between"
-            aria-label={ageLabel}
-          >
-            {["6–8", "9–11", "12–14"].map((age) => (
-              <button
-                key={age}
-                onClick={() => setPreferredAge(age)}
-                className={cn(
-                  "min-h-11 rounded-full border px-5 font-black shadow-[0_0_0_5px_#fbfaf6] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20",
-                  preferredAge === age
-                    ? "border-teal-700 bg-teal-50 text-teal-800"
-                    : "border-stone-200 bg-white text-stone-600 hover:border-teal-300",
-                )}
-                aria-pressed={preferredAge === age}
-              >
-                {age}
-              </button>
-            ))}
-          </div>
+        <div ref={ageChoicesRef} className="mx-auto max-w-6xl">
+          <HelpMeChoose lang={lang} preferredAge={preferredAge} setPreferredAge={setPreferredAge} select={select} />
+          <FamilyShelf lang={lang} favoriteIds={favoriteIds} triedIds={triedIds} recentIds={recentIds} select={select} />
         </div>
       </section>
       <section className="border-y border-stone-200/70 bg-white/55 px-4 py-10 md:px-8 md:py-14">
@@ -1279,11 +1354,7 @@ function LaunchToday({
                     : lang === "es" ? "Ayuda con la lectura" : "읽기 도와주기"
               }
               detail={
-                lang === "en"
-                  ? "Start with ages 6–8"
-                  : lang === "zh"
-                    ? "从 6–8 岁开始"
-                    : lang === "es" ? "Comience con edades entre 6 y 8 años" : "6–8세부터 시작"
+                preferredAge === "all" ? (lang === "en" ? "Choose an age above" : lang === "zh" ? "请先在上方选择年龄" : lang === "es" ? "Elija una edad arriba" : "위에서 나이를 선택하세요") : `${preferredAge} · ${getPathActivity("reading", preferredAge).title[lang]}`
               }
               onClick={() => go("reading")}
             />
@@ -1297,11 +1368,7 @@ function LaunchToday({
                     : lang === "es" ? "Ayuda con la escritura" : "쓰기 도와주기"
               }
               detail={
-                lang === "en"
-                  ? "Start with ages 6–8"
-                  : lang === "zh"
-                    ? "从 6–8 岁开始"
-                    : lang === "es" ? "Comience con edades entre 6 y 8 años" : "6–8세부터 시작"
+                preferredAge === "all" ? (lang === "en" ? "Choose an age above" : lang === "zh" ? "请先在上方选择年龄" : lang === "es" ? "Elija una edad arriba" : "위에서 나이를 선택하세요") : `${preferredAge} · ${getPathActivity("writing", preferredAge).title[lang]}`
               }
               onClick={() => go("writing")}
             />
@@ -1422,6 +1489,53 @@ function PathButton({
       <ChevronRight className="text-stone-300" />
     </button>
   );
+}
+
+function HelpMeChoose({ lang, preferredAge, setPreferredAge, select }: { lang: Language; preferredAge: string; setPreferredAge: (age: string) => void; select: (activity: Activity) => void }) {
+  const [minutes, setMinutes] = useState("10");
+  const [goal, setGoal] = useState("talk");
+  const copy = {
+    title: lang === "en" ? "Help me choose" : lang === "zh" ? "帮我选择" : lang === "es" ? "Ayúdame a elegir" : "활동 골라주기",
+    sub: lang === "en" ? "Answer three quick questions. We’ll suggest one activity." : lang === "zh" ? "回答三个简单问题，我们会推荐一个活动。" : lang === "es" ? "Responda tres preguntas rápidas. Le sugeriremos una actividad." : "간단한 질문 세 개에 답하면 활동 하나를 추천해 드려요.",
+    age: lang === "en" ? "How old is your child?" : lang === "zh" ? "孩子多大？" : lang === "es" ? "¿Qué edad tiene su hijo?" : "아이의 나이는?",
+    time: lang === "en" ? "How much time do you have?" : lang === "zh" ? "您有多少时间？" : lang === "es" ? "¿Cuánto tiempo tiene?" : "시간은 얼마나 있나요?",
+    need: lang === "en" ? "What would help today?" : lang === "zh" ? "今天需要哪方面的帮助？" : lang === "es" ? "¿Qué sería útil hoy?" : "오늘 어떤 도움이 필요한가요?",
+    start: lang === "en" ? "Start this activity" : lang === "zh" ? "开始这个活动" : lang === "es" ? "Iniciar esta actividad" : "이 활동 시작하기",
+  };
+  const goals: Record<string, string> = { talk: lang === "en" ? "Talk together" : lang === "zh" ? "一起交流" : lang === "es" ? "Hablar juntos" : "함께 대화", read: lang === "en" ? "Reading" : lang === "zh" ? "阅读" : lang === "es" ? "Lectura" : "읽기", write: lang === "en" ? "Writing" : lang === "zh" ? "写作" : lang === "es" ? "Escritura" : "쓰기", words: lang === "en" ? "New words" : lang === "zh" ? "新词汇" : lang === "es" ? "Palabras nuevas" : "새 단어", school: lang === "en" ? "School confidence" : lang === "zh" ? "学校信心" : lang === "es" ? "Confianza escolar" : "학교 자신감", identity: lang === "en" ? "Language & identity" : lang === "zh" ? "语言与身份" : lang === "es" ? "Idioma e identidad" : "언어와 정체성" };
+  const recommendation = useMemo(() => {
+    if (!(preferredAge in tonightActivityByAge)) return null;
+    const max = Number(minutes);
+    const ageMatches = activities.filter((activity) => activity.ages.includes(preferredAge));
+    const withinTime = ageMatches.filter((activity) => activity.minutes <= max);
+    const candidates = withinTime.length ? withinTime : ageMatches;
+    return [...candidates].sort((a, b) => Number(b.goal === goal) - Number(a.goal === goal) || Math.abs(a.minutes - max) - Math.abs(b.minutes - max))[0] || getTonightActivity(preferredAge);
+  }, [goal, minutes, preferredAge]);
+  const exactTime = recommendation ? recommendation.minutes <= Number(minutes) : false;
+  return <Card className="p-5 md:p-7">
+    <div className="mb-6"><p className="guide-kicker">{copy.title}</p><h2 className="font-display mt-3 text-3xl font-bold text-stone-800">{copy.sub}</h2></div>
+    <div className="grid gap-5 lg:grid-cols-3">
+      <fieldset><legend className="mb-2 font-black text-stone-800">1. {copy.age}</legend><div className="flex flex-wrap gap-2">{["6–8", "9–11", "12–14"].map(age => <button key={age} onClick={() => setPreferredAge(age)} className={cn("min-h-11 rounded-full border px-4 font-black", preferredAge === age ? "border-teal-700 bg-teal-50 text-teal-800" : "border-stone-200 bg-white text-stone-600")} aria-pressed={preferredAge === age}>{age}</button>)}</div></fieldset>
+      <label><span className="mb-2 block font-black text-stone-800">2. {copy.time}</span><select value={minutes} onChange={e => setMinutes(e.target.value)} className="min-h-12 w-full rounded-xl border border-stone-200 bg-white px-3 font-bold"><option value="5">5 min · {lang === "en" ? "very quick" : lang === "es" ? "muy rápido" : lang === "zh" ? "非常快" : "아주 짧게"}</option><option value="10">10 min · {lang === "en" ? "one activity" : lang === "es" ? "una actividad" : lang === "zh" ? "一个活动" : "활동 하나"}</option><option value="15">15 min</option><option value="20">20 min · {lang === "en" ? "more involved" : lang === "es" ? "más completo" : lang === "zh" ? "更深入" : "조금 더 깊게"}</option></select></label>
+      <label><span className="mb-2 block font-black text-stone-800">3. {copy.need}</span><select value={goal} onChange={e => setGoal(e.target.value)} className="min-h-12 w-full rounded-xl border border-stone-200 bg-white px-3 font-bold">{Object.entries(goals).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+    </div>
+    {preferredAge === "all" && <p className="mt-6 rounded-2xl bg-stone-50 p-4 font-bold text-stone-600">{lang === "en" ? "Choose an age to see tonight’s activity immediately." : lang === "zh" ? "选择年龄后即可立即看到今晚的活动。" : lang === "es" ? "Elija una edad para ver inmediatamente la actividad de esta noche." : "나이를 고르면 오늘 활동을 바로 보여드려요."}</p>}
+    {recommendation && <div className="mt-6 flex flex-col gap-4 rounded-2xl bg-teal-50 p-5 sm:flex-row sm:items-center" aria-live="polite"><span className="text-3xl" aria-hidden="true">{recommendation.icon}</span><div className="flex-1"><p className="text-xs font-black uppercase tracking-wider text-teal-700">{lang === "en" ? `For ages ${preferredAge} · ${goals[goal]} · ${recommendation.minutes} minutes` : lang === "es" ? `Para ${preferredAge} años · ${goals[goal]} · ${recommendation.minutes} minutos` : `${preferredAge} · ${goals[goal]} · ${recommendation.minutes} min`}</p><p className="mt-1 font-black text-stone-800">{recommendation.title[lang]}</p><p className="mt-1 text-sm text-stone-600">{recommendation.summary[lang]}</p>{!exactTime && <p className="mt-2 text-sm font-bold text-amber-900">{lang === "en" ? `The shortest age-matched option is ${recommendation.minutes} minutes.` : lang === "es" ? `La opción más corta para esta edad dura ${recommendation.minutes} minutos.` : lang === "zh" ? `适合此年龄的最短活动需要 ${recommendation.minutes} 分钟。` : `이 나이에 맞는 가장 짧은 활동은 ${recommendation.minutes}분이에요.`}</p>}</div><Button onClick={() => select(recommendation)}>{copy.start}<ArrowRight size={17}/></Button></div>}
+  </Card>;
+}
+
+function FamilyShelf({ lang, favoriteIds, triedIds, recentIds, select }: { lang: Language; favoriteIds: string[]; triedIds: string[]; recentIds: string[]; select: (activity: Activity) => void }) {
+  if (!favoriteIds.length && !triedIds.length && !recentIds.length) return null;
+  const labels = {
+    saved: lang === "en" ? "Saved" : lang === "zh" ? "已收藏" : lang === "es" ? "Guardadas" : "저장됨",
+    tried: lang === "en" ? "Tried" : lang === "zh" ? "已尝试" : lang === "es" ? "Probadas" : "해봄",
+    recent: lang === "en" ? "Recently viewed" : lang === "zh" ? "最近浏览" : lang === "es" ? "Vistas recientemente" : "최근 본 활동",
+  };
+  return <div className="mt-5 rounded-2xl border border-stone-200 bg-white/70 p-5 md:p-6"><div className="flex items-center gap-2"><History size={19} className="text-teal-700"/><h2 className="font-black text-stone-800">{lang === "en" ? "Your family’s activities" : lang === "zh" ? "您家的活动" : lang === "es" ? "Las actividades de su familia" : "우리 가족 활동"}</h2></div><p className="mt-1 text-sm text-stone-500">{lang === "en" ? "These lists stay only on this device." : lang === "zh" ? "这些列表仅保存在此设备上。" : lang === "es" ? "Estas listas se guardan solo en este dispositivo." : "이 목록은 이 기기에만 저장돼요."}</p><div className="mt-5 grid gap-5 lg:grid-cols-3"><ActivityShelfGroup label={labels.saved} symbol="♥" ids={favoriteIds} lang={lang} select={select}/><ActivityShelfGroup label={labels.tried} symbol="✓" ids={triedIds} lang={lang} select={select}/><ActivityShelfGroup label={labels.recent} symbol="↻" ids={recentIds} lang={lang} select={select}/></div></div>;
+}
+
+function ActivityShelfGroup({ label, symbol, ids, lang, select }: { label: string; symbol: string; ids: string[]; lang: Language; select: (activity: Activity) => void }) {
+  return <section aria-label={label}><h3 className="text-sm font-black text-stone-800">{label} <span className="font-bold text-stone-400">({ids.length})</span></h3>{ids.length ? <div className="mt-2 flex flex-wrap gap-2">{ids.slice(0, 4).map(id => { const activity = activities.find(item => item.id === id); return activity ? <button key={id} onClick={() => select(activity)} className="min-h-11 rounded-full border border-stone-200 bg-white px-3 text-left text-sm font-bold text-stone-700 hover:border-teal-300"><span aria-hidden="true">{symbol} </span>{activity.title[lang]}</button> : null; })}</div> : <p className="mt-2 text-sm text-stone-400">—</p>}</section>;
 }
 
 function ActivityCard({
@@ -1592,7 +1706,7 @@ function Activities({
             : lang === "es" ? "Sin fichas de trabajo ni conocimientos especializados de inglés. Elija una actividad y adáptela a su familia." : "학습지도, 뛰어난 영어 실력도 필요 없어요. 활동 하나를 골라 우리 가족답게 해보세요."
       }
     >
-      <Card className="mb-8 overflow-hidden border-teal-100 bg-teal-800 text-white">
+      <Card className="mb-8 overflow-hidden border-stone-800 bg-stone-800 text-white">
         <div className="grid md:grid-cols-[.9fr_1.1fr]">
           <img
             src={featured.image}
@@ -1695,13 +1809,22 @@ function ActivityDetail({
   t,
   back,
   openLesson,
+  isFavorite,
+  isTried,
+  toggleFavorite,
+  toggleTried,
 }: {
   activity: Activity;
   lang: Language;
   t: Record<string, string>;
   back: () => void;
   openLesson: (n: number) => void;
+  isFavorite: boolean;
+  isTried: boolean;
+  toggleFavorite: () => void;
+  toggleTried: () => void;
 }) {
+  const [actionStatus, setActionStatus] = useState("");
   const c = {
     try:
       lang === "en"
@@ -1843,6 +1966,17 @@ function ActivityDetail({
           </div>
         </Card>
         <div className="space-y-5">
+          <Card className="print-hidden p-5">
+            <p className="mb-3 text-sm font-black uppercase tracking-wider text-stone-500">{lang === "en" ? "Keep and use this" : lang === "zh" ? "保存并使用" : lang === "es" ? "Guarde y use esto" : "저장하고 활용하기"}</p>
+            <div className="grid grid-cols-2 gap-2">
+              <ActionButton icon={Heart} active={isFavorite} label={isFavorite ? (lang === "en" ? "Saved" : lang === "es" ? "Guardado" : lang === "zh" ? "已收藏" : "저장됨") : (lang === "en" ? "Save" : lang === "es" ? "Guardar" : lang === "zh" ? "收藏" : "저장")} onClick={toggleFavorite}/>
+              <ActionButton icon={Check} active={isTried} label={isTried ? (lang === "en" ? "Tried" : lang === "es" ? "Probado" : lang === "zh" ? "已尝试" : "해봄") : (lang === "en" ? "Mark tried" : lang === "es" ? "Marcar probado" : lang === "zh" ? "标为已尝试" : "해봄 표시")} onClick={() => { toggleTried(); setActionStatus(!isTried ? (lang === "en" ? "Added to Tried on this device." : lang === "zh" ? "已在此设备上添加到“已尝试”。" : lang === "es" ? "Añadida a Probadas en este dispositivo." : "이 기기의 해봄 목록에 추가했어요.") : (lang === "en" ? "Removed from Tried." : lang === "zh" ? "已从“已尝试”中移除。" : lang === "es" ? "Eliminada de Probadas." : "해봄 목록에서 뺐어요.")); }}/>
+              <ActionButton icon={Volume2} label={lang === "en" ? "Listen" : lang === "es" ? "Escuchar" : lang === "zh" ? "朗读" : "듣기"} onClick={() => { const ok = speak(`${activity.title[lang]}. ${activity.steps.map(s => s[lang]).join(" ")} ${activity.phrase[lang]}`, lang); setActionStatus(ok ? "" : "Audio is not supported in this browser."); }}/>
+              <ActionButton icon={Printer} label={lang === "en" ? "Print" : lang === "es" ? "Imprimir" : lang === "zh" ? "打印" : "인쇄"} onClick={() => window.print()}/>
+              <ActionButton icon={Share2} label={lang === "en" ? "Share" : lang === "es" ? "Compartir" : lang === "zh" ? "分享" : "공유"} onClick={async () => { try { const result = await shareContent(activity.title[lang], activity.summary[lang]); setActionStatus(result === "copied" ? (lang === "en" ? "Link copied" : lang === "es" ? "Enlace copiado" : lang === "zh" ? "链接已复制" : "링크 복사됨") : ""); } catch { /* sharing cancelled */ } }}/>
+            </div>
+            {actionStatus && <p role="status" className="mt-3 text-sm font-bold text-teal-700">{actionStatus}</p>}
+          </Card>
           <Card className="bg-amber-50 p-6">
             <p className="text-sm font-black uppercase tracking-wider text-amber-900">
               {t.why}
@@ -1890,6 +2024,10 @@ function ActivityDetail({
   );
 }
 
+function ActionButton({ icon: Icon, label, onClick, active = false }: { icon: typeof Heart; label: string; onClick: () => void; active?: boolean }) {
+  return <button onClick={onClick} className={cn("flex min-h-12 items-center justify-center gap-2 rounded-xl border px-3 text-sm font-black focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-teal-700/20", active ? "border-teal-700 bg-teal-50 text-teal-800" : "border-stone-200 bg-white text-stone-700 hover:border-teal-300")}><Icon size={17}/>{label}</button>;
+}
+
 function Understand({
   lang,
   t,
@@ -1916,7 +2054,7 @@ function Understand({
       }
     >
       <div className="grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
-        <Card className="h-fit overflow-hidden bg-teal-800 text-white">
+        <Card className="h-fit overflow-hidden bg-stone-800 text-white">
           <img
             src={activities[3].image}
             alt={activities[3].imageAlt[lang]}
@@ -2481,40 +2619,14 @@ function SchoolPage({
   lang: Language;
   t: Record<string, string>;
 }) {
-  const [copied, setCopied] = useState("");
-  const meeting: Record<Language, string[]> = {
-    en: [
-      "What is my child doing well?",
-      "When does my child feel most confident?",
-      "What is one thing we can practice at home?",
-    ],
-  es: [
-      "¿Qué está haciendo bien mi hijo?",
-      "¿Cuándo se siente más seguro mi hijo?",
-      "¿Qué podemos practicar en casa?",
-    ],
-    zh: [
-      "我的孩子在哪些方面做得很好？",
-      "孩子什么时候最有信心？",
-      "我们可以在家练习哪一件事？",
-    ],
-    ko: [
-      "우리 아이가 잘하고 있는 것은 무엇인가요?",
-      "아이가 언제 가장 자신감을 보이나요?",
-      "집에서 연습할 수 있는 한 가지는 무엇인가요?",
-    ],
-  };
-  const copy = (text: string) => {
-    navigator.clipboard?.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(""), 1600);
-  };
-  const phraseHeading =
-    lang === "en"
-      ? "Useful questions to copy"
-      : lang === "zh"
-        ? "可以复制使用的实用问题"
-        : lang === "es" ? "Preguntas útiles para copiar" : "복사해서 사용할 수 있는 질문";
+  const storedPlan = useMemo(() => readStoredValue<{ focus: string; selected: number[]; note: string }>("lf-meeting-plan", { focus: "progress", selected: [0, 3, 4], note: "" }), []);
+  const [focus, setFocus] = useState(storedPlan.focus);
+  const [selected, setSelected] = useState<number[]>(storedPlan.selected);
+  const [note, setNote] = useState(storedPlan.note);
+  const [status, setStatus] = useState("");
+  useEffect(() => {
+    localStorage.setItem("lf-meeting-plan", JSON.stringify({ focus, selected, note }));
+  }, [focus, note, selected]);
   const category: Record<Language, Record<string, string>> = {
     en: {
       Progress: "Progress",
@@ -2549,69 +2661,47 @@ function SchoolPage({
       Communication: "소통",
     },
   };
+  const focusOptions = [
+    { id: "progress", label: lang === "en" ? "Progress & strengths" : lang === "zh" ? "进展与优势" : lang === "es" ? "Progreso y fortalezas" : "진전과 강점", picks: [0, 3, 4] },
+    { id: "participation", label: lang === "en" ? "Participation & confidence" : lang === "zh" ? "参与和信心" : lang === "es" ? "Participación y confianza" : "참여와 자신감", picks: [1, 3, 5] },
+    { id: "support", label: lang === "en" ? "Language support & next steps" : lang === "zh" ? "语言支持与下一步" : lang === "es" ? "Apoyo lingüístico y próximos pasos" : "언어 지원과 다음 단계", picks: [2, 4, 5] },
+  ];
+  const planText = () => `${t.meeting}\n\n${selected.map(i => `${phrases[i][lang]}${lang !== "en" ? `\n${phrases[i].en}` : ""}`).join("\n\n")}${note ? `\n\n${note}` : ""}`;
+  const performShare = async () => { try { const result = await shareContent(t.meeting, planText()); setStatus(result === "copied" ? (lang === "en" ? "Meeting plan copied" : lang === "es" ? "Plan copiado" : lang === "zh" ? "会议计划已复制" : "계획 복사됨") : ""); } catch { /* sharing cancelled */ } };
+  const chooseFocus = (id: string, picks: number[]) => {
+    setFocus(id);
+    setSelected(current => [...new Set([...current, ...picks])]);
+    setStatus(lang === "en" ? "Suggested questions added. Your choices were kept." : lang === "zh" ? "已添加建议问题，并保留您的选择。" : lang === "es" ? "Se añadieron preguntas sugeridas. Sus elecciones se conservaron." : "추천 질문을 더했고 기존 선택은 그대로 두었어요.");
+  };
+  const clearPlan = () => {
+    const confirmed = window.confirm(lang === "en" ? "Clear this meeting plan from this device?" : lang === "zh" ? "要从此设备清除此会议计划吗？" : lang === "es" ? "¿Borrar este plan de reunión de este dispositivo?" : "이 기기에서 상담 계획을 지울까요?");
+    if (!confirmed) return;
+    setFocus("");
+    setSelected([]);
+    setNote("");
+    setStatus(lang === "en" ? "Meeting plan cleared from this device." : lang === "zh" ? "已从此设备清除会议计划。" : lang === "es" ? "El plan se eliminó de este dispositivo." : "이 기기에서 상담 계획을 지웠어요.");
+  };
   return (
     <PageShell eyebrow={t.school} title={t.schoolTitle} subtitle={t.schoolSub}>
-      <div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
-        <Card className="h-fit bg-amber-50 p-6">
+      <div className="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+        <Card className="print-hidden h-fit bg-amber-50 p-6">
           <School className="text-amber-800" />
-          <h2 className="mt-4 text-xl font-black text-stone-800">
-            {t.meeting}
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-stone-500">
-            {lang === "en"
-              ? "Choose two or three. You do not need to ask everything."
-              : lang === "zh"
-                ? "选择两三个即可，不需要每个都问。"
-                : lang === "es" ? "Elige dos o tres. No es necesario preguntar todo." : "두세 가지만 골라보세요. 모두 물어볼 필요는 없어요."}
-          </p>
-          <ul className="mt-5 space-y-4">
-            {meeting[lang].map((x) => (
-              <li key={x} className="flex gap-3">
-                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white text-teal-700">
-                  <Check size={14} />
-                </span>
-                <span className="leading-6 text-stone-700">{x}</span>
-              </li>
-            ))}
-          </ul>
+          <h2 className="mt-4 text-xl font-black text-stone-800">1. {lang === "en" ? "What is this meeting about?" : lang === "zh" ? "这次会议主要讨论什么？" : lang === "es" ? "¿De qué se trata esta reunión?" : "이번 상담의 주제는 무엇인가요?"}</h2>
+          <div className="mt-4 space-y-2">{focusOptions.map(option => <button key={option.id} onClick={() => chooseFocus(option.id, option.picks)} className={cn("min-h-12 w-full rounded-xl border px-4 text-left font-bold", focus === option.id ? "border-teal-700 bg-white text-teal-800" : "border-transparent bg-white/60 text-stone-700")} aria-pressed={focus === option.id}>{option.label}</button>)}</div>
+          <h2 className="mt-7 text-xl font-black text-stone-800">2. {lang === "en" ? "Choose your questions" : lang === "zh" ? "选择要问的问题" : lang === "es" ? "Elija sus preguntas" : "질문을 고르세요"}</h2>
+          <p className="mt-2 text-sm text-stone-500">{lang === "en" ? `${selected.length} selected. Two or three is enough.` : lang === "zh" ? `已选择 ${selected.length} 个。选择两三个就足够了。` : lang === "es" ? `${selected.length} seleccionadas. Dos o tres son suficientes.` : `${selected.length}개 선택됨. 두세 개면 충분해요.`}</p>
+          <div className="mt-4 space-y-2">{phrases.map((p, i) => <label key={p.en} className="flex cursor-pointer gap-3 rounded-xl bg-white p-3"><input type="checkbox" checked={selected.includes(i)} onChange={() => setSelected(ids => ids.includes(i) ? ids.filter(id => id !== i) : [...ids, i])} className="mt-1 size-5 accent-teal-700"/><span><strong className="block text-sm text-stone-800">{category[lang][p.category]}</strong><span className="text-sm leading-5 text-stone-600">{p[lang]}</span></span></label>)}</div>
         </Card>
-        <div>
-          <h2 className="mb-4 text-xl font-black text-stone-800">
-            {phraseHeading}
-          </h2>
-          <div className="space-y-3">
-            {phrases.map((p) => {
-              const text = p[lang];
-              return (
-                <Card key={p.en} className="flex items-center gap-4 p-4">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-teal-50">
-                    <Languages size={19} className="text-teal-700" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-black uppercase tracking-wider text-stone-400">
-                      {category[lang][p.category]}
-                    </p>
-                    <p className="mt-1 font-bold text-stone-800">{text}</p>
-                    {lang !== "en" && (
-                      <p className="mt-1 text-sm text-stone-500">{p.en}</p>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => copy(text)}
-                    className="grid size-11 shrink-0 place-items-center rounded-full hover:bg-stone-100"
-                    aria-label={t.copy}
-                  >
-                    {copied === text ? (
-                      <Check className="text-teal-700" size={19} />
-                    ) : (
-                      <ClipboardCopy size={19} />
-                    )}
-                  </button>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
+        <Card className="h-fit p-6 md:p-8">
+          <p className="guide-kicker">3. {lang === "en" ? "Your meeting plan" : lang === "zh" ? "您的会议计划" : lang === "es" ? "Su plan para la reunión" : "상담 계획"}</p>
+          <h2 className="font-display mt-4 text-3xl font-bold text-stone-800">{t.meeting}</h2>
+          <div className="mt-6 space-y-5">{selected.map(i => <div key={i} className="border-l-2 border-teal-300 pl-4"><p className="font-bold leading-7 text-stone-800">{phrases[i][lang]}</p>{lang !== "en" && <p className="mt-1 text-sm leading-6 text-stone-500">{phrases[i].en}</p>}</div>)}</div>
+          {!selected.length && <p className="mt-6 rounded-xl bg-stone-50 p-4 text-stone-500">{lang === "en" ? "Choose at least one question." : lang === "zh" ? "请至少选择一个问题。" : lang === "es" ? "Elija al menos una pregunta." : "질문을 하나 이상 고르세요."}</p>}
+          <label className="print-hidden mt-7 block"><span className="mb-2 block font-black text-stone-800">{lang === "en" ? "One thing I don’t want to forget" : lang === "zh" ? "我不想忘记的一件事" : lang === "es" ? "Algo que no quiero olvidar" : "잊고 싶지 않은 한 가지"}</span><textarea value={note} onChange={e => setNote(e.target.value)} rows={4} placeholder={lang === "en" ? "Keep names and private records out of this note." : lang === "es" ? "No incluya nombres ni registros privados." : lang === "zh" ? "请勿填写姓名或隐私记录。" : "이름이나 개인 기록은 적지 마세요."} className="w-full rounded-xl border border-stone-200 p-3 leading-6 outline-none focus:ring-4 focus:ring-teal-700/20"/><span className="mt-2 block text-xs text-stone-500">{lang === "en" ? "Saved automatically on this device." : lang === "zh" ? "自动保存在此设备上。" : lang === "es" ? "Se guarda automáticamente en este dispositivo." : "이 기기에 자동 저장돼요."}</span></label>
+          {note && <p className="mt-5 whitespace-pre-wrap border-t border-stone-200 pt-5 text-stone-700">{note}</p>}
+          <div className="print-hidden mt-7 flex flex-wrap gap-2"><Button onClick={performShare}><Share2 size={17}/>{lang === "en" ? "Share plan" : lang === "es" ? "Compartir plan" : lang === "zh" ? "分享计划" : "계획 공유"}</Button><button onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-stone-200 px-5 font-black text-stone-700"><Printer size={17}/>{lang === "en" ? "Print" : lang === "es" ? "Imprimir" : lang === "zh" ? "打印" : "인쇄"}</button><button onClick={() => speak(planText(), lang)} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-stone-200 px-5 font-black text-stone-700"><Volume2 size={17}/>{lang === "en" ? "Listen" : lang === "es" ? "Escuchar" : lang === "zh" ? "朗读" : "듣기"}</button><button onClick={clearPlan} className="min-h-11 rounded-full px-4 font-bold text-stone-500 underline underline-offset-4">{lang === "en" ? "Clear plan" : lang === "zh" ? "清除计划" : lang === "es" ? "Borrar plan" : "계획 지우기"}</button></div>
+          {status && <p role="status" className="mt-3 text-sm font-bold text-teal-700">{status}</p>}
+        </Card>
       </div>
     </PageShell>
   );
