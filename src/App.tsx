@@ -679,6 +679,7 @@ function App() {
                 ["Scaffolded", "scaffolded.app", "https://www.scaffolded.app"],
                 ["ReadLinguaFlow", "readlinguaflow.com", "https://www.readlinguaflow.com"],
                 ["Federico Orozco", "federicoorozco.co", "https://www.federicoorozco.co"],
+                ["Lingua Strategies", "lenguajelabs-design.github.io", "https://lenguajelabs-design.github.io/Lingua-Strategies"],
               ].map(([name, domain, href]) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer">
                   <span>

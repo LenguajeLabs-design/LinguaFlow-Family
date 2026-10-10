@@ -212,6 +212,7 @@ footer > div > span:first-child { color: white; }
   transition: background 180ms ease, color 180ms ease;
 }
 .ll-footer__links a:hover, .ll-footer__links a:focus-visible { background: rgba(103, 132, 255, .12); color: #83e3ef; }
+.ll-footer__links a:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .ll-footer__links a > span { display: flex; min-width: 0; flex-direction: column; gap: 8px; }
 .ll-footer__links strong { font-size: 14px; font-weight: 600; line-height: 1.35; }
 .ll-footer__links small { color: #8f9db3; font-size: 11px; line-height: 1.35; overflow-wrap: anywhere; }
@@ -241,6 +242,7 @@ footer > div > span:first-child { color: white; }
   .ll-footer__main { gap: 42px; padding-top: 50px; padding-bottom: 42px; }
   .ll-footer__intro p { margin-top: 22px; }
   .ll-footer__links { grid-template-columns: 1fr; }
+  .ll-footer__links a:last-child:nth-child(odd) { grid-column: auto; }
   .ll-footer__links a { min-height: 88px; padding: 19px 17px; }
   .ll-footer__bottom { min-height: 92px; align-items: flex-start; justify-content: center; flex-direction: column; gap: 7px; padding-top: 22px; padding-bottom: 22px; }
 }
