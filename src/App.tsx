@@ -667,12 +667,6 @@ function App() {
               Practical, trustworthy guidance that helps multilingual families
               support learning while keeping their home language strong.
             </p>
-            <a className="ll-footer__contact" href="#/about">
-              About &amp; trust
-              <svg aria-hidden="true" viewBox="0 0 24 24">
-                <path d="M5 12h14m-6-6 6 6-6 6" />
-              </svg>
-            </a>
           </div>
 
           <div className="ll-footer__sites">
@@ -701,12 +695,8 @@ function App() {
         </div>
 
         <div className="ll-footer__bottom">
-          <span>© 2026 Lenguaje Labs</span>
-          <span>Made for educators and families, with care.</span>
-          <nav className="ll-footer__legal" aria-label="Legal and trust">
-            <a href="#/about">About &amp; trust</a>
-            <a href="#/privacy">Privacy</a>
-          </nav>
+          <span>© 2026 LinguaFlow Family</span>
+          <span>Made for multilingual families, with care.</span>
         </div>
       </footer>
     </div>

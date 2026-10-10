@@ -176,19 +176,7 @@ footer > div > span:first-child { color: white; }
   font-size: 15px;
   line-height: 1.7;
 }
-.ll-footer__contact {
-  display: inline-flex;
-  align-items: center;
-  width: max-content;
-  min-height: 44px;
-  margin-top: 22px;
-  gap: 10px;
-  color: #7fe0ec;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-}
-.ll-footer__contact svg, .ll-footer__links svg {
+.ll-footer__links svg {
   display: block;
   fill: none;
   stroke: currentColor;
@@ -196,8 +184,6 @@ footer > div > span:first-child { color: white; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.ll-footer__contact svg { width: 17px; height: 17px; transition: transform 180ms ease; }
-.ll-footer__contact:hover svg, .ll-footer__contact:focus-visible svg { transform: translateX(3px); }
 .ll-footer__label {
   margin: 0 0 20px;
   color: #7fe0ec;
@@ -247,10 +233,6 @@ footer > div > span:first-child { color: white; }
   color: #8290a7;
   font-size: 11px;
 }
-.ll-footer__legal { display: flex; align-items: center; gap: 18px; }
-.ll-footer__legal a { min-height: 44px; display: inline-flex; align-items: center; color: #aebbd0; font-weight: 700; text-decoration: none; }
-.ll-footer__legal a:hover, .ll-footer__legal a:focus-visible { color: #83e3ef; }
-
 @media (max-width: 800px) {
   .ll-footer__main { grid-template-columns: 1fr; gap: 48px; padding-top: 62px; padding-bottom: 54px; }
 }
@@ -260,8 +242,7 @@ footer > div > span:first-child { color: white; }
   .ll-footer__intro p { margin-top: 22px; }
   .ll-footer__links { grid-template-columns: 1fr; }
   .ll-footer__links a { min-height: 88px; padding: 19px 17px; }
-  .ll-footer__bottom { min-height: 112px; align-items: flex-start; justify-content: center; flex-direction: column; gap: 3px; padding-top: 18px; padding-bottom: 18px; }
-  .ll-footer__legal { gap: 20px; }
+  .ll-footer__bottom { min-height: 92px; align-items: flex-start; justify-content: center; flex-direction: column; gap: 7px; padding-top: 22px; padding-bottom: 22px; }
 }
 
 /* Warm, quiet surfaces and comfortable controls */
